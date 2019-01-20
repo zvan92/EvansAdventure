@@ -54,5 +54,8 @@ public:
 		return turnsCompleted;
 	}
 
+	//displayInventory (vector of strings?)
+
+
 //=================================================//
 };

@@ -20,9 +20,10 @@ int Menu::Run()
 
 	quitting = false;
 
-	cout << "========================================\n";
-	cout << "==          EVAN'S ADVENTURE          ==\n";
-	cout << "========================================\n\n",
+	cout << "==========================================\n";
+	cout << "==           EVAN'S ADVENTURE           ==\n";
+	cout << "==========================================\n";
+	cout << "      [ by Evan Sullivan (zvan92) ]\n\n";
 	cout << "(1) New Game\n(2) Load Game\n(3) Exit Game\n\nEnter choice: ";
 
 	int choice;

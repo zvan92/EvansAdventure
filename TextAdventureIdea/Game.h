@@ -31,6 +31,7 @@ public:
 	void ExecuteTurn();
 	int CreatePlayer();
 	void SaveProgress();
+	void DisplayMap();
 
 //=================================================//
 };

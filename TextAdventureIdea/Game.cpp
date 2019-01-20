@@ -49,9 +49,13 @@ void Game::ExecuteTurn()
 		system("PAUSE");
 		break;
 	case 4:
-		SaveProgress();
+		system("cls");
+		DisplayMap();
 		break;
 	case 5:
+		SaveProgress();
+		break;
+	case 6:
 		system("cls");
 		cout << "Game over after " << Player::Instance()->getTurnsCompleted() << " turns!\n\nReturning to menu...\n\n";
 		system("pause");
@@ -70,14 +74,15 @@ int Game::PromptUserChoice()
 	int choice;
 
 	cout << "Turns completed: " << Player::Instance()->getTurnsCompleted() << "\n\n";
-	cout << Player::Instance()->getPlayerName() << ", what would you like to do?\n\n(1) Move\n(2) Look Around\n(3) Use Item\n(4) Save Progress\n(5) End Game\n\nEnter Choice: ";
+	cout << Player::Instance()->getPlayerName() << ", what would you like to do?\n\n(1) Move\n(2) Look Around\n(3) Use Item\n(4) View Map\n(5) Save Progress\n(6) End Game\n\nEnter Choice: ";
 	cin >> choice;
 
 	if (choice == 1 ||
 		choice == 2 ||
 		choice == 3 ||
 		choice == 4 ||
-		choice == 5)
+		choice == 5 ||
+		choice == 6)
 	{
 		return choice;
 	}
@@ -97,11 +102,13 @@ int Game::CreatePlayer()
 
 	while (!confirmed)
 	{
-		cout << "========================================\n";
-		cout << "==          EVAN'S ADVENTURE          ==\n";
-		cout << "========================================\n\n";
-		cout << "[Player Creation]\n\n";
-		cout << "Enter player name (or type 'esc' to cancel): ";
+		system("cls");
+
+		cout << "==========================================\n";
+		cout << "==           EVAN'S ADVENTURE           ==\n";
+		cout << "==========================================\n";
+		cout << "[ Player Creation (type 'esc' to cancel) ]\n\n";
+		cout << "Name: ";
 		cin >> name;
 		if (name == "esc")
 		{
@@ -126,4 +133,25 @@ int Game::CreatePlayer()
 void Game::SaveProgress()
 {
 	FileManager::Instance()->PromptForSave();
+}
+
+void Game::DisplayMap()
+{
+	system("cls");
+
+	cout << "   EVAN'S ADVENTURE: MAP  \n";
+	cout << "===========================\n";
+	cout << "  _       _ _             \n";
+	cout << " | |  _ _|   |    _   _   \n";
+	cout << " | | |  _  | |_ _| |_| |_ \n";
+	cout << " | |_| |_ _|_ _ _   _ _ _|\n";
+	cout << " |_ _ _ _    |  _| |_ _  |\n";
+	cout << " |_ _   _ _| |_   _|_   _|\n";
+	cout << " |_    |  _ _|  _ _ _|   |\n";
+	cout << "   | |_| |  _ _   _ _| |_ END\n";
+	cout << "   |_ _  |_ _ _|_ _ _ _ _|\n";
+	cout << "      START               \n";
+	cout << "===========================\n\n";
+
+	system("pause");
 }
