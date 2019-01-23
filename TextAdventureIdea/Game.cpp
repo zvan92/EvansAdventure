@@ -57,8 +57,17 @@ void Game::ExecuteTurn()
 		break;
 	case 6:
 		system("cls");
-		cout << "Game over after " << Player::Instance()->getTurnsCompleted() << " turns!\n\nReturning to menu...\n\n";
-		system("pause");
+		cout << "==========================================\n";
+		cout << "==           EVAN'S ADVENTURE           ==\n";
+		cout << "==========================================\n";
+		cout << "               [ End Game ]\n\n";
+		char choice;
+		cout << "All unsaved progress will be lost.\n\nAre you sure, " << Player::Instance()->getPlayerName() << "? (Y/N): ";
+		cin >> choice;
+		if (choice == 'n')
+		{
+			break;
+		}
 
 		Player::Instance()->setPlayerName("");
 		Player::Instance()->setPlayerHealth(0);
@@ -74,7 +83,8 @@ int Game::PromptUserChoice()
 	int choice;
 
 	cout << "Turns completed: " << Player::Instance()->getTurnsCompleted() << "\n\n";
-	cout << Player::Instance()->getPlayerName() << ", what would you like to do?\n\n(1) Move\n(2) Look Around\n(3) Use Item\n(4) View Map\n(5) Save Progress\n(6) End Game\n\nEnter Choice: ";
+	cout << "What would you like to do, " << Player::Instance()->getPlayerName() << "?\n\n";
+	cout << "(1) Move\n(2) Look Around\n(3) Use Item\n(4) View Map\n(5) Save Progress\n(6) End Game\n\nEnter Choice: ";
 	cin >> choice;
 
 	if (choice == 1 ||
@@ -107,8 +117,8 @@ int Game::CreatePlayer()
 		cout << "==========================================\n";
 		cout << "==           EVAN'S ADVENTURE           ==\n";
 		cout << "==========================================\n";
-		cout << "[ Player Creation (type 'esc' to cancel) ]\n\n";
-		cout << "Name: ";
+		cout << "               [ New Game ]\n\n";
+		cout << "Enter player name (without spaces)\nor type 'esc' to cancel:\n\n";
 		cin >> name;
 		if (name == "esc")
 		{

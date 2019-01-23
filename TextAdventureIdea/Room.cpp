@@ -6,7 +6,6 @@ Room::Room()
 {
 }
 
-
 Room::~Room()
 {
 }

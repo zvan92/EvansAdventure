@@ -21,8 +21,12 @@ int FileManager::PromptForLoad()
 {
 	system("cls");
 
+	cout << "==========================================\n";
+	cout << "==           EVAN'S ADVENTURE           ==\n";
+	cout << "==========================================\n";
+	cout << "              [ Load Game ]\n\n";
 	string filepath;
-	cout << "Specify a file location (i.e. C:/Users/Evan/Documents/evan.txt)\nor type 'esc' to cancel: ";
+	cout << "Enter file location (without spaces)\n[ i.e. C:/Users/Evan/Documents/evan.txt ]\nor type 'esc' to cancel:\n\n";
 	cin >> filepath;
 	if (filepath == "esc")
 	{
@@ -42,17 +46,24 @@ void FileManager::PromptForSave()
 {
 	system("cls");
 
+	cout << "==========================================\n";
+	cout << "==           EVAN'S ADVENTURE           ==\n";
+	cout << "==========================================\n";
+	cout << "             [ Save Progress ]\n\n";
 	char choice;
-	system("cls");
-	cout << "Do you wish to save your progress, " << Player::Instance()->getPlayerName() << "? (Y/N) ";
+	cout << "Save your progress, " << Player::Instance()->getPlayerName() << "? (Y/N) ";
 	cin >> choice;
-	system("cls");
+	cout << "\n";
 
 	if (choice == 'y')
 	{
 		string filepath;
-		cout << "Specify a save destination (i.e. C:/Users/Evan/Documents/evan.txt): ";
+		cout << "Enter save destination (without spaces)\n[ i.e. C:/Users/Evan/Documents/evan.txt ]\nor type 'esc' to cancel:\n\n";
 		cin >> filepath;
+		if (filepath == "esc")
+		{
+			return;
+		}
 		const char *cPath = filepath.c_str();
 		WriteToFile(cPath);
 		system("cls");
@@ -91,7 +102,7 @@ int FileManager::ReadFromFile(const char *pathToFile)
 	delete fileptr;
 	delete[] name;
 
-	cout << Player::Instance()->getPlayerName() << " loaded successfully.\n";
+	cout << "File: " << Player::Instance()->getPlayerName() << "\nloaded successfully.\n\n";
 	system("pause");
 
 	return 0;
@@ -126,6 +137,6 @@ void FileManager::WriteToFile(const char *pathToFile)
 	delete fileptr;
 	delete[] char_array;
 
-	cout << "Progress saved successfully.\n\n";
+	cout << "File: " << Player::Instance()->getPlayerName() << "\nsaved successfully.\n\n";
 	system("pause");
 }
