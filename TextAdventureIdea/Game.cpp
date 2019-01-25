@@ -165,3 +165,8 @@ void Game::DisplayMap()
 
 	system("pause");
 }
+
+void Init()
+{
+	//create rooms
+}
