@@ -1,5 +1,6 @@
 #pragma once
 #include <list>
+#include <unordered_map>
 using namespace std;
 class MapManager
 {
@@ -18,11 +19,10 @@ private:
 		bool hasWestWall;
 		bool hasEastWall;
 		list <const char*> roomItems;
+		//progression puzzle string?
 	};
 
 	void CreateRooms();
-
-	list <Room> rooms;
 public:
 	~MapManager();
 	static MapManager *Instance()
@@ -34,8 +34,10 @@ public:
 		return instance;
 	}
 
+	unordered_map<const char*, Room> rMap; //to store the rooms
+
 	void TransferToIventory(const char* roomItem); //attempts to add to player inventory, runs a check through GameManager to see if possible
 	void AddItemToRoom(const char* item, const char* gridID);
-	void DescribeCurrentRoom(const char* gridID);
+	void DescribeRoom(const char* gridID);
 };
 

@@ -17,7 +17,8 @@ void MapManager::TransferToIventory(const char* item)
 
 void MapManager::CreateRooms()
 {
-	rooms.push_front(Room("A1", true, true, true, true));
+	//each room object will be initialized into an unordered map
+	rMap["A1"] = Room("A1", true, true, true, true);
 }
 
 void MapManager::AddItemToRoom(const char* item, const char* gridID)
@@ -25,11 +26,11 @@ void MapManager::AddItemToRoom(const char* item, const char* gridID)
 
 }
 
-void MapManager::DescribeCurrentRoom(const char* gridID)
+void MapManager::DescribeRoom(const char* gridID)
 {
-	// USE DICTIONARIES FOR THIS!!! LOOK IT UP
+	// USE UNORDERED MAP FOR THIS
 
-	// iterate through list and target room with matching 'gridID'
-	// -> cout message saying if a wall is present
+	// -> match passed in gridID to map key and return the room
+	// -> cout message saying what walls are present
 	// -> cout contents of room's item list
 }
