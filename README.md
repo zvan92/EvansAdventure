@@ -1,4 +1,4 @@
 # TextAdventureIdea
-A Windows console text adventure game built in C++ as an exploration into OOP design and the Standard Template Library
+A text adventure game I'm building from scratch as I learn C++.
 
 <b>Trello:</b> https://trello.com/b/72r342tv/textadventureidea
