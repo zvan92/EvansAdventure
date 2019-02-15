@@ -5,25 +5,15 @@ using namespace std;
 
 class Player
 {
-private:
-	Player();
-	static Player *instance;
-//VARIABLES========================================//
 
-	string name;
-	int health;
-	int turnsCompleted;
-	//string vector = inventory
-
-//=================================================//
 public:
-	~Player();
+	Player() {};
+	~Player() {};
 	static Player *Instance()
 	{
 		if (!instance)
 		{
 			instance = new Player;
-			return instance;
 		}
 		return instance;
 	}
@@ -53,9 +43,28 @@ public:
 	{
 		return turnsCompleted;
 	}
+	void setCurrentRoomID(const char* value)
+	{
+		currentRoomID = value;
+	}
+	const char* getCurrentRoomId()
+	{
+		return currentRoomID;
+	}
 
-	//displayInventory (vector of strings?)
+	void LookAround();
 
+
+//=================================================//
+private:
+	static Player *instance;
+//VARIABLES========================================//
+
+	string name;
+	int health;
+	int turnsCompleted;
+	const char* currentRoomID;
+	//string vector = inventory
 
 //=================================================//
 };

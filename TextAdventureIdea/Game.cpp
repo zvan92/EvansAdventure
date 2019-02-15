@@ -3,6 +3,7 @@
 #include "Player.h"
 #include "Menu.h"
 #include "FileManager.h"
+#include "MapManager.h"
 #include <iostream>
 #include <string>
 using namespace std;
@@ -10,11 +11,9 @@ using namespace std;
 Game *Game::instance = 0;
 bool Game::gameOverStatus = false;
 
-Game::Game()
+void Game::Init()
 {
-}
-Game::~Game()
-{
+	MapManager::Instance()->CreateRooms();
 }
 
 void Game::ExecuteTurn() 
@@ -33,12 +32,13 @@ void Game::ExecuteTurn()
 	case 1:
 		system("cls");
 		cout << "(" << Player::Instance()->getPlayerName() << " moves)\n\n";
+		//then call setCurrentRoomID() to set new location
 		Player::Instance()->setTurnsCompleted(Player::Instance()->getTurnsCompleted() +1);
 		system("PAUSE");
 		break;
 	case 2:
 		system("cls");
-		cout << "(" << Player::Instance()->getPlayerName() << " looks around)\n\n";
+		Player::Instance()->LookAround();
 		Player::Instance()->setTurnsCompleted(Player::Instance()->getTurnsCompleted() + 1);
 		system("PAUSE");
 		break;
@@ -136,6 +136,7 @@ int Game::CreatePlayer()
 	Player::Instance()->setPlayerName(name);
 	Player::Instance()->setPlayerHealth(100);
 	Player::Instance()->setTurnsCompleted(0);
+	Player::Instance()->setCurrentRoomID("H1"); //this will be changed later - doesn't represent starting room
 
 	return 0;
 }
@@ -164,9 +165,4 @@ void Game::DisplayMap()
 	cout << "===========================\n\n";
 
 	system("pause");
-}
-
-void Init()
-{
-	//create rooms
 }

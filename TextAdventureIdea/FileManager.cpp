@@ -10,13 +10,6 @@ using namespace std;
 
 FileManager *FileManager::instance = 0;
 
-FileManager::FileManager()
-{
-}
-FileManager::~FileManager()
-{
-}
-
 int FileManager::PromptForLoad()
 {
 	system("cls");

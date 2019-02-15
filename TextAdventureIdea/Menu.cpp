@@ -7,13 +7,6 @@ using namespace std;
 
 Menu *Menu::instance = 0;
 
-Menu::Menu()
-{
-}
-Menu::~Menu()
-{
-}
-
 int Menu::Run()
 {
 	system("cls");

@@ -1,22 +1,17 @@
 #pragma once
 class Game
 {
-private:
-	Game();
-	static Game *instance;
-
-	static bool gameOverStatus;
-	int PromptUserChoice();
-
 public:
-	~Game();
+	Game() {};
+	~Game() {};
+
 	static Game *Instance() //returns static Game ptr
 	{
 		if (!instance)
 		{
 			instance = new Game; //initialize the ptr with the location of Game instance
-			return instance; //Game instance destroys after return
 		}
+		return instance; //Game instance destroys after return
 	}
 //FUNCTIONS========================================//
 
@@ -32,7 +27,13 @@ public:
 	int CreatePlayer();
 	void SaveProgress();
 	void DisplayMap();
+	void Init();
 
 //=================================================//
+private:
+	static Game *instance;
+
+	static bool gameOverStatus;
+	int PromptUserChoice();
 };
 

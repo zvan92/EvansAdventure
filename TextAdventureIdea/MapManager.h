@@ -4,27 +4,10 @@
 using namespace std;
 class MapManager
 {
-private:
-	MapManager();
-	static MapManager *instance;
-
-	struct Room
-	{
-		Room(const char* gridID, bool hasNorthwall, bool hasSouthWall, bool hasWestWall, bool hasEastWall) {};
-		~Room();
-
-		const char* gridID;
-		bool hasNorthWall;
-		bool hasSouthWall;
-		bool hasWestWall;
-		bool hasEastWall;
-		list <const char*> roomItems;
-		//progression puzzle string?
-	};
-
-	void CreateRooms();
 public:
-	~MapManager();
+	MapManager() {};
+	~MapManager() {};
+
 	static MapManager *Instance()
 	{
 		if (!instance)
@@ -34,10 +17,35 @@ public:
 		return instance;
 	}
 
-	unordered_map<const char*, Room> rMap; //to store the rooms
+	struct Room
+	{
+		Room() {};
+		~Room() {};
+
+		Room(bool setNorthWall, bool setSouthWall, bool setWestWall, bool setEastWall) 
+		{
+			hasNorthWall = setNorthWall;
+			hasSouthWall = setSouthWall;
+			hasEastWall = setEastWall;
+			hasWestWall = setWestWall;
+		};
+
+		bool hasNorthWall;
+		bool hasSouthWall;
+		bool hasEastWall;
+		bool hasWestWall;
+		list <const char*> roomItems;
+		//progression puzzle string?
+	};
+
+	unordered_map<const char*, Room> roomMap; //to store the rooms: char* is key (i.e. "A1", Room is the object)
 
 	void TransferToIventory(const char* roomItem); //attempts to add to player inventory, runs a check through GameManager to see if possible
 	void AddItemToRoom(const char* item, const char* gridID);
 	void DescribeRoom(const char* gridID);
+	void CreateRooms();
+
+private:
+	static MapManager *instance;
 };
 

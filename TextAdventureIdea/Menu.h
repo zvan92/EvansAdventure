@@ -1,20 +1,17 @@
 #pragma once
 class Menu
 {
-private:
-	Menu();
-	static Menu *instance;
-
-	bool quitting;
 public:
-	~Menu();
+	Menu() {};
+	~Menu() {};
+
 	static Menu *Instance()
 	{
 		if (!instance)
 		{
 			instance = new Menu;
-			return instance;
 		}
+		return instance;
 	}
 //FUNCTIONS========================================//
 
@@ -29,5 +26,11 @@ public:
 	}
 
 //=================================================//
+private:
+	static Menu *instance;
+
+	bool quitting;
+
+
 };
 

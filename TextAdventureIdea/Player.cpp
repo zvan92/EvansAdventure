@@ -1,13 +1,12 @@
 #include "pch.h"
 #include "Player.h"
+#include "MapManager.h"
 
 Player *Player::instance = 0;
 
-Player::Player()
+void Player::LookAround()
 {
-}
-Player::~Player()
-{
+	MapManager::Instance()->DescribeRoom(getCurrentRoomId());
 }
 
 

@@ -2,14 +2,16 @@
 class FileManager
 {
 public:
-	~FileManager();
+	~FileManager() {};
+	FileManager() {};
+
 	static FileManager *Instance()
 	{
 		if (!instance)
 		{
 			instance = new FileManager;
-			return instance;
 		}
+		return instance;
 	}
 //FUNCTIONS========================================//
 
@@ -18,7 +20,6 @@ public:
 
 //=================================================//
 private:
-	FileManager();
 	static FileManager *instance;
 
 	int ReadFromFile(const char *pathToFile);
