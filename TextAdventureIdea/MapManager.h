@@ -26,23 +26,25 @@ public:
 		{
 			hasNorthWall = setNorthWall;
 			hasSouthWall = setSouthWall;
-			hasEastWall = setEastWall;
 			hasWestWall = setWestWall;
+			hasEastWall = setEastWall;
+			
 		};
 
 		bool hasNorthWall;
 		bool hasSouthWall;
-		bool hasEastWall;
 		bool hasWestWall;
-		list <const char*> roomItems;
+		bool hasEastWall;
+		list <string> roomItems;
 		//progression puzzle string?
 	};
 
-	unordered_map<const char*, Room> roomMap; //to store the rooms: char* is key (i.e. "A1", Room is the object)
+	// don't want this to be public, i'm sure
+	unordered_map<string, Room> roomMap; //to store the rooms: string is key (i.e. "A1", Room is the object)
 
-	void TransferToIventory(const char* roomItem); //attempts to add to player inventory, runs a check through GameManager to see if possible
-	void AddItemToRoom(const char* item, const char* gridID);
-	void DescribeRoom(const char* gridID);
+	void TransferToIventory(string roomItem); //attempts to add to player inventory, runs a check through GameManager to see if possible
+	void AddItemToRoom(string item, string gridID);
+	void DescribeRoom(string gridID);
 	void CreateRooms();
 
 private:

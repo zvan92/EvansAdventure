@@ -6,15 +6,13 @@ using namespace std;
 
 MapManager *MapManager::instance = 0;
 
-void MapManager::TransferToIventory(const char* item)
+void MapManager::TransferToIventory(string item)
 {
 	//attempt to transfer to player inventory
 }
 
 void MapManager::CreateRooms()
 {
-	//NOTE: STARTING ROOM IS "A4"
-
 	// H ROW
 	roomMap["H1"] = Room(1, 0, 1, 1);
 	roomMap["H5"] = Room(1, 0, 1, 0);
@@ -93,7 +91,7 @@ void MapManager::CreateRooms()
 	// A ROW
 	roomMap["A2"] = Room(0, 1, 1, 0);
 	roomMap["A3"] = Room(1, 1, 0, 0);
-	roomMap["A4"] = Room(0, 0, 0, 1);
+	roomMap["A4"] = Room(0, 0, 0, 1); // THE START!
 	roomMap["A5"] = Room(0, 1, 1, 0);
 	roomMap["A6"] = Room(1, 1, 0, 0);
 	roomMap["A7"] = Room(1, 1, 0, 1);
@@ -104,12 +102,12 @@ void MapManager::CreateRooms()
 	roomMap["A12"] = Room(1, 1, 0, 1);
 }
 
-void MapManager::AddItemToRoom(const char* item, const char* gridID)
+void MapManager::AddItemToRoom(string item, string gridID)
 {
 	// attempt to add inventory item to room
 }
 
-void MapManager::DescribeRoom(const char* gridID)
+void MapManager::DescribeRoom(string gridID)
 {
 	system("cls");
 

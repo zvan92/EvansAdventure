@@ -43,16 +43,17 @@ public:
 	{
 		return turnsCompleted;
 	}
-	void setCurrentRoomID(const char* value)
+	void setCurrentGridID(string value)
 	{
-		currentRoomID = value;
+		currentGridID = value;
 	}
-	const char* getCurrentRoomId()
+	string getCurrentGridID()
 	{
-		return currentRoomID;
+		return currentGridID;
 	}
 
 	void LookAround();
+	void MoveEast();
 
 
 //=================================================//
@@ -60,10 +61,10 @@ private:
 	static Player *instance;
 //VARIABLES========================================//
 
+	string currentGridID;
 	string name;
 	int health;
 	int turnsCompleted;
-	const char* currentRoomID;
 	//string vector = inventory
 
 //=================================================//

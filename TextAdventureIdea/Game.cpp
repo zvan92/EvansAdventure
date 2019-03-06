@@ -31,8 +31,8 @@ void Game::ExecuteTurn()
 	{
 	case 1:
 		system("cls");
-		cout << "(" << Player::Instance()->getPlayerName() << " moves)\n\n";
-		//then call setCurrentRoomID() to set new location
+		//MOVING EAST FOR TEST PURPOSES
+		Player::Instance()->MoveEast();
 		Player::Instance()->setTurnsCompleted(Player::Instance()->getTurnsCompleted() +1);
 		system("PAUSE");
 		break;
@@ -136,7 +136,7 @@ int Game::CreatePlayer()
 	Player::Instance()->setPlayerName(name);
 	Player::Instance()->setPlayerHealth(100);
 	Player::Instance()->setTurnsCompleted(0);
-	Player::Instance()->setCurrentRoomID("A4");
+	Player::Instance()->setCurrentGridID("A4");
 
 	return 0;
 }
