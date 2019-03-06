@@ -136,7 +136,7 @@ int Game::CreatePlayer()
 	Player::Instance()->setPlayerName(name);
 	Player::Instance()->setPlayerHealth(100);
 	Player::Instance()->setTurnsCompleted(0);
-	Player::Instance()->setCurrentRoomID("H1"); //this will be changed later - doesn't represent starting room
+	Player::Instance()->setCurrentRoomID("A4");
 
 	return 0;
 }
