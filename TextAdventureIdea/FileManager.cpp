@@ -78,18 +78,25 @@ int FileManager::ReadFromFile(const char *pathToFile)
 	}
 
 	int nameLength = 0;
+	int currentGridIDLength = 0;
 	int health = 0;
 	int turnsCompleted = 0;
 
 	fread(&nameLength, sizeof(int), 1, fileptr);
 	char* name = new char[nameLength];
 	fread(name, sizeof(char), nameLength, fileptr);
+
+	fread(&currentGridIDLength, sizeof(int), 1, fileptr);
+	char* gridID = new char[currentGridIDLength];
+	fread(gridID, sizeof(char), currentGridIDLength, fileptr);
+	
 	fread(&health, sizeof(int), 1, fileptr);
 	fread(&turnsCompleted, sizeof(int), 1, fileptr);
 
 	Player::Instance()->setPlayerName(name);
 	Player::Instance()->setPlayerHealth(health);
 	Player::Instance()->setTurnsCompleted(turnsCompleted);
+	Player::Instance()->setCurrentGridID(gridID);
 
 	fclose(fileptr);
 	fileptr = NULL;
@@ -116,20 +123,28 @@ void FileManager::WriteToFile(const char *pathToFile)
 	}
 
 	int nameLength = Player::Instance()->getPlayerName().length() + 1;
+	int currentGridIDLength = Player::Instance()->getCurrentGridID().length() + 1;
 	int health = Player::Instance()->getPlayerHealth();
 	int turnsCompleted = Player::Instance()->getTurnsCompleted();
-	char* char_array = new char[Player::Instance()->getPlayerName().length() + 1];
-	strcpy_s(char_array, Player::Instance()->getPlayerName().length() + 1, Player::Instance()->getPlayerName().c_str());
+	
+	char* name_array = new char[Player::Instance()->getPlayerName().length() + 1];
+	strcpy_s(name_array, Player::Instance()->getPlayerName().length() + 1, Player::Instance()->getPlayerName().c_str());
+
+	char* gridID_array = new char[Player::Instance()->getCurrentGridID().length() + 1];
+	strcpy_s(gridID_array, Player::Instance()->getCurrentGridID().length() + 1, Player::Instance()->getCurrentGridID().c_str());
 
 	fwrite(&nameLength, sizeof(int), 1, fileptr);
-	fwrite(char_array, sizeof(char), nameLength, fileptr);
+	fwrite(name_array, sizeof(char), nameLength, fileptr);
+	fwrite(&currentGridIDLength, sizeof(int), 1, fileptr);
+	fwrite(gridID_array, sizeof(char), currentGridIDLength, fileptr);
 	fwrite(&health, sizeof(int), 1, fileptr);
 	fwrite(&turnsCompleted, sizeof(int), 1, fileptr);
 
 	fclose(fileptr);
 	fileptr = NULL;
 	delete fileptr;
-	delete[] char_array;
+	delete[] name_array;
+	delete[] gridID_array;
 
 	cout << "File: " << Player::Instance()->getPlayerName() << "\nsaved successfully.\n\n";
 	system("pause");

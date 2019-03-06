@@ -32,7 +32,8 @@ void Game::ExecuteTurn()
 	{
 	case 1:
 		system("cls");
-		//MOVING EAST FOR TEST PURPOSES
+		//MOVING EAST IMEMDIATELY, FOR TEST PURPOSES
+		//DIRECTION SUB-MENU WILL BE ADDED HERE
 		MoveEast();
 		Player::Instance()->setTurnsCompleted(Player::Instance()->getTurnsCompleted() +1);
 		system("PAUSE");
