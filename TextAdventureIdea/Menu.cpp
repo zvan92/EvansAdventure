@@ -3,6 +3,7 @@
 #include "Game.h"
 #include "FileManager.h"
 #include <iostream>
+
 using namespace std;
 
 Menu *Menu::instance = 0;

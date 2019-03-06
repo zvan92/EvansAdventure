@@ -15,15 +15,10 @@ public:
 	}
 //FUNCTIONS========================================//
 
+	bool getQuitting() { return quitting; }
+	void setQuitting(bool value) { quitting = value; }
+
 	int Run();
-	bool getQuitting()
-	{
-		return quitting;
-	}
-	void setQuitting(bool value)
-	{
-		quitting = value;
-	}
 
 //=================================================//
 private:

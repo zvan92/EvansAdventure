@@ -15,19 +15,16 @@ public:
 	}
 //FUNCTIONS========================================//
 
-	bool getGameOverStatus()
-	{
-		return gameOverStatus;
-	}
-	void setGameOverStatus(bool value)
-	{
-		gameOverStatus = value;
-	}
-	void ExecuteTurn();
+	bool getGameOverStatus() { return gameOverStatus; }
+	void setGameOverStatus(bool value) { gameOverStatus = value; }
+
 	int CreatePlayer();
+	void ExecuteTurn();
 	void SaveProgress();
 	void DisplayMap();
 	void Init();
+	void MoveEast();
+	void LookAround();
 
 //=================================================//
 private:

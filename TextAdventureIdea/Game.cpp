@@ -6,6 +6,7 @@
 #include "MapManager.h"
 #include <iostream>
 #include <string>
+
 using namespace std;
 
 Game *Game::instance = 0;
@@ -32,13 +33,13 @@ void Game::ExecuteTurn()
 	case 1:
 		system("cls");
 		//MOVING EAST FOR TEST PURPOSES
-		Player::Instance()->MoveEast();
+		MoveEast();
 		Player::Instance()->setTurnsCompleted(Player::Instance()->getTurnsCompleted() +1);
 		system("PAUSE");
 		break;
 	case 2:
 		system("cls");
-		Player::Instance()->LookAround();
+		LookAround();
 		Player::Instance()->setTurnsCompleted(Player::Instance()->getTurnsCompleted() + 1);
 		system("PAUSE");
 		break;
@@ -165,4 +166,60 @@ void Game::DisplayMap()
 	cout << "===========================\n\n";
 
 	system("pause");
+}
+
+void Game::MoveEast()
+{
+	string s = Player::Instance()->getCurrentGridID();
+	int yValue1 = NULL;
+	int yValue2 = NULL;
+
+	//if our first digit is 9, automatically make number = 10
+	if (s[1] == '9')
+	{
+		s[1] = '1';
+		s.append("0");
+	}
+	else
+	{
+		//if y-coordinate is 2 digit number, make sure first digit is 1
+		if (s[2] != NULL)
+		{
+			yValue1 = 1;
+			yValue2 = (int)s[2];
+		}
+		//and for one digit numbers do this
+		else
+		{
+			yValue1 = (int)s[1];
+		}
+
+		//move east on the grid
+		if (s[2] != NULL)
+		{
+			yValue2++;
+		}
+		else
+		{
+			yValue1++;
+		}
+
+		if (s[2] != NULL)
+		{
+			s[2] = yValue2;
+		}
+		else
+		{
+			s[1] = yValue1;
+		}
+	}
+
+	Player::Instance()->setCurrentGridID(s);
+
+	cout << Player::Instance()->getPlayerName() << " moved East.\n\n";
+}
+
+void Game::LookAround()
+{
+	MapManager::Instance()->DescribeRoom(Player::Instance()->getCurrentGridID());
 }

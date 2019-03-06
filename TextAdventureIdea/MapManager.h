@@ -28,7 +28,6 @@ public:
 			hasSouthWall = setSouthWall;
 			hasWestWall = setWestWall;
 			hasEastWall = setEastWall;
-			
 		};
 
 		bool hasNorthWall;
@@ -36,17 +35,20 @@ public:
 		bool hasWestWall;
 		bool hasEastWall;
 		list <string> roomItems;
-		//progression puzzle string?
+		// + progression puzzle string?
 	};
 
-	// don't want this to be public, i'm sure
+	// TODO: make this map NOT public
 	unordered_map<string, Room> roomMap; //to store the rooms: string is key (i.e. "A1", Room is the object)
+
+//FUNCTIONS========================================//
 
 	void TransferToIventory(string roomItem); //attempts to add to player inventory, runs a check through GameManager to see if possible
 	void AddItemToRoom(string item, string gridID);
 	void DescribeRoom(string gridID);
 	void CreateRooms();
 
+//=================================================//
 private:
 	static MapManager *instance;
 };
