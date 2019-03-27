@@ -32,11 +32,7 @@ void Game::ExecuteTurn()
 	{
 	case 1:
 		system("cls");
-		//MOVING NORTH IMMEDIATELY FOR TEST PURPOSES
-		//DIRECTION SUB-MENU WILL BE ADDED HERE
-		MoveNorth();
-		Player::Instance()->setTurnsCompleted(Player::Instance()->getTurnsCompleted() +1);
-		system("PAUSE");
+		PromptForDirection();
 		break;
 	case 2:
 		system("cls");
@@ -218,6 +214,7 @@ void Game::MoveEast()
 	Player::Instance()->setCurrentGridID(s);
 
 	cout << Player::Instance()->getPlayerName() << " moved East.\n\n";
+	system("pause");
 }
 
 void Game::MoveWest()
@@ -265,6 +262,7 @@ void Game::MoveWest()
 	Player::Instance()->setCurrentGridID(s);
 
 	cout << Player::Instance()->getPlayerName() << " moved West.\n\n";
+	system("pause");
 }
 
 void Game::MoveNorth()
@@ -278,6 +276,7 @@ void Game::MoveNorth()
 	Player::Instance()->setCurrentGridID(s);
 
 	cout << Player::Instance()->getPlayerName() << " moved North.\n\n";
+	system("pause");
 }
 
 void Game::MoveSouth()
@@ -291,6 +290,44 @@ void Game::MoveSouth()
 	Player::Instance()->setCurrentGridID(s);
 
 	cout << Player::Instance()->getPlayerName() << " moved South.\n\n";
+	system("pause");
+}
+
+void Game::PromptForDirection()
+{
+	int choice;
+
+	system("cls");
+	cout << "Move in which direction?\n\n";
+	cout << "(1) North\n(2) South\n(3) East\n(4) West\n(5) Cancel\n\n";
+	cout << "Enter choice: ";
+	cin >> choice;
+
+	switch (choice)
+	{
+	case 1:
+		system("cls");
+		MoveNorth();
+		Player::Instance()->setTurnsCompleted(Player::Instance()->getTurnsCompleted() + 1);
+		break;
+	case 2:
+		system("cls");
+		MoveSouth();
+		Player::Instance()->setTurnsCompleted(Player::Instance()->getTurnsCompleted() + 1);
+		break;
+	case 3:
+		system("cls");
+		MoveEast();
+		Player::Instance()->setTurnsCompleted(Player::Instance()->getTurnsCompleted() + 1);
+		break;
+	case 4:
+		system("cls");
+		MoveWest();
+		Player::Instance()->setTurnsCompleted(Player::Instance()->getTurnsCompleted() + 1);
+		break;
+	case 5:
+		break;
+	}
 }
 
 void Game::LookAround()

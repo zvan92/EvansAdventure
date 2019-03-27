@@ -27,6 +27,7 @@ public:
 	void MoveWest();
 	void MoveNorth();
 	void MoveSouth();
+	void PromptForDirection();
 	void LookAround();
 
 //=================================================//
