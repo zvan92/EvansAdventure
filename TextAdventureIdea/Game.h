@@ -19,6 +19,7 @@ public:
 	void setGameOverStatus(bool value) { gameOverStatus = value; }
 
 	int CreatePlayer();
+	int CollisionCheck();
 	void ExecuteTurn();
 	void SaveProgress();
 	void DisplayMap();
