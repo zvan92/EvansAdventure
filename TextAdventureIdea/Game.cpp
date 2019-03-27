@@ -32,9 +32,9 @@ void Game::ExecuteTurn()
 	{
 	case 1:
 		system("cls");
-		//MOVING EAST IMEMDIATELY, FOR TEST PURPOSES
+		//MOVING NORTH IMMEDIATELY FOR TEST PURPOSES
 		//DIRECTION SUB-MENU WILL BE ADDED HERE
-		MoveEast();
+		MoveNorth();
 		Player::Instance()->setTurnsCompleted(Player::Instance()->getTurnsCompleted() +1);
 		system("PAUSE");
 		break;
@@ -218,6 +218,79 @@ void Game::MoveEast()
 	Player::Instance()->setCurrentGridID(s);
 
 	cout << Player::Instance()->getPlayerName() << " moved East.\n\n";
+}
+
+void Game::MoveWest()
+{
+	string s = Player::Instance()->getCurrentGridID();
+	int yValue1 = NULL;
+	int yValue2 = NULL;
+
+	if (s[1] == '9')
+	{
+		s[1] = '1';
+		s.append("0");
+	}
+	else
+	{
+		if (s[2] != NULL)
+		{
+			yValue1 = 1;
+			yValue2 = (int)s[2];
+		}
+		else
+		{
+			yValue1 = (int)s[1];
+		}
+
+		if (s[2] != NULL)
+		{
+			yValue2--;
+		}
+		else
+		{
+			yValue1--;
+		}
+
+		if (s[2] != NULL)
+		{
+			s[2] = yValue2;
+		}
+		else
+		{
+			s[1] = yValue1;
+		}
+	}
+
+	Player::Instance()->setCurrentGridID(s);
+
+	cout << Player::Instance()->getPlayerName() << " moved West.\n\n";
+}
+
+void Game::MoveNorth()
+{
+	string s = Player::Instance()->getCurrentGridID();
+	char xValue = s[0];
+
+	xValue++;
+	s[0] = xValue;
+
+	Player::Instance()->setCurrentGridID(s);
+
+	cout << Player::Instance()->getPlayerName() << " moved North.\n\n";
+}
+
+void Game::MoveSouth()
+{
+	string s = Player::Instance()->getCurrentGridID();
+	char xValue = s[0];
+
+	xValue--;
+	s[0] = xValue;
+
+	Player::Instance()->setCurrentGridID(s);
+
+	cout << Player::Instance()->getPlayerName() << " moved South.\n\n";
 }
 
 void Game::LookAround()

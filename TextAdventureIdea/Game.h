@@ -24,6 +24,9 @@ public:
 	void DisplayMap();
 	void Init();
 	void MoveEast();
+	void MoveWest();
+	void MoveNorth();
+	void MoveSouth();
 	void LookAround();
 
 //=================================================//
