@@ -87,11 +87,12 @@ void MapManager::CreateRooms()
 	roomMap["B9"] = Room(1, 1, 0, 0);
 	roomMap["B10"] = Room(1, 1, 0, 1);
 	roomMap["B11"] = Room(0, 0, 1, 1);
-	roomMap["B12"] = Room(0, 1, 1, 0); // THE EXIT!
+	roomMap["B12"] = Room(0, 1, 1, 0);
+	roomMap["B13"] = Room(0, 0, 0, 0); // THE EXIT ROOM!
 	// A ROW
 	roomMap["A2"] = Room(0, 1, 1, 0);
 	roomMap["A3"] = Room(1, 1, 0, 0);
-	roomMap["A4"] = Room(0, 0, 0, 1); // THE START!
+	roomMap["A4"] = Room(0, 1, 0, 1); // THE START!
 	roomMap["A5"] = Room(0, 1, 1, 0);
 	roomMap["A6"] = Room(1, 1, 0, 0);
 	roomMap["A7"] = Room(1, 1, 0, 1);

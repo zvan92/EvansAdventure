@@ -19,6 +19,14 @@ void Game::Init()
 
 void Game::ExecuteTurn() 
 {
+	// TEMPORARY WIN CONDITION. THIS WILL BE IMPROVED OBVIOUSLY
+	// In CreatePlayer(), set starting room to B12 and move East to test
+	if (Player::Instance()->getCurrentGridID() == "B13")
+	{
+		system("cls");
+		cout << "You've escaped! Congratulations!\n\n";
+		system("pause");
+	}
 	system("cls");
 
 	int choice = 0;

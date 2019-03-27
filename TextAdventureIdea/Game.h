@@ -20,6 +20,7 @@ public:
 
 	int CreatePlayer();
 	int CollisionCheck();
+
 	void ExecuteTurn();
 	void SaveProgress();
 	void DisplayMap();
