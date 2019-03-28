@@ -154,7 +154,7 @@ int Game::CreatePlayer()
 		{
 			confirmed = true;
 		}
-		if (choice.length() > 1)
+		if (choice.length() > 1 || choice.length() == 0 || choice.length() == 1 && input != 'y' && input != 'Y')
 		{
 			system("cls");
 			cout << "Invalid selection.\n\n";

@@ -52,7 +52,7 @@ void FileManager::PromptForSave()
 	getline(cin, input);
 	stringstream stream(input);
 	stream >> choice;
-	if (input.length() == 0 || input.length() > 1)
+	if (input.length() == 0 || input.length() > 1 || choice != 'n' && choice != 'N')
 	{
 		system("cls");
 		cout << "Invalid selection.\n\n";
