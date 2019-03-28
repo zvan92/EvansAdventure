@@ -60,7 +60,7 @@ void FileManager::PromptForSave()
 	else
 	{
 		string filepath;
-		cout << "Enter save destination (without spaces)\n[ i.e. C:/Users/Evan/Documents/evan.txt ]\nor type 'esc' to cancel:\n\n";
+		cout << "Enter save destination\n[ i.e. C:/Users/Evan/Documents/evan.txt ]\nor type 'esc' to cancel:\n\n";
 		cin >> filepath;
 		if (filepath == "esc")
 		{

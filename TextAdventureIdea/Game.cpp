@@ -135,7 +135,7 @@ int Game::CreatePlayer()
 		cout << "==           EVAN'S ADVENTURE           ==\n";
 		cout << "==========================================\n";
 		cout << "               [ New Game ]\n\n";
-		cout << "Enter player name (without spaces)\nor type 'esc' to cancel:\n\n";
+		cout << "Enter player name (type 'esc' to cancel):\n\n";
 		getline(cin, name);
 		if (name == "esc")
 		{
@@ -388,7 +388,6 @@ void Game::PromptForDirection()
 	case 5:
 		break;
 	default:
-		system("cls");
 		PromptForDirection(); //call recursively if invalid key pressed
 		break;
 	}
