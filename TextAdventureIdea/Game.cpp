@@ -165,7 +165,7 @@ int Game::CreatePlayer()
 	Player::Instance()->setPlayerName(name);
 	Player::Instance()->setPlayerHealth(100);
 	Player::Instance()->setTurnsCompleted(0);
-	Player::Instance()->setCurrentGridID("A4");
+	Player::Instance()->setCurrentGridID("E9");
 
 	return 0;
 }

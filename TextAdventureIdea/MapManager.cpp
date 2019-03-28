@@ -59,7 +59,7 @@ void MapManager::CreateRooms()
 	roomMap["D6"] = Room(0, 0, 1, 1);
 	roomMap["D7"] = Room(0, 1, 1, 0);
 	roomMap["D8"] = Room(1, 1, 0, 1);
-	roomMap["D9"] = Room(1, 0, 0, 0);
+	roomMap["D9"] = Room(0, 1, 0, 1);
 	roomMap["D10"] = Room(1, 1, 1, 0);
 	roomMap["D11"] = Room(1, 0, 0, 0);
 	roomMap["D12"] = Room(0, 1, 0, 1);
