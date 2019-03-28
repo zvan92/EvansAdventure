@@ -20,8 +20,7 @@ void Game::Init()
 
 void Game::ExecuteTurn() 
 {
-	// TEMPORARY WIN CONDITION. THIS WILL BE IMPROVED OBVIOUSLY
-	// In CreatePlayer(), set starting room to B12 and move East to test
+	// TEMPORARY WIN EVENT. THIS WILL BE IMPROVED, OBVIOUSLY
 	if (Player::Instance()->getCurrentGridID() == "B13")
 	{
 		system("cls");
@@ -420,7 +419,7 @@ bool Game::CollisionCheck(const char* direction)
 			return false;
 		}
 	}
-	if (direction == "north")
+	else if (direction == "north")
 	{
 		if (MapManager::Instance()->roomMap[Player::Instance()->getCurrentGridID()].hasNorthWall == true)
 		{
@@ -431,7 +430,7 @@ bool Game::CollisionCheck(const char* direction)
 			return false;
 		}
 	}
-	if (direction == "east")
+	else if (direction == "east")
 	{
 		if (MapManager::Instance()->roomMap[Player::Instance()->getCurrentGridID()].hasEastWall == true)
 		{
@@ -442,7 +441,7 @@ bool Game::CollisionCheck(const char* direction)
 			return false;
 		}
 	}
-	if (direction == "south")
+	else if (direction == "south")
 	{
 		if (MapManager::Instance()->roomMap[Player::Instance()->getCurrentGridID()].hasSouthWall == true)
 		{
@@ -453,6 +452,8 @@ bool Game::CollisionCheck(const char* direction)
 			return false;
 		}
 	}
+
+	return false;
 }
 
 void Game::LookAround()
