@@ -21,7 +21,7 @@ int FileManager::PromptForLoad()
 	cout << "==========================================\n";
 	cout << "              [ Load Game ]\n\n";
 	string filepath;
-	cout << "Enter file location (without spaces)\n[ i.e. C:/Users/Evan/Documents/evan.txt ]\nor type 'esc' to cancel:\n\n";
+	cout << "Enter character file location\n[ i.e. C:/Users/Evan/Documents/evan.txt ]\nor type 'esc' to cancel:\n\n";
 	cin >> filepath;
 	if (filepath == "esc")
 	{
@@ -52,13 +52,15 @@ void FileManager::PromptForSave()
 	getline(cin, input);
 	stringstream stream(input);
 	stream >> choice;
-	if (input.length() == 0 || input.length() > 1 || choice != 'n' && choice != 'N')
+	if (input.length() == 0 || input.length() > 1 ||
+		input.length() == 1 && choice != 'n' && choice != 'N' &&
+		choice != 'y' && choice != 'Y')
 	{
 		system("cls");
 		cout << "Invalid selection.\n\n";
 		system("pause");
 	}
-	if (choice == 'y' || choice == 'Y')
+	if (input.length() == 1 && choice == 'y' || input.length() == 1 && choice == 'Y')
 	{
 		system("cls");
 		cout << "==========================================\n";
@@ -67,7 +69,7 @@ void FileManager::PromptForSave()
 		cout << "             [ Save Progress ]\n\n";
 
 		string filepath;
-		cout << "Enter save destination\n[ i.e. C:/Users/Evan/Documents/evan.txt ]\nor type 'esc' to cancel:\n\n";
+		cout << "Enter character file save destination\n[ i.e. C:/Users/Evan/Documents/evan.txt ]\nor type 'esc' to cancel:\n\n";
 		cin >> filepath;
 		if (filepath == "esc")
 		{
@@ -118,7 +120,7 @@ int FileManager::ReadFromFile(const char *pathToFile)
 	delete fileptr;
 	delete[] name;
 
-	cout << "File: " << Player::Instance()->getPlayerName() << "\nloaded successfully.\n\n";
+	cout << "Character file: " << Player::Instance()->getPlayerName() << "\nloaded successfully.\n\n";
 	system("pause");
 
 	return 0;
@@ -161,6 +163,6 @@ void FileManager::WriteToFile(const char *pathToFile)
 	delete[] name_array;
 	delete[] gridID_array;
 
-	cout << "File: " << Player::Instance()->getPlayerName() << "\nSaved to location: " << *pathToFile << "\n\n";
+	cout << "Character file: " << Player::Instance()->getPlayerName() << "\nSaved to location: " << pathToFile << "\n\n";
 	system("pause");
 }

@@ -73,14 +73,16 @@ void Game::ExecuteTurn()
 		getline(cin, input);
 		stringstream stream(input);
 		stream >> choice;
-		if (input.length() > 1 || input.length() == 0)
+		if (input.length() == 0 || input.length() > 1 ||
+			input.length() == 1 && choice != 'n' && choice != 'N' &&
+			choice != 'y' && choice != 'Y')
 		{
 			system("cls");
 			cout << "Invalid selection.\n\n";
 			system("pause");
 			break;
 		}
-		if (choice == 'n' || choice == 'N')
+		if (input.length() == 1 && choice == 'n' || input.length() == 1 && choice == 'N')
 		{
 			break;
 		}
@@ -126,8 +128,8 @@ int Game::CreatePlayer()
 	system("cls");
 
 	string name;
-	string choice;
-	char input;
+	string input;
+	char choice;
 	bool confirmed = false;
 
 	while (!confirmed)
@@ -138,7 +140,7 @@ int Game::CreatePlayer()
 		cout << "==           EVAN'S ADVENTURE           ==\n";
 		cout << "==========================================\n";
 		cout << "               [ New Game ]\n\n";
-		cout << "Enter player name (type 'esc' to cancel):\n\n";
+		cout << "Enter character name or type 'esc' to cancel:\n\n";
 		getline(cin, name);
 		if (name == "esc")
 		{
@@ -146,14 +148,16 @@ int Game::CreatePlayer()
 		}
 
 		cout << "\nAre you sure? (Y/N): ";
-		getline(cin, choice);
-		stringstream stream(choice);
-		stream >> input;
-		if (input == 'y' || input == 'Y')
+		getline(cin, input);
+		stringstream stream(input);
+		stream >> choice;
+		if (input.length() == 1 && choice == 'y' || input.length() == 1 && choice == 'Y')
 		{
 			confirmed = true;
 		}
-		if (choice.length() > 1 || choice.length() == 0 || choice.length() == 1 && input != 'y' && input != 'Y')
+		if (input.length() == 0 || input.length() > 1 || 
+			input.length() == 1 && choice != 'n' && choice != 'N' &&
+			choice != 'y' && choice != 'Y')
 		{
 			system("cls");
 			cout << "Invalid selection.\n\n";
