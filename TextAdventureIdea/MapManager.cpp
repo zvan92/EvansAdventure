@@ -27,18 +27,18 @@ void MapManager::CreateRooms()
 	roomMap["G11"] = Room(1, 0, 1, 1);
 	// F ROW
 	roomMap["F1"] = Room(0, 0, 1, 1);
-	roomMap["F3"] = Room(0, 1, 1, 1);
+	roomMap["F3"] = Room(0, 0, 1, 1);
 	roomMap["F4"] = Room(1, 1, 1, 0);
 	roomMap["F5"] = Room(0, 1, 0, 1);
 	roomMap["F6"] = Room(0, 1, 1, 0);
-	roomMap["F7"] = Room(0, 1, 0, 0);
-	roomMap["F8"] = Room(0, 1, 0, 0);
+	roomMap["F7"] = Room(1, 1, 0, 0);
+	roomMap["F8"] = Room(1, 1, 0, 0);
 	roomMap["F9"] = Room(0, 0, 0, 0);
 	roomMap["F10"] = Room(1, 1, 0, 0);
 	roomMap["F11"] = Room(0, 1, 0, 0);
 	roomMap["F12"] = Room(1, 1, 0, 1);
 	// E ROW
-	roomMap["E1"] = Room(0, 1, 0, 0);
+	roomMap["E1"] = Room(0, 1, 1, 0);
 	roomMap["E2"] = Room(1, 1, 0, 0);
 	roomMap["E3"] = Room(0, 1, 0, 0);
 	roomMap["E4"] = Room(1, 1, 0, 0);
