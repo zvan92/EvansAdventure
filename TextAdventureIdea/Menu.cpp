@@ -48,6 +48,7 @@ int Menu::Run()
 	case 3:
 		system("cls");
 		cout << "Thanks for playing!\n\n";
+		system("pause");
 		Game::Instance()->setGameOverStatus(true);
 		Menu::Instance()->setQuitting(true);
 		break;
