@@ -3,6 +3,8 @@
 #include "Game.h"
 #include "FileManager.h"
 #include <iostream>
+#include <sstream>
+#include <string>
 
 using namespace std;
 
@@ -21,7 +23,12 @@ int Menu::Run()
 	cout << "(1) New Game\n(2) Load Game\n(3) Exit Game\n\nEnter choice: ";
 
 	int choice;
-	cin >> choice;
+	string input;
+
+	getline(cin, input);
+	stringstream stream(input);
+	stream >> choice;
+
 	switch (choice)
 	{
 	case 1:
@@ -43,6 +50,9 @@ int Menu::Run()
 		cout << "Thanks for playing!\n\n";
 		Game::Instance()->setGameOverStatus(true);
 		Menu::Instance()->setQuitting(true);
+		break;
+	default:
+		return 1;
 		break;
 	}
 

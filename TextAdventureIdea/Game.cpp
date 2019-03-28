@@ -5,6 +5,7 @@
 #include "FileManager.h"
 #include "MapManager.h"
 #include <iostream>
+#include <sstream>
 #include <string>
 
 using namespace std;
@@ -67,11 +68,17 @@ void Game::ExecuteTurn()
 		cout << "==           EVAN'S ADVENTURE           ==\n";
 		cout << "==========================================\n";
 		cout << "               [ End Game ]\n\n";
+		string input;
 		char choice;
 		cout << "All unsaved progress will be lost.\n\nAre you sure, " << Player::Instance()->getPlayerName() << "? (Y/N): ";
-		cin >> choice;
-		if (choice == 'n')
+		getline(cin, input);
+		stringstream stream(input);
+		stream >> choice;
+		if (choice != 'y' && choice != 'Y')
 		{
+			system("cls");
+			cout << "Invalid selection. Returning to game.\n\n";
+			system("pause");
 			break;
 		}
 
@@ -86,12 +93,15 @@ int Game::PromptUserChoice()
 {
 	system("cls");
 
+	string input;
 	int choice;
 
 	cout << "Turns completed: " << Player::Instance()->getTurnsCompleted() << "\n\n";
 	cout << "What would you like to do, " << Player::Instance()->getPlayerName() << "?\n\n";
 	cout << "(1) Move\n(2) Look Around\n(3) Use Item\n(4) View Map\n(5) Save Progress\n(6) End Game\n\nEnter Choice: ";
-	cin >> choice;
+	getline(cin, input);
+	stringstream stream(input);
+	stream >> choice;
 
 	if (choice == 1 ||
 		choice == 2 ||
@@ -113,7 +123,8 @@ int Game::CreatePlayer()
 	system("cls");
 
 	string name;
-	char choice;
+	string choice;
+	char input;
 	bool confirmed = false;
 
 	while (!confirmed)
@@ -125,15 +136,17 @@ int Game::CreatePlayer()
 		cout << "==========================================\n";
 		cout << "               [ New Game ]\n\n";
 		cout << "Enter player name (without spaces)\nor type 'esc' to cancel:\n\n";
-		cin >> name;
+		getline(cin, name);
 		if (name == "esc")
 		{
 			return 1;
 		}
 
 		cout << "\nAre you sure? (Y/N): ";
-		cin >> choice;
-		if (choice == 'y')
+		getline(cin, choice);
+		stringstream stream(choice);
+		stream >> input;
+		if (input == 'y' || input == 'Y')
 		{
 			confirmed = true;
 		}
@@ -344,19 +357,21 @@ void Game::MoveSouth()
 void Game::PromptForDirection()
 {
 	int choice;
+	string input;
 
 	system("cls");
 	cout << "Move in which direction?\n\n";
 	cout << "(1) North\n(2) South\n(3) East\n(4) West\n(5) Cancel\n\n";
 	cout << "Enter choice: ";
-	cin >> choice;
+	getline(cin, input);
+	stringstream stream(input);
+	stream >> choice;
 
 	switch (choice)
 	{
 	case 1:
 		system("cls");
 		MoveNorth();
-		
 		break;
 	case 2:
 		system("cls");
@@ -371,6 +386,10 @@ void Game::PromptForDirection()
 		MoveWest();
 		break;
 	case 5:
+		break;
+	default:
+		system("cls");
+		PromptForDirection(); //call recursively if invalid key pressed
 		break;
 	}
 }

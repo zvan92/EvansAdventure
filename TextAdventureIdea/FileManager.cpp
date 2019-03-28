@@ -4,6 +4,7 @@
 #include "Game.h"
 #include <string>
 #include <iostream>
+#include <sstream>
 #include "stdio.h"
 #include "stdlib.h"
 
@@ -45,11 +46,18 @@ void FileManager::PromptForSave()
 	cout << "==========================================\n";
 	cout << "             [ Save Progress ]\n\n";
 	char choice;
+	string input;
 	cout << "Save your progress, " << Player::Instance()->getPlayerName() << "? (Y/N) ";
-	cin >> choice;
-	cout << "\n";
-
-	if (choice == 'y')
+	getline(cin, input);
+	stringstream stream(input);
+	stream >> choice;
+	if (choice != 'y' && choice != 'Y')
+	{
+		system("cls");
+		cout << "Invalid selection. Returning to game.\n\n";
+		system("pause");
+	}
+	else
 	{
 		string filepath;
 		cout << "Enter save destination (without spaces)\n[ i.e. C:/Users/Evan/Documents/evan.txt ]\nor type 'esc' to cancel:\n\n";
