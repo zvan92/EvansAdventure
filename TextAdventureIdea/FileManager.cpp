@@ -45,20 +45,27 @@ void FileManager::PromptForSave()
 	cout << "==           EVAN'S ADVENTURE           ==\n";
 	cout << "==========================================\n";
 	cout << "             [ Save Progress ]\n\n";
+
 	char choice;
 	string input;
 	cout << "Save your progress, " << Player::Instance()->getPlayerName() << "? (Y/N) ";
 	getline(cin, input);
 	stringstream stream(input);
 	stream >> choice;
-	if (choice != 'y' && choice != 'Y')
+	if (input.length() == 0 || input.length() > 1)
 	{
 		system("cls");
-		cout << "Invalid selection. Returning to game.\n\n";
+		cout << "Invalid selection.\n\n";
 		system("pause");
 	}
-	else
+	if (choice == 'y' || choice == 'Y')
 	{
+		system("cls");
+		cout << "==========================================\n";
+		cout << "==           EVAN'S ADVENTURE           ==\n";
+		cout << "==========================================\n";
+		cout << "             [ Save Progress ]\n\n";
+
 		string filepath;
 		cout << "Enter save destination\n[ i.e. C:/Users/Evan/Documents/evan.txt ]\nor type 'esc' to cancel:\n\n";
 		cin >> filepath;
@@ -154,6 +161,6 @@ void FileManager::WriteToFile(const char *pathToFile)
 	delete[] name_array;
 	delete[] gridID_array;
 
-	cout << "File: " << Player::Instance()->getPlayerName() << "\nsaved successfully.\n\n";
+	cout << "File: " << Player::Instance()->getPlayerName() << "\nSaved to location: " << *pathToFile << "\n\n";
 	system("pause");
 }

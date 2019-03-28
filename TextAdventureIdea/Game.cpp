@@ -74,11 +74,15 @@ void Game::ExecuteTurn()
 		getline(cin, input);
 		stringstream stream(input);
 		stream >> choice;
-		if (choice != 'y' && choice != 'Y')
+		if (input.length() > 1 || input.length() == 0)
 		{
 			system("cls");
-			cout << "Invalid selection. Returning to game.\n\n";
+			cout << "Invalid selection.\n\n";
 			system("pause");
+			break;
+		}
+		if (choice == 'n' || choice == 'N')
+		{
 			break;
 		}
 
@@ -149,6 +153,12 @@ int Game::CreatePlayer()
 		if (input == 'y' || input == 'Y')
 		{
 			confirmed = true;
+		}
+		if (choice.length() > 1)
+		{
+			system("cls");
+			cout << "Invalid selection.\n\n";
+			system("pause");
 		}
 	}
 	
