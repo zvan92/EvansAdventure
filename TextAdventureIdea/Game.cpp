@@ -175,7 +175,7 @@ void Game::DisplayMap()
 
 void Game::MoveEast()
 {
-	if (CollisionCheck() == 3)
+	if (CollisionCheck("east"))
 	{
 		cout << "You cannot move East.\n\n";
 	}
@@ -237,7 +237,7 @@ void Game::MoveEast()
 
 void Game::MoveWest()
 {
-	if (CollisionCheck() == 4)
+	if (CollisionCheck("west"))
 	{
 		cout << "You cannot move West.\n\n";
 	}
@@ -295,7 +295,7 @@ void Game::MoveWest()
 
 void Game::MoveNorth()
 {
-	if (CollisionCheck() == 1)
+	if (CollisionCheck("north"))
 	{
 		cout << "You cannot move North.\n\n";
 	}
@@ -319,7 +319,7 @@ void Game::MoveNorth()
 
 void Game::MoveSouth()
 {
-	if (CollisionCheck() == 2)
+	if (CollisionCheck("south"))
 	{
 		cout << "You cannot move South.\n\n";
 	}
@@ -375,26 +375,52 @@ void Game::PromptForDirection()
 	}
 }
 
-int Game::CollisionCheck()
+bool Game::CollisionCheck(const char* direction)
 {
-	if (MapManager::Instance()->roomMap[Player::Instance()->getCurrentGridID()].hasNorthWall == true)
+	if (direction == "west")
 	{
-		return 1;
+		if (MapManager::Instance()->roomMap[Player::Instance()->getCurrentGridID()].hasWestWall == true)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
 	}
-	if (MapManager::Instance()->roomMap[Player::Instance()->getCurrentGridID()].hasSouthWall == true)
+	if (direction == "north")
 	{
-		return 2;
+		if (MapManager::Instance()->roomMap[Player::Instance()->getCurrentGridID()].hasNorthWall == true)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
 	}
-	if (MapManager::Instance()->roomMap[Player::Instance()->getCurrentGridID()].hasEastWall == true)
+	if (direction == "east")
 	{
-		return 3;
+		if (MapManager::Instance()->roomMap[Player::Instance()->getCurrentGridID()].hasEastWall == true)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
 	}
-	if (MapManager::Instance()->roomMap[Player::Instance()->getCurrentGridID()].hasWestWall == true)
+	if (direction == "south")
 	{
-		return 4;
+		if (MapManager::Instance()->roomMap[Player::Instance()->getCurrentGridID()].hasSouthWall == true)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
 	}
-
-	return 0;
 }
 
 void Game::LookAround()

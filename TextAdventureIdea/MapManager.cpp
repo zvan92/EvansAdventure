@@ -128,5 +128,13 @@ void MapManager::DescribeRoom(string gridID)
 	{
 		cout << "There is a wall to the West.\n";
 	}
+	if (roomMap[gridID].hasNorthWall == false &&
+		roomMap[gridID].hasSouthWall == false &&
+		roomMap[gridID].hasEastWall == false &&
+		roomMap[gridID].hasWestWall == false)
+	{
+		cout << "There are no walls nearby.\n";
+	}
+
 	cout << endl;
 }

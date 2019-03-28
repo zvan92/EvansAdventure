@@ -1,4 +1,5 @@
 #pragma once
+
 class Game
 {
 public:
@@ -19,8 +20,7 @@ public:
 	void setGameOverStatus(bool value) { gameOverStatus = value; }
 
 	int CreatePlayer();
-	int CollisionCheck();
-
+	bool CollisionCheck(const char* direction);
 	void ExecuteTurn();
 	void SaveProgress();
 	void DisplayMap();
