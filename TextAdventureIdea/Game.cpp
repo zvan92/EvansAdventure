@@ -99,7 +99,7 @@ int Game::PromptUserChoice()
 
 	string input;
 	int choice;
-
+	
 	cout << "Turns completed: " << Player::Instance()->getTurnsCompleted() << "\n\n";
 	cout << "What would you like to do, " << Player::Instance()->getPlayerName() << "?\n\n";
 	cout << "(1) Move\n(2) Look Around\n(3) Use Item\n(4) View Map\n(5) Save Progress\n(6) End Game\n\nEnter Choice: ";
@@ -270,23 +270,27 @@ void Game::MoveWest()
 		int yValue1 = NULL;
 		int yValue2 = NULL;
 
-		if (s[1] == '9')
+		//if our number is 10, automatically make number = 9
+		if (s[1] == '1' && s[2] == '0')
 		{
-			s[1] = '1';
-			s.append("0");
+			s[1] = '9';
+			s.erase(s.begin() + 2);
 		}
 		else
 		{
+			//if y-coordinate is 2 digit number, make sure first digit is 1
 			if (s[2] != NULL)
 			{
 				yValue1 = 1;
 				yValue2 = (int)s[2];
 			}
+			//and for one digit numbers do this
 			else
 			{
 				yValue1 = (int)s[1];
 			}
 
+			//move west on the grid
 			if (s[2] != NULL)
 			{
 				yValue2--;
