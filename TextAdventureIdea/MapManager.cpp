@@ -6,9 +6,9 @@ using namespace std;
 
 MapManager *MapManager::instance = 0;
 
-void MapManager::TransferToIventory(string item)
+void MapManager::TransferToPlayerIventory(string item)
 {
-	//attempt to transfer to player inventory
+	//TODO: write this
 }
 
 void MapManager::CreateRooms()
@@ -103,9 +103,9 @@ void MapManager::CreateRooms()
 	roomMap["A12"] = Room(1, 1, 0, 1);
 }
 
-void MapManager::AddItemToRoom(string item, string gridID)
+void MapManager::TransferItemToRoom(string item, string gridID)
 {
-	// attempt to add inventory item to room
+	//TODO: write this
 }
 
 void MapManager::DescribeRoom(string gridID)

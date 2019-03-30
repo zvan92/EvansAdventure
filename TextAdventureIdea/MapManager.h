@@ -1,7 +1,11 @@
 #pragma once
+
 #include <list>
 #include <unordered_map>
+#include <string>
+
 using namespace std;
+
 class MapManager
 {
 public:
@@ -35,16 +39,16 @@ public:
 		bool hasWestWall;
 		bool hasEastWall;
 		list <string> roomItems;
-		// + progression puzzle string?
+		//TODO: puzzle progression item
 	};
 
 	// TODO: make this map NOT public
-	unordered_map<string, Room> roomMap; //to store the rooms: string is key (i.e. "A1", Room is the object)
+	unordered_map<string, Room> roomMap;
 
 //FUNCTIONS========================================//
 
-	void TransferToIventory(string roomItem); //attempts to add to player inventory, runs a check through GameManager to see if possible
-	void AddItemToRoom(string item, string gridID);
+	void TransferToPlayerIventory(string roomItem);
+	void TransferItemToRoom(string item, string gridID);
 	void DescribeRoom(string gridID);
 	void CreateRooms();
 

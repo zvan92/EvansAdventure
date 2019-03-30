@@ -6,13 +6,13 @@ public:
 	Game() {};
 	~Game() {};
 
-	static Game *Instance() //returns static Game ptr
+	static Game *Instance()
 	{
 		if (!instance)
 		{
-			instance = new Game; //initialize the ptr with the location of Game instance
+			instance = new Game;
 		}
-		return instance; //Game instance destroys after return
+		return instance;
 	}
 //FUNCTIONS========================================//
 

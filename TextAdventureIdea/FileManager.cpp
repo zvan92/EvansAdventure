@@ -15,23 +15,27 @@ FileManager *FileManager::instance = 0;
 int FileManager::PromptForLoad()
 {
 	system("cls");
-
 	cout << "==========================================\n";
 	cout << "==           EVAN'S ADVENTURE           ==\n";
 	cout << "==========================================\n";
 	cout << "              [ Load Game ]\n\n";
-	string filepath;
 	cout << "Enter character file location\n[ i.e. C:/Users/Evan/Documents/evan.txt ]\nor type 'esc' to cancel:\n\n";
+
+	string filepath;
 	cin >> filepath;
+
 	if (filepath == "esc")
 	{
 		return 1;
 	}
+
 	const char *cPath = filepath.c_str();
+
 	if (ReadFromFile(cPath) == 1)
 	{
 		return 1;
 	}
+
 	system("cls");
 
 	return 0;
@@ -40,18 +44,18 @@ int FileManager::PromptForLoad()
 void FileManager::PromptForSave()
 {
 	system("cls");
-
 	cout << "==========================================\n";
 	cout << "==           EVAN'S ADVENTURE           ==\n";
 	cout << "==========================================\n";
 	cout << "             [ Save Progress ]\n\n";
+	cout << "Save your progress, " << Player::Instance()->getPlayerName() << "? (Y/N) ";
 
 	char choice;
 	string input;
-	cout << "Save your progress, " << Player::Instance()->getPlayerName() << "? (Y/N) ";
 	getline(cin, input);
 	stringstream stream(input);
 	stream >> choice;
+
 	if (input.length() == 0 || input.length() > 1 ||
 		input.length() == 1 && choice != 'n' && choice != 'N' &&
 		choice != 'y' && choice != 'Y')
@@ -67,16 +71,19 @@ void FileManager::PromptForSave()
 		cout << "==           EVAN'S ADVENTURE           ==\n";
 		cout << "==========================================\n";
 		cout << "             [ Save Progress ]\n\n";
+		cout << "Enter character file save destination\n[ i.e. C:/Users/Evan/Documents/evan.txt ]\nor type 'esc' to cancel:\n\n";
 
 		string filepath;
-		cout << "Enter character file save destination\n[ i.e. C:/Users/Evan/Documents/evan.txt ]\nor type 'esc' to cancel:\n\n";
-		cin >> filepath;
+		getline(cin, filepath);
+
 		if (filepath == "esc")
 		{
 			return;
 		}
+
 		const char *cPath = filepath.c_str();
 		WriteToFile(cPath);
+
 		system("cls");
 	}
 }
@@ -87,6 +94,7 @@ int FileManager::ReadFromFile(const char *pathToFile)
 
 	FILE *fileptr;
 	fopen_s(&fileptr, pathToFile, "rb");
+
 	if (fileptr == NULL)
 	{
 		cout << "ERROR: File not found.\n\n";
@@ -132,6 +140,7 @@ void FileManager::WriteToFile(const char *pathToFile)
 
 	FILE *fileptr;
 	fopen_s(&fileptr, pathToFile, "wb");
+
 	if (fileptr == NULL)
 	{
 		cout << "ERROR: Invalid path.\n\n";

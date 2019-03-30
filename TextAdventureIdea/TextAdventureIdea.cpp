@@ -3,13 +3,14 @@
 #include "Menu.h"
 #include "Game.h"
 #include <iostream>
+
 using namespace std;
 
 void Run()
 {
 	bool running = true;
 
-	Game::Instance()->Init(); //this should probably be somewhere safer
+	Game::Instance()->Init();
 
 	while (running)
 	{

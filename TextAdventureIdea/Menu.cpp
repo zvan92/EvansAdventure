@@ -12,10 +12,9 @@ Menu *Menu::instance = 0;
 
 int Menu::Run()
 {
-	system("cls");
-
 	quitting = false;
 
+	system("cls");
 	cout << "==========================================\n";
 	cout << "==           EVAN'S ADVENTURE           ==\n";
 	cout << "==========================================\n";
@@ -24,7 +23,6 @@ int Menu::Run()
 
 	int choice;
 	string input;
-
 	getline(cin, input);
 	stringstream stream(input);
 	stream >> choice;

@@ -1,6 +1,7 @@
 #pragma once
+
 #include <string>
-#include <iostream>
+
 using namespace std;
 
 class Player
@@ -39,5 +40,5 @@ private:
 	string name;
 	int health;
 	int turnsCompleted;
-	//string vector = inventory
+	//TODO: add string vector for inventory items
 };
