@@ -378,29 +378,39 @@ void Game::PromptForDirection()
 	stringstream stream(input);
 	stream >> choice;
 
-	switch (choice)
+	if (input.length() == 0 || input.length() > 1 ||
+		input.length() == 1 && choice != 1 && 
+		choice != 2 && choice != 3 && 
+		choice != 4 && choice != 5)
 	{
-	case 1:
 		system("cls");
-		MoveNorth();
-		break;
-	case 2:
-		system("cls");
-		MoveSouth();
-		break;
-	case 3:
-		system("cls");
-		MoveEast();
-		break;
-	case 4:
-		system("cls");
-		MoveWest();
-		break;
-	case 5:
-		break;
-	default:
-		PromptForDirection(); //call recursively if invalid key pressed
-		break;
+		cout << "Invalid selection.\n\n";
+		system("pause");
+		PromptForDirection(); //call recursively if input is invalid
+	}
+	else
+	{
+		switch (choice)
+		{
+		case 1:
+			system("cls");
+			MoveNorth();
+			break;
+		case 2:
+			system("cls");
+			MoveSouth();
+			break;
+		case 3:
+			system("cls");
+			MoveEast();
+			break;
+		case 4:
+			system("cls");
+			MoveWest();
+			break;
+		case 5:
+			break;
+		}
 	}
 }
 
