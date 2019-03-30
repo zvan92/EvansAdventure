@@ -22,7 +22,7 @@ int FileManager::PromptForLoad()
 	cout << "Enter character file location\n[ i.e. C:/Users/Evan/Documents/evan.txt ]\nor type 'esc' to cancel:\n\n";
 
 	string filepath;
-	cin >> filepath;
+	getline(cin, filepath);
 
 	if (filepath == "esc")
 	{
