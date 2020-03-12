@@ -3,10 +3,11 @@
 class Menu
 {
 public:
-	Menu() {};
+	Menu() :
+		bIsQuitting(false) {};
 	~Menu() {};
 
-	static Menu *Instance()
+	static Menu *GetInstance()
 	{
 		if (!instance)
 		{
@@ -14,19 +15,17 @@ public:
 		}
 		return instance;
 	}
-//FUNCTIONS========================================//
 
-	bool getQuitting() { return quitting; }
-	void setQuitting(bool value) { quitting = value; }
+//PUBLIC METHODS=========================================//
+
+	bool getIsQuitting() { return bIsQuitting; }
+	void setIsQuitting(bool value) { bIsQuitting = value; }
 
 	int Run();
 
-//=================================================//
 private:
 	static Menu *instance;
 
-	bool quitting;
-
-
+	bool bIsQuitting;
 };
 

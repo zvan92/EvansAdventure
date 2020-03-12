@@ -10,23 +10,23 @@ void Run()
 {
 	bool running = true;
 
-	Game::Instance()->Init();
+	Game::GetInstance()->Initialize();
 
 	while (running)
 	{
-		Menu::Instance()->setQuitting(false);
+		Menu::GetInstance()->setIsQuitting(false);
 		int menuResult;
 		do
 		{
-			menuResult = Menu::Instance()->Run();
+			menuResult = Menu::GetInstance()->Run();
 		} while (menuResult == 1);
 
-		while (Game::Instance()->getGameOverStatus() == false)
+		while (Game::GetInstance()->getGameOverStatus() == false)
 		{
-			Game::Instance()->ExecuteTurn();
+			Game::GetInstance()->ExecuteTurn();
 		}
 
-		if (Menu::Instance()->getQuitting() == true)
+		if (Menu::GetInstance()->getIsQuitting() == true)
 		{
 			running = false;
 		}

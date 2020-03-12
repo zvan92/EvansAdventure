@@ -8,9 +8,14 @@ class Player
 {
 
 public:
-	Player() {};
+	Player() :
+		sCurrentGridID(""),
+		sName(""),
+		iHealth(0),
+		iTurnsCompleted(0) {};
 	~Player() {};
-	static Player *Instance()
+
+	static Player *GetInstance()
 	{
 		if (!instance)
 		{
@@ -18,27 +23,34 @@ public:
 		}
 		return instance;
 	}
-//FUNCTIONS========================================//
 
-	void setPlayerName(string value) { name = value; }
-	string getPlayerName() { return name; }
+//PUBLIC METHODS=========================================//
 
-	void setPlayerHealth(int value) { health = value; }
-	int getPlayerHealth() { return health; }
+	void setPlayerName(string value) { sName = value; }
+	string getPlayerName() { return sName; }
 
-	void setTurnsCompleted(int value) { turnsCompleted = value; }
-	int getTurnsCompleted() { return turnsCompleted; }
+	void setPlayerHealth(int value) { iHealth = value; }
+	int getPlayerHealth() { return iHealth; }
 
-	void setCurrentGridID(string value) { currentGridID = value; }
-	string getCurrentGridID() { return currentGridID; }
+	void setTurnsCompleted(int value) { iTurnsCompleted = value; }
+	int getTurnsCompleted() { return iTurnsCompleted; }
 
-//=================================================//
+	void setCurrentLocationGridID(string value) { sCurrentGridID = value; }
+	string getCurrentLocationGridID() { return sCurrentGridID; }
+
+	void MoveEast();
+	void MoveWest();
+	void MoveNorth();
+	void MoveSouth();
+	void LookAround();
+
 private:
 	static Player *instance;
 
-	string currentGridID;
-	string name;
-	int health;
-	int turnsCompleted;
+	string sCurrentGridID;
+	string sName;
+	int iHealth;
+	int iTurnsCompleted;
+
 	//TODO: add string vector for inventory items
 };

@@ -1,12 +1,14 @@
 #pragma once
 
+#include "MapManager.h"
+
 class Game
 {
 public:
 	Game() {};
 	~Game() {};
 
-	static Game *Instance()
+	static Game *GetInstance()
 	{
 		if (!instance)
 		{
@@ -14,29 +16,27 @@ public:
 		}
 		return instance;
 	}
-//FUNCTIONS========================================//
+
+//PUBLIC METHODS=========================================//
 
 	bool getGameOverStatus() { return gameOverStatus; }
 	void setGameOverStatus(bool value) { gameOverStatus = value; }
 
 	int CreatePlayer();
-	bool CollisionCheck(const char* direction);
+	bool CheckForCollision(MapManager::Direction direction);
 	void ExecuteTurn();
 	void SaveProgress();
 	void DisplayMap();
-	void Init();
-	void MoveEast();
-	void MoveWest();
-	void MoveNorth();
-	void MoveSouth();
+	void Initialize();
 	void PromptForDirection();
-	void LookAround();
 
-//=================================================//
 private:
 	static Game *instance;
 
 	static bool gameOverStatus;
-	int PromptUserChoice();
+
+//PRIVATE METHODS========================================//
+
+	int PromptForChoice();
 };
 

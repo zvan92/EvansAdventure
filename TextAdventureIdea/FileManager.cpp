@@ -48,7 +48,7 @@ void FileManager::PromptForSave()
 	cout << "==           EVAN'S ADVENTURE           ==\n";
 	cout << "==========================================\n";
 	cout << "             [ Save Progress ]\n\n";
-	cout << "Save your progress, " << Player::Instance()->getPlayerName() << "? (Y/N) ";
+	cout << "Save your progress, " << Player::GetInstance()->getPlayerName() << "? (Y/N) ";
 
 	char choice;
 	string input;
@@ -118,17 +118,17 @@ int FileManager::ReadFromFile(const char *pathToFile)
 	fread(&health, sizeof(int), 1, fileptr);
 	fread(&turnsCompleted, sizeof(int), 1, fileptr);
 
-	Player::Instance()->setPlayerName(name);
-	Player::Instance()->setPlayerHealth(health);
-	Player::Instance()->setTurnsCompleted(turnsCompleted);
-	Player::Instance()->setCurrentGridID(gridID);
+	Player::GetInstance()->setPlayerName(name);
+	Player::GetInstance()->setPlayerHealth(health);
+	Player::GetInstance()->setTurnsCompleted(turnsCompleted);
+	Player::GetInstance()->setCurrentLocationGridID(gridID);
 
 	fclose(fileptr);
 	fileptr = NULL;
 	delete fileptr;
 	delete[] name;
 
-	cout << "Character file: " << Player::Instance()->getPlayerName() << "\nloaded successfully.\n\n";
+	cout << "Character file: " << Player::GetInstance()->getPlayerName() << "\nloaded successfully.\n\n";
 	system("pause");
 
 	return 0;
@@ -148,16 +148,16 @@ void FileManager::WriteToFile(const char *pathToFile)
 		return;
 	}
 
-	int nameLength = Player::Instance()->getPlayerName().length() + 1;
-	int currentGridIDLength = Player::Instance()->getCurrentGridID().length() + 1;
-	int health = Player::Instance()->getPlayerHealth();
-	int turnsCompleted = Player::Instance()->getTurnsCompleted();
+	int nameLength = static_cast<int>(Player::GetInstance()->getPlayerName().length() + 1);
+	int currentGridIDLength = static_cast<int>(Player::GetInstance()->getCurrentLocationGridID().length() + 1);
+	int health = Player::GetInstance()->getPlayerHealth();
+	int turnsCompleted = Player::GetInstance()->getTurnsCompleted();
 	
-	char* name_array = new char[Player::Instance()->getPlayerName().length() + 1];
-	strcpy_s(name_array, Player::Instance()->getPlayerName().length() + 1, Player::Instance()->getPlayerName().c_str());
+	char* name_array = new char[Player::GetInstance()->getPlayerName().length() + 1];
+	strcpy_s(name_array, Player::GetInstance()->getPlayerName().length() + 1, Player::GetInstance()->getPlayerName().c_str());
 
-	char* gridID_array = new char[Player::Instance()->getCurrentGridID().length() + 1];
-	strcpy_s(gridID_array, Player::Instance()->getCurrentGridID().length() + 1, Player::Instance()->getCurrentGridID().c_str());
+	char* gridID_array = new char[Player::GetInstance()->getCurrentLocationGridID().length() + 1];
+	strcpy_s(gridID_array, Player::GetInstance()->getCurrentLocationGridID().length() + 1, Player::GetInstance()->getCurrentLocationGridID().c_str());
 
 	fwrite(&nameLength, sizeof(int), 1, fileptr);
 	fwrite(name_array, sizeof(char), nameLength, fileptr);
@@ -172,6 +172,6 @@ void FileManager::WriteToFile(const char *pathToFile)
 	delete[] name_array;
 	delete[] gridID_array;
 
-	cout << "Character file: " << Player::Instance()->getPlayerName() << "\nSaved to location: " << pathToFile << "\n\n";
+	cout << "Character file: " << Player::GetInstance()->getPlayerName() << "\nSaved to location: " << pathToFile << "\n\n";
 	system("pause");
 }

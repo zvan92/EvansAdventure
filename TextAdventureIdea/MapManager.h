@@ -1,8 +1,7 @@
 #pragma once
 
-#include <list>
+#include "Room.h"
 #include <unordered_map>
-#include <string>
 
 using namespace std;
 
@@ -12,7 +11,7 @@ public:
 	MapManager() {};
 	~MapManager() {};
 
-	static MapManager *Instance()
+	static MapManager* GetInstance()
 	{
 		if (!instance)
 		{
@@ -21,39 +20,26 @@ public:
 		return instance;
 	}
 
-	struct Room
+	enum Direction
 	{
-		Room() {};
-		~Room() {};
-
-		Room(bool setNorthWall, bool setSouthWall, bool setWestWall, bool setEastWall) 
-		{
-			hasNorthWall = setNorthWall;
-			hasSouthWall = setSouthWall;
-			hasWestWall = setWestWall;
-			hasEastWall = setEastWall;
-		};
-
-		bool hasNorthWall;
-		bool hasSouthWall;
-		bool hasWestWall;
-		bool hasEastWall;
-		list <string> roomItems;
-		//TODO: puzzle progression item
+		NORTH,
+		SOUTH,
+		EAST,
+		WEST
 	};
 
-	// TODO: make this map NOT public
-	unordered_map<string, Room> roomMap;
+//PUBLIC METHODS=========================================//
 
-//FUNCTIONS========================================//
+	unordered_map<string, Room> GetRoomMap() { return roomMap; }
 
 	void TransferToPlayerIventory(string roomItem);
 	void TransferItemToRoom(string item, string gridID);
 	void DescribeRoom(string gridID);
 	void CreateRooms();
 
-//=================================================//
 private:
 	static MapManager *instance;
+
+	unordered_map<string, Room> roomMap;
 };
 

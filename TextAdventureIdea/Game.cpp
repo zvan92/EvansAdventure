@@ -14,15 +14,15 @@ Game *Game::instance = 0;
 
 bool Game::gameOverStatus = false;
 
-void Game::Init()
+void Game::Initialize()
 {
-	MapManager::Instance()->CreateRooms();
+	MapManager::GetInstance()->CreateRooms();
 }
 
 void Game::ExecuteTurn() 
 {
 	//TODO: make better "game win" event
-	if (Player::Instance()->getCurrentGridID() == "B13")
+	if (Player::GetInstance()->getCurrentLocationGridID() == "B13")
 	{
 		system("cls");
 		cout << "You've escaped! Congratulations!\n\n";
@@ -33,7 +33,7 @@ void Game::ExecuteTurn()
 	int choice = 0;
 	while (choice == 0)
 	{
-		choice = PromptUserChoice();
+		choice = PromptForChoice();
 	}
 
 	switch (choice)
@@ -44,14 +44,14 @@ void Game::ExecuteTurn()
 		break;
 	case 2:
 		system("cls");
-		LookAround();
-		Player::Instance()->setTurnsCompleted(Player::Instance()->getTurnsCompleted() + 1);
+		Player::GetInstance()->LookAround();
+		Player::GetInstance()->setTurnsCompleted(Player::GetInstance()->getTurnsCompleted() + 1);
 		system("PAUSE");
 		break;
 	case 3:
 		system("cls");
-		cout << "(" << Player::Instance()->getPlayerName() << " uses an item)\n\n";
-		Player::Instance()->setTurnsCompleted(Player::Instance()->getTurnsCompleted() + 1);
+		cout << "(" << Player::GetInstance()->getPlayerName() << " uses an item)\n\n";
+		Player::GetInstance()->setTurnsCompleted(Player::GetInstance()->getTurnsCompleted() + 1);
 		system("PAUSE");
 		break;
 	case 4:
@@ -67,7 +67,7 @@ void Game::ExecuteTurn()
 		cout << "==           EVAN'S ADVENTURE           ==\n";
 		cout << "==========================================\n";
 		cout << "               [ End Game ]\n\n";
-		cout << "All unsaved progress will be lost.\n\nAre you sure, " << Player::Instance()->getPlayerName() << "? (Y/N): ";
+		cout << "All unsaved progress will be lost.\n\nAre you sure, " << Player::GetInstance()->getPlayerName() << "? (Y/N): ";
 
 		string input;
 		char choice;
@@ -89,18 +89,18 @@ void Game::ExecuteTurn()
 			break;
 		}
 
-		Player::Instance()->setPlayerName("");
-		Player::Instance()->setPlayerHealth(0);
+		Player::GetInstance()->setPlayerName("");
+		Player::GetInstance()->setPlayerHealth(0);
 
 		gameOverStatus = true;
 	}
 }
 
-int Game::PromptUserChoice()
+int Game::PromptForChoice()
 {
 	system("cls");
-	cout << "Turns completed: " << Player::Instance()->getTurnsCompleted() << "\n\n";
-	cout << "What would you like to do, " << Player::Instance()->getPlayerName() << "?\n\n";
+	cout << "Turns completed: " << Player::GetInstance()->getTurnsCompleted() << "\n\n";
+	cout << "What would you like to do, " << Player::GetInstance()->getPlayerName() << "?\n\n";
 	cout << "(1) Move\n(2) Look Around\n(3) Use Item\n(4) View Map\n(5) Save Progress\n(6) End Game\n\nEnter Choice: ";
 
 	string input;
@@ -169,17 +169,17 @@ int Game::CreatePlayer()
 		}
 	}
 	
-	Player::Instance()->setPlayerName(name);
-	Player::Instance()->setPlayerHealth(100);
-	Player::Instance()->setTurnsCompleted(0);
-	Player::Instance()->setCurrentGridID("A4");
+	Player::GetInstance()->setPlayerName(name);
+	Player::GetInstance()->setPlayerHealth(100);
+	Player::GetInstance()->setTurnsCompleted(0);
+	Player::GetInstance()->setCurrentLocationGridID("A4");
 
 	return 0;
 }
 
 void Game::SaveProgress()
 {
-	FileManager::Instance()->PromptForSave();
+	FileManager::GetInstance()->PromptForSave();
 }
 
 void Game::DisplayMap()
@@ -201,169 +201,169 @@ void Game::DisplayMap()
 	system("pause");
 }
 
-void Game::MoveEast()
-{
-	if (CollisionCheck("east"))
-	{
-		cout << "You cannot move East.\n\n";
-	}
-	else
-	{
-		string s = Player::Instance()->getCurrentGridID();
-		int yValue1 = NULL;
-		int yValue2 = NULL;
-
-		//if our first digit is 9, automatically make number = 10
-		if (s[1] == '9')
-		{
-			s[1] = '1';
-			s.append("0");
-		}
-		else
-		{
-			//if y-coordinate is 2 digit number, make sure first digit is 1
-			if (s[2] != NULL)
-			{
-				yValue1 = 1;
-				yValue2 = (int)s[2];
-			}
-			//and for one digit numbers do this
-			else
-			{
-				yValue1 = (int)s[1];
-			}
-
-			//move east on the grid
-			if (s[2] != NULL)
-			{
-				yValue2++;
-			}
-			else
-			{
-				yValue1++;
-			}
-
-			if (s[2] != NULL)
-			{
-				s[2] = yValue2;
-			}
-			else
-			{
-				s[1] = yValue1;
-			}
-		}
-
-		cout << Player::Instance()->getPlayerName() << " moved East.\n\n";
-
-		Player::Instance()->setCurrentGridID(s);
-		Player::Instance()->setTurnsCompleted(Player::Instance()->getTurnsCompleted() + 1);
-	}
-	
-	system("pause");
-}
-
-void Game::MoveWest()
-{
-	if (CollisionCheck("west"))
-	{
-		cout << "You cannot move West.\n\n";
-	}
-	else
-	{
-		string s = Player::Instance()->getCurrentGridID();
-		int yValue1 = NULL;
-		int yValue2 = NULL;
-
-		if (s[1] == '1' && s[2] == '0')
-		{
-			s[1] = '9';
-			s.erase(s.begin() + 2);
-		}
-		else
-		{
-			if (s[2] != NULL)
-			{
-				yValue1 = 1;
-				yValue2 = (int)s[2];
-			}
-			else
-			{
-				yValue1 = (int)s[1];
-			}
-
-			if (s[2] != NULL)
-			{
-				yValue2--;
-			}
-			else
-			{
-				yValue1--;
-			}
-
-			if (s[2] != NULL)
-			{
-				s[2] = yValue2;
-			}
-			else
-			{
-				s[1] = yValue1;
-			}
-		}
-
-		cout << Player::Instance()->getPlayerName() << " moved West.\n\n";
-
-		Player::Instance()->setCurrentGridID(s);
-		Player::Instance()->setTurnsCompleted(Player::Instance()->getTurnsCompleted() + 1);
-	}
-
-	system("pause");
-}
-
-void Game::MoveNorth()
-{
-	if (CollisionCheck("north"))
-	{
-		cout << "You cannot move North.\n\n";
-	}
-	else
-	{
-		string s = Player::Instance()->getCurrentGridID();
-		char xValue = s[0];
-
-		xValue++;
-		s[0] = xValue;
-
-		cout << Player::Instance()->getPlayerName() << " moved North.\n\n";
-
-		Player::Instance()->setCurrentGridID(s);
-		Player::Instance()->setTurnsCompleted(Player::Instance()->getTurnsCompleted() + 1);
-	}
-
-	system("pause");
-}
-
-void Game::MoveSouth()
-{
-	if (CollisionCheck("south"))
-	{
-		cout << "You cannot move South.\n\n";
-	}
-	else
-	{
-		string s = Player::Instance()->getCurrentGridID();
-		char xValue = s[0];
-
-		xValue--;
-		s[0] = xValue;
-
-		cout << Player::Instance()->getPlayerName() << " moved South.\n\n";
-
-		Player::Instance()->setCurrentGridID(s);
-		Player::Instance()->setTurnsCompleted(Player::Instance()->getTurnsCompleted() + 1);
-	}
-	
-	system("pause");
-}
+//void Game::MoveEast()
+//{
+//	if (CheckForCollision("east"))
+//	{
+//		cout << "You cannot move East.\n\n";
+//	}
+//	else
+//	{
+//		string s = Player::GetInstance()->getCurrentLocationGridID();
+//		int yValue1 = NULL;
+//		int yValue2 = NULL;
+//
+//		//if our first digit is 9, automatically make number = 10
+//		if (s[1] == '9')
+//		{
+//			s[1] = '1';
+//			s.append("0");
+//		}
+//		else
+//		{
+//			//if y-coordinate is 2 digit number, make sure first digit is 1
+//			if (s[2] != NULL)
+//			{
+//				yValue1 = 1;
+//				yValue2 = (int)s[2];
+//			}
+//			//and for one digit numbers do this
+//			else
+//			{
+//				yValue1 = (int)s[1];
+//			}
+//
+//			//move east on the grid
+//			if (s[2] != NULL)
+//			{
+//				yValue2++;
+//			}
+//			else
+//			{
+//				yValue1++;
+//			}
+//
+//			if (s[2] != NULL)
+//			{
+//				s[2] = yValue2;
+//			}
+//			else
+//			{
+//				s[1] = yValue1;
+//			}
+//		}
+//
+//		cout << Player::GetInstance()->getPlayerName() << " moved East.\n\n";
+//
+//		Player::GetInstance()->setCurrentLocationGridID(s);
+//		Player::GetInstance()->setTurnsCompleted(Player::GetInstance()->getTurnsCompleted() + 1);
+//	}
+//	
+//	system("pause");
+//}
+//
+//void Game::MoveWest()
+//{
+//	if (CheckForCollision("west"))
+//	{
+//		cout << "You cannot move West.\n\n";
+//	}
+//	else
+//	{
+//		string s = Player::GetInstance()->getCurrentLocationGridID();
+//		int yValue1 = NULL;
+//		int yValue2 = NULL;
+//
+//		if (s[1] == '1' && s[2] == '0')
+//		{
+//			s[1] = '9';
+//			s.erase(s.begin() + 2);
+//		}
+//		else
+//		{
+//			if (s[2] != NULL)
+//			{
+//				yValue1 = 1;
+//				yValue2 = (int)s[2];
+//			}
+//			else
+//			{
+//				yValue1 = (int)s[1];
+//			}
+//
+//			if (s[2] != NULL)
+//			{
+//				yValue2--;
+//			}
+//			else
+//			{
+//				yValue1--;
+//			}
+//
+//			if (s[2] != NULL)
+//			{
+//				s[2] = yValue2;
+//			}
+//			else
+//			{
+//				s[1] = yValue1;
+//			}
+//		}
+//
+//		cout << Player::GetInstance()->getPlayerName() << " moved West.\n\n";
+//
+//		Player::GetInstance()->setCurrentLocationGridID(s);
+//		Player::GetInstance()->setTurnsCompleted(Player::GetInstance()->getTurnsCompleted() + 1);
+//	}
+//
+//	system("pause");
+//}
+//
+//void Game::MoveNorth()
+//{
+//	if (CheckForCollision("north"))
+//	{
+//		cout << "You cannot move North.\n\n";
+//	}
+//	else
+//	{
+//		string s = Player::GetInstance()->getCurrentLocationGridID();
+//		char xValue = s[0];
+//
+//		xValue++;
+//		s[0] = xValue;
+//
+//		cout << Player::GetInstance()->getPlayerName() << " moved North.\n\n";
+//
+//		Player::GetInstance()->setCurrentLocationGridID(s);
+//		Player::GetInstance()->setTurnsCompleted(Player::GetInstance()->getTurnsCompleted() + 1);
+//	}
+//
+//	system("pause");
+//}
+//
+//void Game::MoveSouth()
+//{
+//	if (CheckForCollision("south"))
+//	{
+//		cout << "You cannot move South.\n\n";
+//	}
+//	else
+//	{
+//		string s = Player::GetInstance()->getCurrentLocationGridID();
+//		char xValue = s[0];
+//
+//		xValue--;
+//		s[0] = xValue;
+//
+//		cout << Player::GetInstance()->getPlayerName() << " moved South.\n\n";
+//
+//		Player::GetInstance()->setCurrentLocationGridID(s);
+//		Player::GetInstance()->setTurnsCompleted(Player::GetInstance()->getTurnsCompleted() + 1);
+//	}
+//	
+//	system("pause");
+//}
 
 void Game::PromptForDirection()
 {
@@ -394,19 +394,19 @@ void Game::PromptForDirection()
 		{
 		case 1:
 			system("cls");
-			MoveNorth();
+			Player::GetInstance()->MoveNorth();
 			break;
 		case 2:
 			system("cls");
-			MoveSouth();
+			Player::GetInstance()->MoveSouth();
 			break;
 		case 3:
 			system("cls");
-			MoveEast();
+			Player::GetInstance()->MoveEast();
 			break;
 		case 4:
 			system("cls");
-			MoveWest();
+			Player::GetInstance()->MoveWest();
 			break;
 		case 5:
 			break;
@@ -414,11 +414,13 @@ void Game::PromptForDirection()
 	}
 }
 
-bool Game::CollisionCheck(const char* direction)
+bool Game::CheckForCollision(MapManager::Direction direction)
 {
-	if (direction == "west")
+	switch (direction)
 	{
-		if (MapManager::Instance()->roomMap[Player::Instance()->getCurrentGridID()].hasWestWall == true)
+	case MapManager::Direction::WEST:
+	{
+		if (MapManager::GetInstance()->GetRoomMap()[Player::GetInstance()->getCurrentLocationGridID()].GetHasWestWall() == true)
 		{
 			return true;
 		}
@@ -427,9 +429,9 @@ bool Game::CollisionCheck(const char* direction)
 			return false;
 		}
 	}
-	else if (direction == "north")
+	case MapManager::Direction::NORTH:
 	{
-		if (MapManager::Instance()->roomMap[Player::Instance()->getCurrentGridID()].hasNorthWall == true)
+		if (MapManager::GetInstance()->GetRoomMap()[Player::GetInstance()->getCurrentLocationGridID()].GetHasNorthWall() == true)
 		{
 			return true;
 		}
@@ -438,9 +440,9 @@ bool Game::CollisionCheck(const char* direction)
 			return false;
 		}
 	}
-	else if (direction == "east")
+	case MapManager::Direction::EAST:
 	{
-		if (MapManager::Instance()->roomMap[Player::Instance()->getCurrentGridID()].hasEastWall == true)
+		if (MapManager::GetInstance()->GetRoomMap()[Player::GetInstance()->getCurrentLocationGridID()].GetHasEastWall() == true)
 		{
 			return true;
 		}
@@ -449,9 +451,9 @@ bool Game::CollisionCheck(const char* direction)
 			return false;
 		}
 	}
-	else if (direction == "south")
+	case MapManager::Direction::SOUTH:
 	{
-		if (MapManager::Instance()->roomMap[Player::Instance()->getCurrentGridID()].hasSouthWall == true)
+		if (MapManager::GetInstance()->GetRoomMap()[Player::GetInstance()->getCurrentLocationGridID()].GetHasSouthWall() == true)
 		{
 			return true;
 		}
@@ -459,12 +461,8 @@ bool Game::CollisionCheck(const char* direction)
 		{
 			return false;
 		}
+	}
 	}
 
 	return false;
-}
-
-void Game::LookAround()
-{
-	MapManager::Instance()->DescribeRoom(Player::Instance()->getCurrentGridID());
 }

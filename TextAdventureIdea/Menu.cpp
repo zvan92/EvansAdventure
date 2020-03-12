@@ -12,7 +12,7 @@ Menu *Menu::instance = 0;
 
 int Menu::Run()
 {
-	quitting = false;
+	bIsQuitting = false;
 
 	system("cls");
 	cout << "==========================================\n";
@@ -30,25 +30,25 @@ int Menu::Run()
 	switch (choice)
 	{
 	case 1:
-		if (Game::Instance()->CreatePlayer() == 1)
+		if (Game::GetInstance()->CreatePlayer() == 1)
 		{
 			return 1;
 		}
-		Game::Instance()->setGameOverStatus(false);
+		Game::GetInstance()->setGameOverStatus(false);
 		break;
 	case 2:
-		if (FileManager::Instance()->PromptForLoad() == 1)
+		if (FileManager::GetInstance()->PromptForLoad() == 1)
 		{
 			return 1;
 		}
-		Game::Instance()->setGameOverStatus(false);
+		Game::GetInstance()->setGameOverStatus(false);
 		break;
 	case 3:
 		system("cls");
 		cout << "Thanks for playing!\n\n";
 		system("pause");
-		Game::Instance()->setGameOverStatus(true);
-		Menu::Instance()->setQuitting(true);
+		Game::GetInstance()->setGameOverStatus(true);
+		Menu::GetInstance()->setIsQuitting(true);
 		break;
 	default:
 		return 1;

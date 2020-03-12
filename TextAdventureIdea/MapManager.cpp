@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "MapManager.h"
+#include "Room.h"
 #include <iostream>
 
 using namespace std;
@@ -112,26 +113,26 @@ void MapManager::DescribeRoom(string gridID)
 {
 	system("cls");
 
-	if (roomMap[gridID].hasNorthWall == true)
+	if (roomMap[gridID].GetHasNorthWall() == true)
 	{
 		cout << "There is a wall to the North.\n";
 	}
-	if (roomMap[gridID].hasSouthWall == true)
+	if (roomMap[gridID].GetHasSouthWall() == true)
 	{
 		cout << "There is a wall to the South.\n";
 	}
-	if (roomMap[gridID].hasEastWall == true)
+	if (roomMap[gridID].GetHasEastWall() == true)
 	{
 		cout << "There is a wall to the East.\n";
 	}
-	if (roomMap[gridID].hasWestWall == true)
+	if (roomMap[gridID].GetHasWestWall() == true)
 	{
 		cout << "There is a wall to the West.\n";
 	}
-	if (roomMap[gridID].hasNorthWall == false &&
-		roomMap[gridID].hasSouthWall == false &&
-		roomMap[gridID].hasEastWall == false &&
-		roomMap[gridID].hasWestWall == false)
+	if (roomMap[gridID].GetHasNorthWall() == false &&
+		roomMap[gridID].GetHasSouthWall() == false &&
+		roomMap[gridID].GetHasEastWall() == false &&
+		roomMap[gridID].GetHasWestWall() == false)
 	{
 		cout << "There are no walls nearby.\n";
 	}

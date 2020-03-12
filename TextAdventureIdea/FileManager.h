@@ -6,7 +6,7 @@ public:
 	~FileManager() {};
 	FileManager() {};
 
-	static FileManager *Instance()
+	static FileManager *GetInstance()
 	{
 		if (!instance)
 		{
@@ -14,16 +14,19 @@ public:
 		}
 		return instance;
 	}
-//FUNCTIONS========================================//
+
+//PUBLIC METHODS=========================================//
 
 	void PromptForSave();
 	int PromptForLoad();
 
-//=================================================//
 private:
 	static FileManager *instance;
 
+//PRIVATE METHODS========================================//
+
 	int ReadFromFile(const char *pathToFile);
 	void WriteToFile(const char *pathToFile);
+
 };
 
