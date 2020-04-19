@@ -7,11 +7,6 @@ using namespace std;
 
 MapManager *MapManager::instance = 0;
 
-void MapManager::TransferToPlayerIventory(string item)
-{
-	//TODO: write this
-}
-
 void MapManager::CreateRooms()
 {
 	// H ROW
@@ -104,11 +99,6 @@ void MapManager::CreateRooms()
 	roomMap["A12"] = Room(1, 1, 0, 1);
 }
 
-void MapManager::TransferItemToRoom(string item, string gridID)
-{
-	//TODO: write this
-}
-
 void MapManager::DescribeRoom(string gridID)
 {
 	system("cls");
@@ -138,4 +128,14 @@ void MapManager::DescribeRoom(string gridID)
 	}
 
 	cout << endl;
+}
+
+void MapManager::TransferItemToPlayer(string item)
+{
+	//TODO: write this
+}
+
+void MapManager::TransferItemToRoom(string item, string gridID)
+{
+	//TODO: write this
 }

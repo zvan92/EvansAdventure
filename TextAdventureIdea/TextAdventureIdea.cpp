@@ -10,7 +10,7 @@ void Run()
 {
 	bool running = true;
 
-	Game::GetInstance()->Initialize();
+	Game::GetInstance()->Init();
 
 	while (running)
 	{
@@ -23,7 +23,7 @@ void Run()
 
 		while (Game::GetInstance()->getGameOverStatus() == false)
 		{
-			Game::GetInstance()->ExecuteTurn();
+			Game::GetInstance()->StartPlayerTurn();
 		}
 
 		if (Menu::GetInstance()->getIsQuitting() == true)

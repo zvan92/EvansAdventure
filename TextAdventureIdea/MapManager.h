@@ -32,10 +32,11 @@ public:
 
 	unordered_map<string, Room> GetRoomMap() { return roomMap; }
 
-	void TransferToPlayerIventory(string roomItem);
-	void TransferItemToRoom(string item, string gridID);
-	void DescribeRoom(string gridID);
 	void CreateRooms();
+	void DescribeRoom(string gridID);
+	void TransferItemToPlayer(string roomItem);
+	void TransferItemToRoom(string item, string gridID);
+
 
 private:
 	static MapManager *instance;

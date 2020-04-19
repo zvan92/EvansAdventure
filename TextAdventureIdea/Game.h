@@ -22,13 +22,13 @@ public:
 	bool getGameOverStatus() { return gameOverStatus; }
 	void setGameOverStatus(bool value) { gameOverStatus = value; }
 
-	int CreatePlayer();
 	bool CheckForCollision(MapManager::Direction direction);
-	void ExecuteTurn();
-	void SaveProgress();
+	int CreatePlayer();
 	void DisplayMap();
-	void Initialize();
+	void Init();
 	void PromptForDirection();
+	void SaveProgress();
+	void StartPlayerTurn();
 
 private:
 	static Game *instance;

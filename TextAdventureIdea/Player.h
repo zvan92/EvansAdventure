@@ -26,27 +26,28 @@ public:
 
 //PUBLIC METHODS=========================================//
 
-	void setPlayerName(string value) { sName = value; }
-	string getPlayerName() { return sName; }
+	void setCurrentLocationGridID(string value) { sCurrentGridID = value; }
+	string getCurrentLocationGridID() { return sCurrentGridID; }
 
 	void setPlayerHealth(int value) { iHealth = value; }
 	int getPlayerHealth() { return iHealth; }
 
+	void setPlayerName(string value) { sName = value; }
+	string getPlayerName() { return sName; }
+
 	void setTurnsCompleted(int value) { iTurnsCompleted = value; }
 	int getTurnsCompleted() { return iTurnsCompleted; }
 
-	void setCurrentLocationGridID(string value) { sCurrentGridID = value; }
-	string getCurrentLocationGridID() { return sCurrentGridID; }
-
-	void MoveEast();
-	void MoveWest();
+	void LookAround();
 	void MoveNorth();
 	void MoveSouth();
-	void LookAround();
+	void MoveEast();
+	void MoveWest();
 
 private:
 	static Player *instance;
 
+	//The Grid ID is an X/Y coordinate; the X is represented by a letter and the Y is represented by a number (e.g. A5).
 	string sCurrentGridID;
 	string sName;
 	int iHealth;

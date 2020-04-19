@@ -6,122 +6,9 @@
 
 Player *Player::instance = 0;
 
-void Player::MoveEast()
+void Player::LookAround()
 {
-	if (Game::GetInstance()->CheckForCollision(MapManager::Direction::EAST))
-	{
-		cout << "You cannot move East.\n\n";
-	}
-	else
-	{
-		string s = Player::GetInstance()->getCurrentLocationGridID();
-		int yValue1 = NULL;
-		int yValue2 = NULL;
-
-		//if our first digit is 9, automatically make number = 10
-		if (s[1] == '9')
-		{
-			s[1] = '1';
-			s.append("0");
-		}
-		else
-		{
-			//if y-coordinate is 2 digit number, make sure first digit is 1
-			if (s[2] != NULL)
-			{
-				yValue1 = 1;
-				yValue2 = (int)s[2];
-			}
-			//and for one digit numbers do this
-			else
-			{
-				yValue1 = (int)s[1];
-			}
-
-			//move east on the grid
-			if (s[2] != NULL)
-			{
-				yValue2++;
-			}
-			else
-			{
-				yValue1++;
-			}
-
-			if (s[2] != NULL)
-			{
-				s[2] = yValue2;
-			}
-			else
-			{
-				s[1] = yValue1;
-			}
-		}
-
-		cout << Player::GetInstance()->getPlayerName() << " moved East.\n\n";
-
-		Player::GetInstance()->setCurrentLocationGridID(s);
-		Player::GetInstance()->setTurnsCompleted(Player::GetInstance()->getTurnsCompleted() + 1);
-	}
-
-	system("pause");
-}
-
-void Player::MoveWest()
-{
-	if (Game::GetInstance()->CheckForCollision(MapManager::Direction::WEST))
-	{
-		cout << "You cannot move West.\n\n";
-	}
-	else
-	{
-		string s = Player::GetInstance()->getCurrentLocationGridID();
-		int yValue1 = NULL;
-		int yValue2 = NULL;
-
-		if (s[1] == '1' && s[2] == '0')
-		{
-			s[1] = '9';
-			s.erase(s.begin() + 2);
-		}
-		else
-		{
-			if (s[2] != NULL)
-			{
-				yValue1 = 1;
-				yValue2 = (int)s[2];
-			}
-			else
-			{
-				yValue1 = (int)s[1];
-			}
-
-			if (s[2] != NULL)
-			{
-				yValue2--;
-			}
-			else
-			{
-				yValue1--;
-			}
-
-			if (s[2] != NULL)
-			{
-				s[2] = yValue2;
-			}
-			else
-			{
-				s[1] = yValue1;
-			}
-		}
-
-		cout << Player::GetInstance()->getPlayerName() << " moved West.\n\n";
-
-		Player::GetInstance()->setCurrentLocationGridID(s);
-		Player::GetInstance()->setTurnsCompleted(Player::GetInstance()->getTurnsCompleted() + 1);
-	}
-
-	system("pause");
+	MapManager::GetInstance()->DescribeRoom(Player::GetInstance()->getCurrentLocationGridID());
 }
 
 void Player::MoveNorth()
@@ -132,15 +19,15 @@ void Player::MoveNorth()
 	}
 	else
 	{
-		string s = Player::GetInstance()->getCurrentLocationGridID();
-		char xValue = s[0];
+		string sCurrentGridID = Player::GetInstance()->getCurrentLocationGridID();
+		char xValue = sCurrentGridID[0];
 
 		xValue++;
-		s[0] = xValue;
+		sCurrentGridID[0] = xValue;
 
 		cout << Player::GetInstance()->getPlayerName() << " moved North.\n\n";
 
-		Player::GetInstance()->setCurrentLocationGridID(s);
+		Player::GetInstance()->setCurrentLocationGridID(sCurrentGridID);
 		Player::GetInstance()->setTurnsCompleted(Player::GetInstance()->getTurnsCompleted() + 1);
 	}
 
@@ -155,22 +42,135 @@ void Player::MoveSouth()
 	}
 	else
 	{
-		string s = Player::GetInstance()->getCurrentLocationGridID();
-		char xValue = s[0];
+		string sCurrentGridID = Player::GetInstance()->getCurrentLocationGridID();
+		char xValue = sCurrentGridID[0];
 
 		xValue--;
-		s[0] = xValue;
+		sCurrentGridID[0] = xValue;
 
 		cout << Player::GetInstance()->getPlayerName() << " moved South.\n\n";
 
-		Player::GetInstance()->setCurrentLocationGridID(s);
+		Player::GetInstance()->setCurrentLocationGridID(sCurrentGridID);
 		Player::GetInstance()->setTurnsCompleted(Player::GetInstance()->getTurnsCompleted() + 1);
 	}
 
 	system("pause");
 }
 
-void Player::LookAround()
+void Player::MoveEast()
 {
-	MapManager::GetInstance()->DescribeRoom(Player::GetInstance()->getCurrentLocationGridID());
+	if (Game::GetInstance()->CheckForCollision(MapManager::Direction::EAST))
+	{
+		cout << "You cannot move East.\n\n";
+	}
+	else
+	{
+		//Grid ID: [0] will be the X, [1] will be the first digit of the Y
+		string sCurrentGridID = Player::GetInstance()->getCurrentLocationGridID();
+		int yValue1 = NULL;
+		int yValue2 = NULL;
+
+		//ensure that the Y value can change to 2-digits
+		if (sCurrentGridID[1] == '9')
+		{
+			sCurrentGridID[1] = '1';
+			sCurrentGridID.append("0");
+		}
+		else
+		{
+			//if the Y value is 2 digits, make sure the first digit = 1
+			if (sCurrentGridID[2] != NULL)
+			{
+				yValue1 = 1;
+				yValue2 = (int)sCurrentGridID[2];
+			}
+			else
+			{
+				yValue1 = (int)sCurrentGridID[1];
+			}
+
+			//move east on the grid
+			if (sCurrentGridID[2] != NULL)
+			{
+				yValue2++;
+			}
+			else
+			{
+				yValue1++;
+			}
+
+			if (sCurrentGridID[2] != NULL)
+			{
+				sCurrentGridID[2] = yValue2;
+			}
+			else
+			{
+				sCurrentGridID[1] = yValue1;
+			}
+		}
+
+		cout << Player::GetInstance()->getPlayerName() << " moved East.\n\n";
+
+		Player::GetInstance()->setCurrentLocationGridID(sCurrentGridID);
+		Player::GetInstance()->setTurnsCompleted(Player::GetInstance()->getTurnsCompleted() + 1);
+	}
+
+	system("pause");
+}
+
+void Player::MoveWest()
+{
+	if (Game::GetInstance()->CheckForCollision(MapManager::Direction::WEST))
+	{
+		cout << "You cannot move West.\n\n";
+	}
+	else
+	{
+		string sCurrentGridID = Player::GetInstance()->getCurrentLocationGridID();
+		int yValue1 = NULL;
+		int yValue2 = NULL;
+
+		if (sCurrentGridID[1] == '1' && sCurrentGridID[2] == '0')
+		{
+			sCurrentGridID[1] = '9';
+			sCurrentGridID.erase(sCurrentGridID.begin() + 2);
+		}
+		else
+		{
+			if (sCurrentGridID[2] != NULL)
+			{
+				yValue1 = 1;
+				yValue2 = (int)sCurrentGridID[2];
+			}
+			else
+			{
+				yValue1 = (int)sCurrentGridID[1];
+			}
+
+			if (sCurrentGridID[2] != NULL)
+			{
+				yValue2--;
+			}
+			else
+			{
+				yValue1--;
+			}
+
+			if (sCurrentGridID[2] != NULL)
+			{
+				sCurrentGridID[2] = yValue2;
+			}
+			else
+			{
+				sCurrentGridID[1] = yValue1;
+			}
+		}
+
+		cout << Player::GetInstance()->getPlayerName() << " moved West.\n\n";
+
+		Player::GetInstance()->setCurrentLocationGridID(sCurrentGridID);
+		Player::GetInstance()->setTurnsCompleted(Player::GetInstance()->getTurnsCompleted() + 1);
+	}
+
+	system("pause");
 }

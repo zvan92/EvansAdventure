@@ -17,8 +17,8 @@ public:
 
 //PUBLIC METHODS=========================================//
 
-	void PromptForSave();
 	int PromptForLoad();
+	void PromptForSave();
 
 private:
 	static FileManager *instance;
