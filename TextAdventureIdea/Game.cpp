@@ -4,6 +4,7 @@
 #include "Menu.h"
 #include "FileManager.h"
 #include "MapManager.h"
+#include "Food.h"
 #include <iostream>
 #include <sstream>
 #include <string>
@@ -142,12 +143,22 @@ void Game::DisplayMap()
 void Game::Init()
 {
 	MapManager::GetInstance()->CreateRooms();
+
+	// testing addition of items to player inventory
+	Food f;
+	f.setHealFactor(5);
+	f.setName("apple");
+
+	Player::GetInstance()->AddItemToInventory(f);
 }
 
 int Game::PromptForChoice()
 {
 	system("cls");
+	cout << "Player health:" << Player::GetInstance()->getPlayerHealth() << "\n\n";
 	cout << "Turns completed: " << Player::GetInstance()->getTurnsCompleted() << "\n\n";
+	// testing addition of items to player inventory
+	cout << "Inventory items: " << Player::GetInstance()->getPlayerItems().front().getName() << "\n\n";
 	cout << "What would you like to do, " << Player::GetInstance()->getPlayerName() << "?\n\n";
 	cout << "(1) Move\n(2) Look Around\n(3) View Inventory\n(4) View Map\n(5) Save Progress\n(6) End Game\n\nEnter Choice: ";
 

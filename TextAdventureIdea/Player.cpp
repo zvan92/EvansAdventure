@@ -2,9 +2,16 @@
 #include "Game.h"
 #include "MapManager.h"
 #include "Player.h"
-#include <iostream>
+#include "Item.h"
 
 Player *Player::instance = 0;
+
+void Player::AddItemToInventory(Item& item)
+{
+	std::vector<Item>::iterator it;
+	it = playerItems.begin();
+	playerItems.insert(it, item);
+}
 
 void Player::LookAround()
 {
