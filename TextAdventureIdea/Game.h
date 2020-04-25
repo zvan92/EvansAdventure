@@ -1,6 +1,7 @@
 #pragma once
 
 #include "MapManager.h"
+#include "Food.h"
 
 class Game
 {
@@ -24,11 +25,15 @@ public:
 
 	bool CheckForCollision(MapManager::Direction direction);
 	int CreatePlayer();
-	void DisplayMap();
+	void DisplayMapScreen();
+	void DisplayInventoryScreen();
+	void DisplayEndGameScreen();
 	void Init();
 	void PromptForDirection();
 	void SaveProgress();
 	void StartPlayerTurn();
+	
+	Food UnpackItem(Item& item);
 
 private:
 	static Game *instance;
@@ -37,6 +42,7 @@ private:
 
 //PRIVATE METHODS========================================//
 
-	int PromptForChoice();
+	int PromptForTurnAction();
+	void ListPlayerItems();
 };
 

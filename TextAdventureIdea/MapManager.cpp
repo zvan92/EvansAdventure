@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "MapManager.h"
 #include "Room.h"
+#include "Player.h"
 #include <iostream>
 
 using namespace std;
@@ -132,10 +133,16 @@ void MapManager::DescribeRoom(string gridID)
 
 void MapManager::TransferItemToPlayer(string item)
 {
-	//TODO: write this
+	/*TODO
+	#1) Player::GetInstance()->AddItemToInventory(item)
+	#2) remove item from roomItemMap
+	*/
 }
 
 void MapManager::TransferItemToRoom(string item, string gridID)
 {
-	//TODO: write this
+	/*TODO
+	#1) Player::DropItem(item)
+	#2) add item to roomItemMap
+	*/
 }

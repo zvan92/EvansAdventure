@@ -34,7 +34,4 @@ private:
 	bool hasSouthWall;
 	bool hasWestWall;
 	bool hasEastWall;
-	
-	//TODO: list <std::string> roomItems;
-	//TODO: puzzle progression item
 };

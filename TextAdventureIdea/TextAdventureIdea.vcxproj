@@ -165,7 +165,6 @@
     <ClCompile Include="FileManager.cpp" />
     <ClCompile Include="Food.cpp" />
     <ClCompile Include="Game.cpp" />
-    <ClCompile Include="Item.cpp" />
     <ClCompile Include="MapManager.cpp" />
     <ClCompile Include="Menu.cpp" />
     <ClCompile Include="pch.cpp">

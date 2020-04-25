@@ -74,7 +74,9 @@ int Game::CreatePlayer()
 
 	string name;
 
+	bool nameConfirmed = false;
 	bool confirmed = false;
+
 	while (!confirmed)
 	{
 		system("cls");
@@ -86,11 +88,23 @@ int Game::CreatePlayer()
 
 		string input;
 		char choice;
-		getline(cin, name);
-
-		if (name == "esc")
+		if (!nameConfirmed)
 		{
-			return 1;
+			getline(cin, name);
+
+			if (name == "esc")
+			{
+				confirmed = true;
+				return 1;
+			}
+			else
+			{
+				nameConfirmed = true;
+			}
+		}
+		else
+		{
+			cout << name << "\n";
 		}
 
 		cout << "\nAre you sure? (Y/N): ";
@@ -99,29 +113,29 @@ int Game::CreatePlayer()
 		stringstream stream(input);
 		stream >> choice;
 
-		if (input.length() == 1 && choice == 'y' || input.length() == 1 && choice == 'Y')
+		if (input.length() == 1 && (choice == 'y' || choice == 'Y'))
 		{
 			confirmed = true;
 		}
-		if (input.length() == 0 || input.length() > 1 ||
-			input.length() == 1 && choice != 'n' && choice != 'N' &&
-			choice != 'y' && choice != 'Y')
+		else if (input.length() == 1 && (choice == 'n' || choice == 'N'))
 		{
-			system("cls");
-			cout << "Invalid selection.\n\n";
-			system("pause");
+			nameConfirmed = false;
+		}
+		else
+		{
+			continue;
 		}
 	}
 
 	Player::GetInstance()->setPlayerName(name);
-	Player::GetInstance()->setPlayerHealth(100);
+	Player::GetInstance()->setPlayerEnergy(100);
 	Player::GetInstance()->setTurnsCompleted(0);
 	Player::GetInstance()->setCurrentLocationGridID("A4");
 
 	return 0;
 }
 
-void Game::DisplayMap()
+void Game::DisplayMapScreen()
 {
 	system("cls");
 	cout << "   EVAN'S ADVENTURE: MAP  \n";
@@ -140,25 +154,254 @@ void Game::DisplayMap()
 	system("pause");
 }
 
+void Game::DisplayEndGameScreen()
+{
+	bool confirmed = false;
+
+	while (!confirmed)
+	{
+		system("cls");
+		cout << "==========================================\n";
+		cout << "==           EVAN'S ADVENTURE           ==\n";
+		cout << "==========================================\n";
+		cout << "               [ End Game ]\n\n";
+		cout << "All unsaved progress will be lost.\n\nAre you sure, " << Player::GetInstance()->getPlayerName() << "? (Y/N): ";
+
+		string input;
+		char choice;
+		getline(cin, input);
+		stringstream stream(input);
+		stream >> choice;
+
+		if (input.length() == 1 && (choice == 'y' || choice == 'Y'))
+		{
+			gameOverStatus = true;
+			confirmed = true;
+		}
+		if (input.length() == 1 && (choice == 'n' || choice == 'N'))
+		{
+			confirmed = true;
+		}
+		else
+		{
+			continue;
+		}
+	}
+
+}
+
+void Game::DisplayInventoryScreen()
+{
+	/*TODO:
+	#3) for use item:
+		-> ask which item # they want to use it on (including room items)
+		-> call MapManager::ListRoomItems() for using on room items
+	*/
+
+	bool confirmed = false;
+
+	while (!confirmed)
+	{
+		system("cls");
+		cout << "      PLAYER INVENTORY     \n";
+		cout << "===========================\n\n";
+		ListPlayerItems();
+		cout << "(U) Use Item\n";
+		cout << "(D) Drop Item\n";
+		cout << "(Q) Return\n\n";
+		cout << "Enter choice: ";
+
+		string input;
+		getline(cin, input);
+		stringstream stream(input);
+		char choice;
+		stream >> choice;
+
+		if (input.length() == 1 && (choice == 'u' || choice == 'U'))
+		{
+			bool useConfirmed = false;
+
+			while (!useConfirmed)
+			{
+				system("cls");
+				cout << "      PLAYER INVENTORY     \n";
+				cout << "===========================\n\n";
+				cout << "Use which item?\n\n";
+				ListPlayerItems();
+				cout << "(Q) Return\n\n";
+				cout << "Enter choice: ";
+
+				getline(cin, input);
+				stringstream stream(input);
+				stream >> choice;
+
+				if (input.length() == 1)
+				{
+					int playerItemsSize = (int)Player::GetInstance()->getPlayerItems().size();
+					int iChoice = (int)choice - 48;
+
+					if (choice == 'q' || choice == 'Q')
+					{
+						useConfirmed = true;
+					}
+					else if (iChoice > 0 && iChoice <= playerItemsSize)
+					{
+						int element = iChoice - 1;
+						system("cls");
+
+						//TODO: testing if item is used on player
+						Item item(Player::GetInstance()->getPlayerItems().at(element));
+						if (item.getIsFood())
+						{
+							Food& food = (Food&)UnpackItem(item);
+							Player::GetInstance()->ConsumeItem(food);
+						}
+						else
+						{
+							Player::GetInstance()->ConsumeItem(item);
+						}
+						//TODO: implement "Use On" action branch
+
+						useConfirmed = true;
+						confirmed = true;
+					}
+					else
+					{
+						continue;
+					}
+				}
+				else
+				{
+					continue;
+				}
+			}
+		}
+		else if (input.length() == 1 && (choice == 'd' || choice == 'D'))
+		{
+			bool dropConfirmed = false;
+
+			while (!dropConfirmed)
+			{
+				system("cls");
+				cout << "      PLAYER INVENTORY     \n";
+				cout << "===========================\n\n";
+				cout << "Drop which item?\n\n";
+				ListPlayerItems();
+				cout << "(Q) Return\n\n";
+				cout << "Enter choice: ";
+
+				getline(cin, input);
+				stringstream stream(input);
+				stream >> choice;
+
+				if (input.length() == 1)
+				{
+					int playerItemsSize = (int)Player::GetInstance()->getPlayerItems().size();
+					int iChoice = (int)choice - 48;
+
+					if (choice == 'q' || choice == 'Q')
+					{
+						dropConfirmed = true;
+					}
+					else if (iChoice > 0 && iChoice <= playerItemsSize)
+					{
+						int element = iChoice - 1;
+						string itemName = Player::GetInstance()->getPlayerItems().at(element).getName();
+						system("cls");
+
+						Player::GetInstance()->DropItem(Player::GetInstance()->getPlayerItems().at(element));
+						cout << Player::GetInstance()->getPlayerName() << " dropped the " << itemName << ".\n\n";
+						system("PAUSE");
+
+						dropConfirmed = true;
+						confirmed = true;
+					}
+					else
+					{
+						continue;
+					}
+				}
+				else
+				{
+					continue;
+				}
+			}
+		}
+		else if (input.length() == 1 && (choice == 'q' || choice == 'Q'))
+		{
+			confirmed = true;
+		}
+		else
+		{
+			continue;
+		}
+	}
+}
+
 void Game::Init()
 {
 	MapManager::GetInstance()->CreateRooms();
 
-	// testing addition of items to player inventory
+	//TODO: testing addition of items to player inventory
 	Food f;
 	f.setHealFactor(5);
-	f.setName("apple");
-
+	f.setName("Apple");
+	f.setIsFood(true);
 	Player::GetInstance()->AddItemToInventory(f);
+	
+
+	Item g;
+	g.setName("Poison");
+	g.setDamageFactor(5);
+	Player::GetInstance()->AddItemToInventory(g);
+
+	Food h;
+	h.setDamageFactor(5);
+	h.setName("Rotten Apple");
+	h.setIsFood(true);
+	Player::GetInstance()->AddItemToInventory(h);
+
+	Item i;
+	i.setHealFactor(5);
+	i.setName("Health Potion");
+	Player::GetInstance()->AddItemToInventory(i);
+
+	Food j;
+	j.setHealFactor(5);
+	j.setName("Hamburger");
+	j.setIsFood(true);
+	Player::GetInstance()->AddItemToInventory(j);
+
+	Item k;
+	k.setName("T-Shirt");
+	Player::GetInstance()->AddItemToInventory(k);
 }
 
-int Game::PromptForChoice()
+void Game::ListPlayerItems()
+{
+	if ((int)Player::GetInstance()->getPlayerItems().size() == 0)
+	{
+		cout << "(EMPTY)\n";
+	}
+	else
+	{
+		int counter = 1;
+		std::vector<Item>::iterator it;
+		std::vector<Item> v = Player::GetInstance()->getPlayerItems();
+		for (it = v.begin(); it < v.end(); it++)
+		{
+			cout << " " << counter << ") " << it->getName() << "\n";
+			counter++;
+		}
+	}
+	cout << endl;
+}
+
+int Game::PromptForTurnAction()
 {
 	system("cls");
-	cout << "Player health:" << Player::GetInstance()->getPlayerHealth() << "\n\n";
+	cout << "Player health: " << Player::GetInstance()->getPlayerEnergy() << "\n";
 	cout << "Turns completed: " << Player::GetInstance()->getTurnsCompleted() << "\n\n";
-	// testing addition of items to player inventory
-	cout << "Inventory items: " << Player::GetInstance()->getPlayerItems().front().getName() << "\n\n";
 	cout << "What would you like to do, " << Player::GetInstance()->getPlayerName() << "?\n\n";
 	cout << "(1) Move\n(2) Look Around\n(3) View Inventory\n(4) View Map\n(5) Save Progress\n(6) End Game\n\nEnter Choice: ";
 
@@ -185,49 +428,53 @@ int Game::PromptForChoice()
 
 void Game::PromptForDirection()
 {
-	system("cls");
-	cout << "Move in which direction?\n\n";
-	cout << "(1) North\n(2) South\n(3) East\n(4) West\n(5) Cancel\n\n";
-	cout << "Enter choice: ";
+	bool confirmed = false;
 
-	int choice;
-	string input;
-	getline(cin, input);
-	stringstream stream(input);
-	stream >> choice;
-
-	if (input.length() == 0 || input.length() > 1 ||
-		input.length() == 1 && choice != 1 &&
-		choice != 2 && choice != 3 &&
-		choice != 4 && choice != 5)
+	while (!confirmed)
 	{
 		system("cls");
-		cout << "Invalid selection.\n\n";
-		system("pause");
-		PromptForDirection(); //call recursively if input is invalid
-	}
-	else
-	{
-		switch (choice)
+		cout << "Move in which direction?\n\n";
+		cout << "(1) North\n(2) South\n(3) East\n(4) West\n(5) Cancel\n\n";
+		cout << "Enter choice: ";
+
+		int choice;
+		string input;
+		getline(cin, input);
+		stringstream stream(input);
+		stream >> choice;
+
+		if (input.length() != 1 && (choice < 1 && choice > 5))
 		{
-		case 1:
-			system("cls");
-			Player::GetInstance()->MoveNorth();
-			break;
-		case 2:
-			system("cls");
-			Player::GetInstance()->MoveSouth();
-			break;
-		case 3:
-			system("cls");
-			Player::GetInstance()->MoveEast();
-			break;
-		case 4:
-			system("cls");
-			Player::GetInstance()->MoveWest();
-			break;
-		case 5:
-			break;
+			continue;
+		}
+		else
+		{
+			switch (choice)
+			{
+			case 1:
+				system("cls");
+				Player::GetInstance()->MoveNorth();
+				confirmed = true;
+				break;
+			case 2:
+				system("cls");
+				Player::GetInstance()->MoveSouth();
+				confirmed = true;
+				break;
+			case 3:
+				system("cls");
+				Player::GetInstance()->MoveEast();
+				confirmed = true;
+				break;
+			case 4:
+				system("cls");
+				Player::GetInstance()->MoveWest();
+				confirmed = true;
+				break;
+			case 5:
+				confirmed = true;
+				break;
+			}
 		}
 	}
 }
@@ -243,73 +490,52 @@ void Game::StartPlayerTurn()
 	if (Player::GetInstance()->getCurrentLocationGridID() == "B13")
 	{
 		system("cls");
-		cout << "You've escaped! Congratulations!\n\n";
+		cout << "You've escaped! Congratulations!\n\n(You can keep wandering around if you want, though.)\n\n";
 		system("pause");
 	}
 	system("cls");
 
+	//TODO: make better "game lose" event
+	if (Player::GetInstance()->getPlayerEnergy() <= 0)
+	{
+		system("cls");
+		cout << "You've died. Better luck next time.\n\n";
+		system("pause");
+
+		gameOverStatus = true;
+	}
+
 	int choice = 0;
 	while (choice == 0)
 	{
-		choice = PromptForChoice();
+		choice = PromptForTurnAction();
 	}
 
 	switch (choice)
 	{
 	case 1:
-		system("cls");
 		PromptForDirection();
 		break;
 	case 2:
-		system("cls");
 		Player::GetInstance()->LookAround();
-		Player::GetInstance()->setTurnsCompleted(Player::GetInstance()->getTurnsCompleted() + 1);
 		system("PAUSE");
 		break;
 	case 3:
-		system("cls");
-		cout << "(Insert " << Player::GetInstance()->getPlayerName() << "'s inventory here)\n\n";
-		Player::GetInstance()->setTurnsCompleted(Player::GetInstance()->getTurnsCompleted() + 1);
-		system("PAUSE");
+		DisplayInventoryScreen();
 		break;
 	case 4:
-		system("cls");
-		DisplayMap();
+		DisplayMapScreen();
 		break;
 	case 5:
 		SaveProgress();
 		break;
 	case 6:
-		system("cls");
-		cout << "==========================================\n";
-		cout << "==           EVAN'S ADVENTURE           ==\n";
-		cout << "==========================================\n";
-		cout << "               [ End Game ]\n\n";
-		cout << "All unsaved progress will be lost.\n\nAre you sure, " << Player::GetInstance()->getPlayerName() << "? (Y/N): ";
-
-		string input;
-		char choice;
-		getline(cin, input);
-		stringstream stream(input);
-		stream >> choice;
-
-		if (input.length() == 0 || input.length() > 1 ||
-			input.length() == 1 && choice != 'n' && choice != 'N' &&
-			choice != 'y' && choice != 'Y')
-		{
-			system("cls");
-			cout << "Invalid selection.\n\n";
-			system("pause");
-			break;
-		}
-		if (input.length() == 1 && choice == 'n' || input.length() == 1 && choice == 'N')
-		{
-			break;
-		}
-
-		Player::GetInstance()->setPlayerName("");
-		Player::GetInstance()->setPlayerHealth(0);
-
-		gameOverStatus = true;
+		DisplayEndGameScreen();
+		break;
 	}
+}
+
+Food Game::UnpackItem(Item& item)
+{
+	return Food(item);
 }

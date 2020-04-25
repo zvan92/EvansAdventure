@@ -8,14 +8,99 @@ Player *Player::instance = 0;
 
 void Player::AddItemToInventory(Item& item)
 {
-	std::vector<Item>::iterator it;
-	it = playerItems.begin();
-	playerItems.insert(it, item);
+	if ((int)playerItems.size() < MAX_INVENTORY_ITEMS)
+	{
+		std::vector<Item>::iterator it;
+		it = playerItems.begin();
+		playerItems.insert(it, item);
+		//TODO: remove from current room
+	}
+	else
+	{
+		system("cls");
+		cout << "Inventory full. Could not collect " << item.getName() << ".\n\n";
+		system("pause");
+	}
 }
 
 void Player::LookAround()
 {
 	MapManager::GetInstance()->DescribeRoom(Player::GetInstance()->getCurrentLocationGridID());
+}
+
+void Player::DropItem(Item& item)
+{
+	std::vector<Item>::iterator it;
+	for (it = playerItems.begin(); it < playerItems.end(); it++)
+	{
+		if (it->getName().compare(item.getName()) == 0)
+		{
+			playerItems.erase(it);
+			break;
+		}
+	}
+	
+	//TODO: add to current room
+}
+
+void Player::UseItem(Item& item, Item& target)
+{
+	//TODO
+}
+
+void Player::ConsumeItem(Item& item)
+{
+	if (item.getHealFactor() > 0)
+	{
+		iEnergy += item.getHealFactor();
+		
+		cout << "The " << item.getName() << " increased " << sName << "'s energy by " << item.getHealFactor() << ".\n\n";
+		system("pause");
+
+		std::vector<Item>::iterator it;
+		for (it = playerItems.begin(); it < playerItems.end(); it++)
+		{
+			if (it->getName().compare(item.getName()) == 0)
+			{
+				playerItems.erase(it);
+				break;
+			}
+		}
+	}
+	else if (item.getDamageFactor() > 0)
+	{
+		iEnergy -= item.getDamageFactor();
+
+		cout << "The " << item.getName() << " decreased " << sName << "'s energy by " << item.getDamageFactor() << ".\n\n";
+		system("pause");
+
+		std::vector<Item>::iterator it;
+		for (it = playerItems.begin(); it < playerItems.end(); it++)
+		{
+			if (it->getName().compare(item.getName()) == 0)
+			{
+				playerItems.erase(it);
+				break;
+			}
+		}
+	}
+	else
+	{
+		cout << sName << " can't consume the " << item.getName() << ".\n\n";
+		system("pause");
+	}
+}
+
+void Player::ConsumeItem(Food& food)
+{
+	cout << sName << " ate the " << food.getName() << ".\n";
+
+	if (food.getIsRotten())
+	{
+		cout << "Unfortunately, it was rotten.\n";
+	}
+
+	ConsumeItem((Item&)food);
 }
 
 void Player::MoveNorth()
@@ -33,6 +118,8 @@ void Player::MoveNorth()
 		sCurrentGridID[0] = xValue;
 
 		cout << Player::GetInstance()->getPlayerName() << " moved North.\n\n";
+		cout << Player::GetInstance()->getPlayerName() << " used 5 energy.\n\n";
+		Player::GetInstance()->setPlayerEnergy(Player::GetInstance()->getPlayerEnergy() - 5);
 
 		Player::GetInstance()->setCurrentLocationGridID(sCurrentGridID);
 		Player::GetInstance()->setTurnsCompleted(Player::GetInstance()->getTurnsCompleted() + 1);
@@ -56,6 +143,8 @@ void Player::MoveSouth()
 		sCurrentGridID[0] = xValue;
 
 		cout << Player::GetInstance()->getPlayerName() << " moved South.\n\n";
+		cout << Player::GetInstance()->getPlayerName() << " used 5 energy.\n\n";
+		Player::GetInstance()->setPlayerEnergy(Player::GetInstance()->getPlayerEnergy() - 5);
 
 		Player::GetInstance()->setCurrentLocationGridID(sCurrentGridID);
 		Player::GetInstance()->setTurnsCompleted(Player::GetInstance()->getTurnsCompleted() + 1);
@@ -120,6 +209,8 @@ void Player::MoveEast()
 
 		Player::GetInstance()->setCurrentLocationGridID(sCurrentGridID);
 		Player::GetInstance()->setTurnsCompleted(Player::GetInstance()->getTurnsCompleted() + 1);
+		cout << Player::GetInstance()->getPlayerName() << " used 5 energy.\n\n";
+		Player::GetInstance()->setPlayerEnergy(Player::GetInstance()->getPlayerEnergy() - 5);
 	}
 
 	system("pause");
@@ -177,6 +268,8 @@ void Player::MoveWest()
 
 		Player::GetInstance()->setCurrentLocationGridID(sCurrentGridID);
 		Player::GetInstance()->setTurnsCompleted(Player::GetInstance()->getTurnsCompleted() + 1);
+		cout << Player::GetInstance()->getPlayerName() << " used 5 energy.\n\n";
+		Player::GetInstance()->setPlayerEnergy(Player::GetInstance()->getPlayerEnergy() - 5);
 	}
 
 	system("pause");

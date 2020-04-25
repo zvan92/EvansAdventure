@@ -43,48 +43,53 @@ int FileManager::PromptForLoad()
 
 void FileManager::PromptForSave()
 {
-	system("cls");
-	cout << "==========================================\n";
-	cout << "==           EVAN'S ADVENTURE           ==\n";
-	cout << "==========================================\n";
-	cout << "             [ Save Progress ]\n\n";
-	cout << "Save your progress, " << Player::GetInstance()->getPlayerName() << "? (Y/N) ";
+	bool confirmed = false;
 
-	char choice;
-	string input;
-	getline(cin, input);
-	stringstream stream(input);
-	stream >> choice;
-
-	if (input.length() == 0 || input.length() > 1 ||
-		input.length() == 1 && choice != 'n' && choice != 'N' &&
-		choice != 'y' && choice != 'Y')
-	{
-		system("cls");
-		cout << "Invalid selection.\n\n";
-		system("pause");
-	}
-	if (input.length() == 1 && choice == 'y' || input.length() == 1 && choice == 'Y')
+	while (!confirmed)
 	{
 		system("cls");
 		cout << "==========================================\n";
 		cout << "==           EVAN'S ADVENTURE           ==\n";
 		cout << "==========================================\n";
 		cout << "             [ Save Progress ]\n\n";
-		cout << "Enter character file save destination\n[ i.e. C:/Users/Evan/Documents/evan.txt ]\nor type 'esc' to cancel:\n\n";
+		cout << "Save your progress, " << Player::GetInstance()->getPlayerName() << "? (Y/N) ";
 
-		string filepath;
-		getline(cin, filepath);
+		char choice;
+		string input;
+		getline(cin, input);
+		stringstream stream(input);
+		stream >> choice;
 
-		if (filepath == "esc")
+		if (input.length() == 1 && (choice == 'y' || choice == 'Y'))
 		{
-			return;
+			system("cls");
+			cout << "==========================================\n";
+			cout << "==           EVAN'S ADVENTURE           ==\n";
+			cout << "==========================================\n";
+			cout << "             [ Save Progress ]\n\n";
+			cout << "Enter character file save destination\n[ i.e. C:/Users/Evan/Documents/evan.txt ]\nor type 'esc' to cancel:\n\n";
+
+			string filepath;
+			getline(cin, filepath);
+
+			if (filepath != "esc")
+			{
+				const char* cPath = filepath.c_str();
+				WriteToFile(cPath);
+
+				system("cls");
+
+				confirmed = true;
+			}
 		}
-
-		const char *cPath = filepath.c_str();
-		WriteToFile(cPath);
-
-		system("cls");
+		else if (input.length() == 1 && (choice == 'n' || choice == 'N'))
+		{
+			confirmed = true;
+		}
+		else
+		{
+			continue;
+		}
 	}
 }
 
@@ -119,7 +124,7 @@ int FileManager::ReadFromFile(const char *pathToFile)
 	fread(&turnsCompleted, sizeof(int), 1, fileptr);
 
 	Player::GetInstance()->setPlayerName(name);
-	Player::GetInstance()->setPlayerHealth(health);
+	Player::GetInstance()->setPlayerEnergy(health);
 	Player::GetInstance()->setTurnsCompleted(turnsCompleted);
 	Player::GetInstance()->setCurrentLocationGridID(gridID);
 
@@ -150,7 +155,7 @@ void FileManager::WriteToFile(const char *pathToFile)
 
 	int nameLength = static_cast<int>(Player::GetInstance()->getPlayerName().length() + 1);
 	int currentGridIDLength = static_cast<int>(Player::GetInstance()->getCurrentLocationGridID().length() + 1);
-	int health = Player::GetInstance()->getPlayerHealth();
+	int health = Player::GetInstance()->getPlayerEnergy();
 	int turnsCompleted = Player::GetInstance()->getTurnsCompleted();
 	
 	char* name_array = new char[Player::GetInstance()->getPlayerName().length() + 1];

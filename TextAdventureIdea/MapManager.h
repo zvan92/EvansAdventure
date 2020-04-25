@@ -42,5 +42,6 @@ private:
 	static MapManager *instance;
 
 	unordered_map<string, Room> roomMap;
+	//TODO: roomItemMap <string, std::vector<Item>>
 };
 
