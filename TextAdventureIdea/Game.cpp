@@ -128,7 +128,7 @@ int Game::CreatePlayer()
 	}
 
 	Player::GetInstance()->setPlayerName(name);
-	Player::GetInstance()->setPlayerEnergy(100);
+	Player::GetInstance()->setPlayerEnergy(180);
 	Player::GetInstance()->setTurnsCompleted(0);
 	Player::GetInstance()->setCurrentLocationGridID("A4");
 
