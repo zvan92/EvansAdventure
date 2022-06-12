@@ -99,6 +99,8 @@ void Player::DropItem(Item& item)
 			break;
 		}
 	}
+
+	iInventoryCount--;
 	
 	//TODO: add to current room
 }
@@ -128,7 +130,8 @@ void Player::DropItem(Food& food)
 		}
 	}
 
-	//TODO: add to current room
+	iInventoryCount--;
+	MapManager::GetInstance()->TransferFoodToRoom(food);
 }
 
 void Player::DropItem(Potion& potion)
@@ -155,6 +158,8 @@ void Player::DropItem(Potion& potion)
 			break;
 		}
 	}
+
+	iInventoryCount--;
 
 	//TODO: add to current room
 }

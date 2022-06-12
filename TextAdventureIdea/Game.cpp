@@ -370,15 +370,6 @@ void Game::DisplayInventoryScreen()
 							}
 						}
 
-						/*
-						string itemName = Player::GetInstance()->getPlayerItems().at(element).getName();
-						system("cls");
-
-						Player::GetInstance()->DropItem(Player::GetInstance()->getPlayerItems().at(element));
-						cout << Player::GetInstance()->getPlayerName() << " dropped the " << itemName << ".\n\n";
-						system("PAUSE");
-						*/
-
 						dropConfirmed = true;
 						confirmed = true;
 					}

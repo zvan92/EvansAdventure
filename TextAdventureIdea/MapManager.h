@@ -39,8 +39,8 @@ public:
 	void DescribeRoom(string gridID);
 	void TransferItemToPlayer(Item item);
 	void TransferItemToRoom(Item item);
-	//TODO: transferFoodToPlayer
-	//TODO: transferFoodToRoom
+	void TransferFoodToPlayer(Food food);
+	void TransferFoodToRoom(Food food);
 	//TODO: transferKeyToPlayer
 	//TODO: transferKeyToRoom
 	//TODO: transferPotionToPlayer

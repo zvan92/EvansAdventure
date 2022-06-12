@@ -1,10 +1,12 @@
 #pragma once
 
+//#include "MapManager.h"
 #include "Item.h"
 #include "Food.h"
 #include "Potion.h"
 #include <list>
 #include <string>
+#include <vector>
 
 class Room
 {
@@ -13,7 +15,8 @@ public:
 		hasNorthWall(false),
 		hasSouthWall(false),
 		hasWestWall(false),
-		hasEastWall(false) {};
+		hasEastWall(false),
+		roomFood() {};
 	~Room() {};
 
 	Room(bool setNorthWall,
@@ -33,7 +36,9 @@ public:
 	bool GetHasWestWall() { return hasWestWall; }
 	//TODO: getItemNamesList
 	//TODO: getItemList
-	//TODO: getFoodList
+	std::vector<Food> GetRoomFood() { return roomFood; }
+	void AddRoomFood(Food food);
+	void RemoveRoomFood(Food food);
 	//TODO: getPotionList
 	//TODO: getKeyList
 	//TODO: getDoorList
@@ -46,7 +51,7 @@ private:
 	bool hasEastWall;
 	//TODO: itemNamesList
 	//TODO: itemList
-	//TODO: foodList
+	std::vector<Food> roomFood;
 	//TODO: potionList
 	//TODO: keyList
 	//TODO: doorList

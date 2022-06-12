@@ -3,6 +3,7 @@
 #include "Room.h"
 #include "Player.h"
 #include <iostream>
+#include <vector>
 
 using namespace std;
 
@@ -128,7 +129,13 @@ void MapManager::DescribeRoom(string gridID)
 		cout << "There are no walls nearby.\n";
 	}
 
-	//TODO: Game::listRoomItems
+	cout << "\n";
+	std::vector<Food>::iterator it1;
+	std::vector<Food> roomFood = roomMap[gridID].GetRoomFood();
+	for (it1 = roomFood.begin(); it1 < roomFood.end(); it1++)
+	{
+		cout << "There is a " << it1->getName() << " on the ground.\n";
+	}
 
 	cout << endl;
 }
@@ -147,4 +154,17 @@ void MapManager::TransferItemToRoom(Item item)
 	#1) Player::DropItem(item)
 	#2) add item its proper room item list
 	*/
+}
+
+void MapManager::TransferFoodToRoom(Food food)
+{
+	Room* currentRoom = &roomMap[Player::GetInstance()->getCurrentLocationGridID()];
+	currentRoom->AddRoomFood(food);
+}
+
+void MapManager::TransferFoodToPlayer(Food food)
+{
+	Room* currentRoom = &roomMap[Player::GetInstance()->getCurrentLocationGridID()];
+	currentRoom->RemoveRoomFood(food);
+	Player::GetInstance()->AddItemToInventory(food);
 }
