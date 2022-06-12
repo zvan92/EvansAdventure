@@ -11,7 +11,8 @@ public:
 		healFactor(0),
 		isFood(false),
 		isPotion(false),
-		isKey(false) {};
+		isKey(false),
+		isChest(false) {};
 	~Item() {};
 
 	Item(const Item& item) :
@@ -20,7 +21,8 @@ public:
 		healFactor(item.healFactor),
 		isFood(item.isFood),
 		isPotion(item.isPotion),
-		isKey(item.isKey) {};
+		isKey(item.isKey),
+		isChest(item.isChest) {};
 
 //PUBLIC METHODS=========================================//
 
@@ -39,13 +41,17 @@ public:
 	void setIsPotion(int value) { isPotion = value; }
 	int getIsPotion() { return isPotion; }
 
-	void setIskey(int value) { isKey = value; }
+	void setIsKey(int value) { isKey = value; }
 	int getIsKey() { return isKey; }
+
+	void setIsChest(int value) { isChest = value; }
+	int getIsChest() { return isChest; }
 
 protected:
 	bool isFood;
 	bool isPotion;
 	bool isKey;
+	bool isChest;
 	int damageFactor;
 	int healFactor;
 	std::string name;

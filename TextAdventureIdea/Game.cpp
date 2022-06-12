@@ -4,8 +4,6 @@
 #include "Menu.h"
 #include "FileManager.h"
 #include "MapManager.h"
-#include "Food.h"
-#include "Potion.h"
 #include <iostream>
 #include <sstream>
 #include <string>
@@ -135,6 +133,8 @@ int Game::CreatePlayer()
 
 	return 0;
 }
+
+//TODO: DisplayCollectItemScreen
 
 void Game::DisplayMapScreen()
 {
@@ -440,6 +440,8 @@ void Game::Init()
 	k.setName("T-Shirt");
 	Player::GetInstance()->AddItemToInventory(k);
 }
+
+//TODO: ListRoomItems
 
 void Game::ListPlayerItems()
 {

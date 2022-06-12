@@ -128,21 +128,23 @@ void MapManager::DescribeRoom(string gridID)
 		cout << "There are no walls nearby.\n";
 	}
 
+	//TODO: Game::listRoomItems
+
 	cout << endl;
 }
 
-void MapManager::TransferItemToPlayer(string item)
+void MapManager::TransferItemToPlayer(Item item)
 {
 	/*TODO
 	#1) Player::GetInstance()->AddItemToInventory(item)
-	#2) remove item from roomItemMap
+	#2) remove item from its proper room item list
 	*/
 }
 
-void MapManager::TransferItemToRoom(string item, string gridID)
+void MapManager::TransferItemToRoom(Item item)
 {
 	/*TODO
 	#1) Player::DropItem(item)
-	#2) add item to roomItemMap
+	#2) add item its proper room item list
 	*/
 }

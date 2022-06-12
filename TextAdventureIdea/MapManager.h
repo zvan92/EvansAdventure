@@ -1,5 +1,8 @@
 #pragma once
 
+#include "Item.h"
+#include "Food.h"
+#include "Potion.h"
 #include "Room.h"
 #include <unordered_map>
 
@@ -34,14 +37,18 @@ public:
 
 	void CreateRooms();
 	void DescribeRoom(string gridID);
-	void TransferItemToPlayer(string roomItem);
-	void TransferItemToRoom(string item, string gridID);
-
+	void TransferItemToPlayer(Item item);
+	void TransferItemToRoom(Item item);
+	//TODO: transferFoodToPlayer
+	//TODO: transferFoodToRoom
+	//TODO: transferKeyToPlayer
+	//TODO: transferKeyToRoom
+	//TODO: transferPotionToPlayer
+	//TODO: transferPotionToRoom
 
 private:
 	static MapManager *instance;
 
 	unordered_map<string, Room> roomMap;
-	//TODO: roomItemMap <string, std::vector<Item>>
 };
 

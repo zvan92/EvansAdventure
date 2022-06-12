@@ -1,10 +1,11 @@
 #pragma once
 
+#include "Item.h"
+#include "Food.h"
+#include "Potion.h"
 #include <iostream>
 #include <string>
 #include <vector>
-#include "Food.h"
-#include "Potion.h"
 
 #define MAX_INVENTORY_ITEMS 6
 
@@ -18,7 +19,9 @@ public:
 		iEnergy(0),
 		iInventoryCount(0),
 		iTurnsCompleted(0),
-		playerItems() {};
+		playerItems(), 
+		playerFood(), 
+		playerPotions() {};
 	~Player() {};
 
 	static Player *GetInstance()
@@ -51,6 +54,7 @@ public:
 	std::vector<Food> getPlayerFood() { return playerFood; }
 	std::vector<Potion> getPlayerPotions() { return playerPotions; }
 	std::vector<std::string> getPlayerItemNames() { return playerItemNames; }
+	//TODO: getPlayerKeys
 
 	void AddItemToInventory(Item& item);
 	void AddItemToInventory(Food& food);
@@ -76,8 +80,10 @@ private:
 	int iEnergy;
 	int iTurnsCompleted;
 	int iInventoryCount;
+	std::vector<std::string> playerItemNames;
 	std::vector<Item> playerItems;
 	std::vector<Food> playerFood;
 	std::vector<Potion> playerPotions;
-	std::vector<std::string> playerItemNames;
+	//TODO: playerKeys
+	
 };

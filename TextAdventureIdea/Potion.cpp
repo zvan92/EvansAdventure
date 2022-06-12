@@ -5,10 +5,10 @@ void Potion::CombineWithItem(Item& item)
 {
 	if (item.getIsFood())
 	{
-		//TODO nothing happens
+		//TODO: nothing happens
 	}
 	if (item.getIsKey())
 	{
-		//TODO nothing happens
+		//TODO: nothing happens
 	}
 }

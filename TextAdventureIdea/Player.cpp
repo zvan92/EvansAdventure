@@ -2,7 +2,6 @@
 #include "Game.h"
 #include "MapManager.h"
 #include "Player.h"
-#include "Item.h"
 
 Player *Player::instance = 0;
 
