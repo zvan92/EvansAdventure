@@ -16,7 +16,6 @@ void Player::AddItemToInventory(Item& item)
 		it2 = playerItemNames.begin();
 		playerItemNames.insert(it2, item.getName());
 		iInventoryCount++;
-		//TODO: remove from current room
 	}
 	else
 	{
@@ -37,7 +36,6 @@ void Player::AddItemToInventory(Food& food)
 		it2 = playerItemNames.begin();
 		playerItemNames.insert(it2, food.getName());
 		iInventoryCount++;
-		//TODO: remove from current room
 	}
 	else
 	{
@@ -58,7 +56,6 @@ void Player::AddItemToInventory(Potion& potion)
 		it2 = playerItemNames.begin();
 		playerItemNames.insert(it2, potion.getName());
 		iInventoryCount++;
-		//TODO: remove from current room
 	}
 	else
 	{
@@ -71,8 +68,6 @@ void Player::AddItemToInventory(Potion& potion)
 void Player::LookAround()
 {
 	MapManager::GetInstance()->DescribeRoom(Player::GetInstance()->getCurrentLocationGridID());
-
-	//TODO: list items in the room
 }
 
 void Player::DropItem(Item& item)
@@ -101,8 +96,7 @@ void Player::DropItem(Item& item)
 	}
 
 	iInventoryCount--;
-	
-	//TODO: add to current room
+	MapManager::GetInstance()->TransferItemToRoom(item);
 }
 
 void Player::DropItem(Food& food)
@@ -160,8 +154,7 @@ void Player::DropItem(Potion& potion)
 	}
 
 	iInventoryCount--;
-
-	//TODO: add to current room
+	MapManager::GetInstance()->TransferPotionToRoom(potion);
 }
 
 void Player::ConsumeItem(Item& item)
@@ -182,6 +175,7 @@ void Player::ConsumeItem(Item& item)
 	}
 	else
 	{
+		//TODO: use item on what?
 		cout << sName << " can't consume the " << item.getName() << ".\n\n";
 		system("pause");
 		return;

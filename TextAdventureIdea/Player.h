@@ -54,17 +54,20 @@ public:
 	std::vector<Food> getPlayerFood() { return playerFood; }
 	std::vector<Potion> getPlayerPotions() { return playerPotions; }
 	std::vector<std::string> getPlayerItemNames() { return playerItemNames; }
-	//TODO: getPlayerKeys
+	//TODO: playerKeys
 
 	void AddItemToInventory(Item& item);
 	void AddItemToInventory(Food& food);
 	void AddItemToInventory(Potion& potion);
+	//TODO: playerKeys
 	void ConsumeItem(Item& item);
 	void ConsumeItem(Food& food);
 	void ConsumeItem(Potion& potion);
+	//TODO: playerKeys
 	void DropItem(Item& item);
 	void DropItem(Food& food);
 	void DropItem(Potion& potion);
+	//TODO: playerKeys
 	void LookAround();
 	void MoveNorth();
 	void MoveSouth();

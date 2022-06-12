@@ -41,10 +41,10 @@ public:
 	void TransferItemToRoom(Item item);
 	void TransferFoodToPlayer(Food food);
 	void TransferFoodToRoom(Food food);
+	void TransferPotionToPlayer(Potion potion);
+	void TransferPotionToRoom(Potion potion);
 	//TODO: transferKeyToPlayer
 	//TODO: transferKeyToRoom
-	//TODO: transferPotionToPlayer
-	//TODO: transferPotionToRoom
 
 private:
 	static MapManager *instance;

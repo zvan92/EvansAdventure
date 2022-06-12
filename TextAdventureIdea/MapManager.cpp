@@ -1,8 +1,10 @@
 #include "pch.h"
+#include "Game.h"
 #include "MapManager.h"
 #include "Room.h"
 #include "Player.h"
 #include <iostream>
+#include <sstream>
 #include <vector>
 
 using namespace std;
@@ -129,31 +131,55 @@ void MapManager::DescribeRoom(string gridID)
 		cout << "There are no walls nearby.\n";
 	}
 
-	cout << "\n";
-	std::vector<Food>::iterator it1;
-	std::vector<Food> roomFood = roomMap[gridID].GetRoomFood();
-	for (it1 = roomFood.begin(); it1 < roomFood.end(); it1++)
+	std::vector<Item>::iterator it1;
+	std::vector<Item> roomItems = roomMap[gridID].GetRoomItems();
+	if (!roomItems.empty())
 	{
-		cout << "There is a " << it1->getName() << " on the ground.\n";
+		for (it1 = roomItems.begin(); it1 < roomItems.end(); it1++)
+		{
+			cout << "\nThere is a " << it1->getName() << " on the ground.";
+		}
 	}
 
+	std::vector<Food>::iterator it2;
+	std::vector<Food> roomFood = roomMap[gridID].GetRoomFood();
+	if (!roomFood.empty())
+	{
+		for (it2 = roomFood.begin(); it2 < roomFood.end(); it2++)
+		{
+			cout << "\nThere is a " << it2->getName() << " on the ground.";
+		}
+	}
+
+	std::vector<Potion>::iterator it3;
+	std::vector<Potion> roomPotions = roomMap[gridID].GetRoomPotions();
+	if (!roomPotions.empty())
+	{
+		for (it3 = roomPotions.begin(); it3 < roomPotions.end(); it3++)
+		{
+			cout << "\nThere is a " << it3->getName() << " on the ground.";
+		}
+	}
+
+	std::vector<std::string> roomItemNames = roomMap[gridID].GetRoomItemNames();
+	if (!roomItemNames.empty())
+	{
+		cout << endl;
+	}
 	cout << endl;
 }
 
 void MapManager::TransferItemToPlayer(Item item)
 {
-	/*TODO
-	#1) Player::GetInstance()->AddItemToInventory(item)
-	#2) remove item from its proper room item list
-	*/
+	Room* currentRoom = &roomMap[Player::GetInstance()->getCurrentLocationGridID()];
+	currentRoom->RemoveRoomItem(item);
+	Player::GetInstance()->AddItemToInventory(item);
 }
 
 void MapManager::TransferItemToRoom(Item item)
 {
-	/*TODO
-	#1) Player::DropItem(item)
-	#2) add item its proper room item list
-	*/
+	Room* currentRoom = &roomMap[Player::GetInstance()->getCurrentLocationGridID()];
+	currentRoom->AddRoomItem(item);
 }
 
 void MapManager::TransferFoodToRoom(Food food)
@@ -167,4 +193,17 @@ void MapManager::TransferFoodToPlayer(Food food)
 	Room* currentRoom = &roomMap[Player::GetInstance()->getCurrentLocationGridID()];
 	currentRoom->RemoveRoomFood(food);
 	Player::GetInstance()->AddItemToInventory(food);
+}
+
+void MapManager::TransferPotionToRoom(Potion potion)
+{
+	Room* currentRoom = &roomMap[Player::GetInstance()->getCurrentLocationGridID()];
+	currentRoom->AddRoomPotion(potion);
+}
+
+void MapManager::TransferPotionToPlayer(Potion potion)
+{
+	Room* currentRoom = &roomMap[Player::GetInstance()->getCurrentLocationGridID()];
+	currentRoom->RemoveRoomPotion(potion);
+	Player::GetInstance()->AddItemToInventory(potion);
 }

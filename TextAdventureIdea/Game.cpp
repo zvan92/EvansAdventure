@@ -134,7 +134,120 @@ int Game::CreatePlayer()
 	return 0;
 }
 
-//TODO: DisplayCollectItemScreen
+void Game::DisplayCollectItemScreen()
+{
+	bool confirmed = false;
+
+	while (!confirmed)
+	{
+		system("cls");
+		cout << "       COLLECT ITEM        \n";
+		cout << "===========================\n\n";
+		ListRoomItems();
+		cout << "(C) Collect Item\n";
+		cout << "(Q) Return\n\n";
+		cout << "Enter choice: ";
+
+		string input;
+		getline(cin, input);
+		stringstream stream(input);
+		char choice;
+		stream >> choice;
+
+		if (input.length() == 1 && (choice == 'c' || choice == 'C'))
+		{
+			bool collectConfirmed = false;
+
+			while (!collectConfirmed)
+			{
+				system("cls");
+				cout << "       COLLECT ITEM        \n";
+				cout << "===========================\n\n";
+				cout << "Collect which item?\n\n";
+				ListRoomItems();
+				cout << "(Q) Return\n\n";
+				cout << "Enter choice: ";
+
+				getline(cin, input);
+				stringstream stream(input);
+				stream >> choice;
+
+				if (input.length() == 1)
+				{
+					unordered_map<std::string, Room>roomMap = MapManager::GetInstance()->GetRoomMap();
+					Room* currentRoom = &roomMap[Player::GetInstance()->getCurrentLocationGridID()];
+					int roomItemsCount = currentRoom->GetRoomItemNames().size();
+					int iChoice = (int)choice - 48;
+
+					if (choice == 'q' || choice == 'Q')
+					{
+						collectConfirmed = true;
+					}
+					else if (iChoice > 0 && iChoice <= roomItemsCount)
+					{
+						int index = iChoice - 1;
+						system("cls");
+
+						std::vector<std::string> itemNames = currentRoom->GetRoomItemNames();
+						std::vector<std::string>::iterator it;
+
+						std::vector<Item> roomItems = currentRoom->GetRoomItems();
+						std::vector<Item>::iterator it2;
+						for (it2 = roomItems.begin(); it2 < roomItems.end(); ++it2)
+						{
+							if (itemNames[index].compare(it2->getName()) == 0)
+							{
+								Item& item = (*it2);
+								MapManager::GetInstance()->TransferItemToPlayer(item);
+							}
+						}
+
+						std::vector<Food> roomFood = currentRoom->GetRoomFood();
+						std::vector<Food>::iterator it3;
+						for (it3 = roomFood.begin(); it3 < roomFood.end(); ++it3)
+						{
+							if (itemNames[index].compare(it3->getName()) == 0)
+							{
+								Food& food = (*it3);
+								MapManager::GetInstance()->TransferFoodToPlayer(food);
+							}
+						}
+
+						std::vector<Potion> roomPotions = currentRoom->GetRoomPotions();
+						std::vector<Potion>::iterator it4;
+						for (it4 = roomPotions.begin(); it4 < roomPotions.end(); ++it4)
+						{
+							if (itemNames[index].compare(it4->getName()) == 0)
+							{
+								Potion& potion = (*it4);
+								MapManager::GetInstance()->TransferPotionToPlayer(potion);
+							}
+						}
+
+						collectConfirmed = true;
+						confirmed = true;
+					}
+					else
+					{
+						continue;
+					}
+				}
+				else
+				{
+					continue;
+				}
+			}
+		}
+		else if (input.length() == 1 && (choice == 'q' || choice == 'Q'))
+		{
+			confirmed = true;
+		}
+		else
+		{
+			continue;
+		}
+	}
+}
 
 void Game::DisplayMapScreen()
 {
@@ -432,7 +545,28 @@ void Game::Init()
 	Player::GetInstance()->AddItemToInventory(k);
 }
 
-//TODO: ListRoomItems
+void Game::ListRoomItems()
+{
+	unordered_map<string, Room> roomMap = MapManager::GetInstance()->GetRoomMap();
+	Room* currentRoom = &roomMap[Player::GetInstance()->getCurrentLocationGridID()];
+
+	if (currentRoom->GetRoomItemNames().empty())
+	{
+		cout << "There are no items in this room.\n";
+	}
+	else
+	{
+		int counter = 1;
+		std::vector<std::string>::iterator it;
+		std::vector<std::string> v1 = currentRoom->GetRoomItemNames();
+		for (it = v1.begin(); it < v1.end(); it++)
+		{
+			cout << counter << ") " << it->c_str() << "\n";
+			counter++;
+		}
+	}
+	cout << endl;
+}
 
 void Game::ListPlayerItems()
 {
@@ -460,7 +594,7 @@ int Game::PromptForTurnAction()
 	cout << "Player health: " << Player::GetInstance()->getPlayerEnergy() << "\n";
 	cout << "Turns completed: " << Player::GetInstance()->getTurnsCompleted() << "\n\n";
 	cout << "What would you like to do, " << Player::GetInstance()->getPlayerName() << "?\n\n";
-	cout << "(1) Move\n(2) Look Around\n(3) View Inventory\n(4) View Map\n(5) Save Progress\n(6) End Game\n\nEnter Choice: ";
+	cout << "(1) Move\n(2) Look Around\n(3) Collect Item\n(4) View Inventory\n(5) View Map\n(6) Save Progress\n(7) End Game\n\nEnter Choice: ";
 
 	string input;
 	int choice;
@@ -473,7 +607,8 @@ int Game::PromptForTurnAction()
 		choice == 3 ||
 		choice == 4 ||
 		choice == 5 ||
-		choice == 6)
+		choice == 6 ||
+		choice == 7)
 	{
 		return choice;
 	}
@@ -578,15 +713,18 @@ void Game::StartPlayerTurn()
 		system("PAUSE");
 		break;
 	case 3:
-		DisplayInventoryScreen();
+		DisplayCollectItemScreen();
 		break;
 	case 4:
-		DisplayMapScreen();
+		DisplayInventoryScreen();
 		break;
 	case 5:
-		SaveProgress();
+		DisplayMapScreen();
 		break;
 	case 6:
+		SaveProgress();
+		break;
+	case 7:
 		DisplayEndGameScreen();
 		break;
 	}

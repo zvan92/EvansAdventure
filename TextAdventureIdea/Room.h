@@ -16,7 +16,10 @@ public:
 		hasSouthWall(false),
 		hasWestWall(false),
 		hasEastWall(false),
-		roomFood() {};
+		roomItemNames(),
+		roomItems(),
+		roomFood(),
+		roomPotions() {};
 	~Room() {};
 
 	Room(bool setNorthWall,
@@ -34,26 +37,30 @@ public:
 	bool GetHasSouthWall() { return hasSouthWall; }
 	bool GetHasEastWall() { return hasEastWall; }
 	bool GetHasWestWall() { return hasWestWall; }
-	//TODO: getItemNamesList
-	//TODO: getItemList
+	std::vector<std::string> GetRoomItemNames() { return roomItemNames; }
+	std::vector<Item> GetRoomItems() { return roomItems; }
 	std::vector<Food> GetRoomFood() { return roomFood; }
+	std::vector<Potion> GetRoomPotions() { return roomPotions; }
+	void AddRoomItem(Item item);
 	void AddRoomFood(Food food);
+	void AddRoomPotion(Potion potion);
+	void RemoveRoomItem(Item item);
 	void RemoveRoomFood(Food food);
-	//TODO: getPotionList
-	//TODO: getKeyList
-	//TODO: getDoorList
-	//TODO: getChestList
+	void RemoveRoomPotion(Potion potion);
+	//TODO: roomKeys
+	//TODO: roomDoors
+	//TODO: roomChests
 
 private:
 	bool hasNorthWall;
 	bool hasSouthWall;
 	bool hasWestWall;
 	bool hasEastWall;
-	//TODO: itemNamesList
-	//TODO: itemList
+	std::vector<std::string> roomItemNames;
+	std::vector<Item> roomItems;
 	std::vector<Food> roomFood;
-	//TODO: potionList
-	//TODO: keyList
-	//TODO: doorList
-	//TODO: chestList
+	std::vector<Potion> roomPotions;
+	//TODO: roomKeys
+	//TODO: roomDoors
+	//TODO: roomChests
 };

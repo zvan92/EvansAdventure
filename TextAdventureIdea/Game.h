@@ -24,7 +24,7 @@ public:
 
 	bool CheckForCollision(MapManager::Direction direction);
 	int CreatePlayer();
-	//TODO: DisplayCollectItemScreen
+	void DisplayCollectItemScreen();
 	void DisplayMapScreen();
 	void DisplayInventoryScreen();
 	void DisplayEndGameScreen();
@@ -42,6 +42,6 @@ private:
 
 	int PromptForTurnAction();
 	void ListPlayerItems();
-	//TODO: listRoomItems
+	void ListRoomItems();
 };
 
