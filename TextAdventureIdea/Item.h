@@ -10,9 +10,8 @@ public:
 		damageFactor(0), 
 		healFactor(0),
 		isFood(false),
-		isRedKey(false),
-		isBlueKey(false),
-		isGreenKey(false) {};
+		isPotion(false),
+		isKey(false) {};
 	~Item() {};
 
 	Item(const Item& item) :
@@ -20,9 +19,8 @@ public:
 		damageFactor(item.damageFactor),
 		healFactor(item.healFactor),
 		isFood(item.isFood),
-		isRedKey(item.isRedKey),
-		isBlueKey(item.isBlueKey),
-		isGreenKey(item.isGreenKey) {};
+		isPotion(item.isPotion),
+		isKey(item.isKey) {};
 
 //PUBLIC METHODS=========================================//
 
@@ -38,24 +36,20 @@ public:
 	void setIsFood(int value) { isFood = value; }
 	int getIsFood() { return isFood; }
 
-	void setIsRedkey(int value) { isRedKey = value; }
-	int getIsRedKey() { return isRedKey; }
+	void setIsPotion(int value) { isPotion = value; }
+	int getIsPotion() { return isPotion; }
 
-	void setIsBlueKey(int value) { isBlueKey = value; }
-	int getIsBlueKey() { return isBlueKey; }
-
-	void setIsGreenKey(int value) { isGreenKey = value; }
-	int getIsGreenKey() { return isGreenKey; }
+	void setIskey(int value) { isKey = value; }
+	int getIsKey() { return isKey; }
 
 protected:
+	bool isFood;
+	bool isPotion;
+	bool isKey;
 	int damageFactor;
 	int healFactor;
 	std::string name;
-	bool isFood;
-	bool isRedKey;
-	bool isBlueKey;
-	bool isGreenKey;
 
-	//each item will produce different interactions
+	//each item combination will produce different interactions
 	virtual void CombineWithItem(Item* item) {};
 };

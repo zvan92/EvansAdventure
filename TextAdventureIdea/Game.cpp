@@ -5,6 +5,7 @@
 #include "FileManager.h"
 #include "MapManager.h"
 #include "Food.h"
+#include "Potion.h"
 #include <iostream>
 #include <sstream>
 #include <string>
@@ -237,29 +238,54 @@ void Game::DisplayInventoryScreen()
 
 				if (input.length() == 1)
 				{
-					int playerItemsSize = (int)Player::GetInstance()->getPlayerItems().size();
+					int playerItemsCount = Player::GetInstance()->getInventoryCount();
 					int iChoice = (int)choice - 48;
 
 					if (choice == 'q' || choice == 'Q')
 					{
 						useConfirmed = true;
 					}
-					else if (iChoice > 0 && iChoice <= playerItemsSize)
+					else if (iChoice > 0 && iChoice <= playerItemsCount)
 					{
-						int element = iChoice - 1;
+						int index = iChoice - 1;
 						system("cls");
 
-						//TODO: testing if item is used on player
-						Item item(Player::GetInstance()->getPlayerItems().at(element));
-						if (item.getIsFood())
+						std::vector<std::string> itemNames = Player::GetInstance()->getPlayerItemNames();
+						std::vector<std::string>::iterator it;
+
+						std::vector<Item> playerItems = Player::GetInstance()->getPlayerItems();
+						std::vector<Item>::iterator it2;
+						for (it2 = playerItems.begin(); it2 < playerItems.end(); ++it2)
 						{
-							Food& food = (Food&)UnpackItem(item);
-							Player::GetInstance()->ConsumeItem(food);
+							if (itemNames[index].compare(it2->getName()) == 0)
+							{
+								Item& item = (*it2);
+								Player::GetInstance()->ConsumeItem(item);
+							}
 						}
-						else
+
+						std::vector<Food> playerFood = Player::GetInstance()->getPlayerFood();
+						std::vector<Food>::iterator it3;
+						for (it3 = playerFood.begin(); it3 < playerFood.end(); ++it3)
 						{
-							Player::GetInstance()->ConsumeItem(item);
+							if (itemNames[index].compare(it3->getName()) == 0)
+							{
+								Food& food = (*it3);
+								Player::GetInstance()->ConsumeItem(food);
+							}
 						}
+
+						std::vector<Potion> playerPotions = Player::GetInstance()->getPlayerPotions();
+						std::vector<Potion>::iterator it4;
+						for (it4 = playerPotions.begin(); it4 < playerPotions.end(); ++it4)
+						{
+							if (itemNames[index].compare(it4->getName()) == 0)
+							{
+								Potion& potion = (*it4);
+								Player::GetInstance()->ConsumeItem(potion);
+							}
+						}
+
 						//TODO: implement "Use On" action branch
 
 						useConfirmed = true;
@@ -296,22 +322,62 @@ void Game::DisplayInventoryScreen()
 
 				if (input.length() == 1)
 				{
-					int playerItemsSize = (int)Player::GetInstance()->getPlayerItems().size();
+					int playerItemsCount = Player::GetInstance()->getInventoryCount();
 					int iChoice = (int)choice - 48;
 
 					if (choice == 'q' || choice == 'Q')
 					{
 						dropConfirmed = true;
 					}
-					else if (iChoice > 0 && iChoice <= playerItemsSize)
+					else if (iChoice > 0 && iChoice <= playerItemsCount)
 					{
-						int element = iChoice - 1;
+						int index = iChoice - 1;
+						system("cls");
+
+						std::vector<std::string> itemNames = Player::GetInstance()->getPlayerItemNames();
+						std::vector<std::string>::iterator it;
+
+						std::vector<Item> playerItems = Player::GetInstance()->getPlayerItems();
+						std::vector<Item>::iterator it2;
+						for (it2 = playerItems.begin(); it2 < playerItems.end(); ++it2)
+						{
+							if (itemNames[index].compare(it2->getName()) == 0)
+							{
+								Item& item = (*it2);
+								Player::GetInstance()->DropItem(item);
+							}
+						}
+
+						std::vector<Food> playerFood = Player::GetInstance()->getPlayerFood();
+						std::vector<Food>::iterator it3;
+						for (it3 = playerFood.begin(); it3 < playerFood.end(); ++it3)
+						{
+							if (itemNames[index].compare(it3->getName()) == 0)
+							{
+								Food& food = (*it3);
+								Player::GetInstance()->DropItem(food);
+							}
+						}
+
+						std::vector<Potion> playerPotions = Player::GetInstance()->getPlayerPotions();
+						std::vector<Potion>::iterator it4;
+						for (it4 = playerPotions.begin(); it4 < playerPotions.end(); ++it4)
+						{
+							if (itemNames[index].compare(it4->getName()) == 0)
+							{
+								Potion& potion = (*it4);
+								Player::GetInstance()->DropItem(potion);
+							}
+						}
+
+						/*
 						string itemName = Player::GetInstance()->getPlayerItems().at(element).getName();
 						system("cls");
 
 						Player::GetInstance()->DropItem(Player::GetInstance()->getPlayerItems().at(element));
 						cout << Player::GetInstance()->getPlayerName() << " dropped the " << itemName << ".\n\n";
 						system("PAUSE");
+						*/
 
 						dropConfirmed = true;
 						confirmed = true;
@@ -344,32 +410,30 @@ void Game::Init()
 
 	//TODO: testing addition of items to player inventory
 	Food f;
-	f.setHealFactor(5);
 	f.setName("Apple");
-	f.setIsFood(true);
+	f.setHealFactor(5);
 	Player::GetInstance()->AddItemToInventory(f);
 	
-
-	Item g;
+	Potion g;
 	g.setName("Poison");
 	g.setDamageFactor(5);
+	g.setIsPoison(true);
 	Player::GetInstance()->AddItemToInventory(g);
 
 	Food h;
-	h.setDamageFactor(5);
 	h.setName("Rotten Apple");
-	h.setIsFood(true);
+	h.setDamageFactor(5);
+	h.setIsRotten(true);
 	Player::GetInstance()->AddItemToInventory(h);
 
-	Item i;
-	i.setHealFactor(5);
+	Potion i;
 	i.setName("Health Potion");
+	i.setHealFactor(5);
 	Player::GetInstance()->AddItemToInventory(i);
 
 	Food j;
-	j.setHealFactor(5);
 	j.setName("Hamburger");
-	j.setIsFood(true);
+	j.setHealFactor(5);
 	Player::GetInstance()->AddItemToInventory(j);
 
 	Item k;
@@ -379,18 +443,18 @@ void Game::Init()
 
 void Game::ListPlayerItems()
 {
-	if ((int)Player::GetInstance()->getPlayerItems().size() == 0)
+	if (Player::GetInstance()->getInventoryCount() == 0)
 	{
 		cout << "(EMPTY)\n";
 	}
 	else
 	{
 		int counter = 1;
-		std::vector<Item>::iterator it;
-		std::vector<Item> v = Player::GetInstance()->getPlayerItems();
-		for (it = v.begin(); it < v.end(); it++)
+		std::vector<std::string>::iterator it;
+		std::vector<std::string> v1 = Player::GetInstance()->getPlayerItemNames();
+		for (it = v1.begin(); it < v1.end(); it++)
 		{
-			cout << " " << counter << ") " << it->getName() << "\n";
+			cout << counter << ") " << it->c_str() << "\n";
 			counter++;
 		}
 	}
@@ -533,9 +597,4 @@ void Game::StartPlayerTurn()
 		DisplayEndGameScreen();
 		break;
 	}
-}
-
-Food Game::UnpackItem(Item& item)
-{
-	return Food(item);
 }

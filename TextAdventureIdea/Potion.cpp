@@ -1,7 +1,7 @@
 #include "pch.h"
-#include "Food.h"
+#include "Potion.h"
 
-void Food::CombineWithItem(Item& item)
+void Potion::CombineWithItem(Item& item)
 {
 	if (item.getIsFood())
 	{

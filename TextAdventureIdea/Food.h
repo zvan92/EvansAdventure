@@ -5,21 +5,30 @@
 class Food : public Item
 {
 public:
-	Food() : bIsRotten(false) {};
+	Food() : 
+		isRotten(false),
+		rotsAfterTurn(NULL)
+	{ 
+		isFood = true;
+	};
 	~Food() {};
 
 	Food(const Item& item) :
 		Item(item),
-		bIsRotten(false)
+		isRotten(false),
+		rotsAfterTurn(NULL)
 	{
-		// if the food has a damage factor, it's rotten
-		(damageFactor > 0) ? (bIsRotten = true) : (bIsRotten = false);
+		isFood = true;
 	};
 
-	bool getIsRotten() { return bIsRotten; }
-	void setIsRotten(bool value) { bIsRotten = value; }
+	bool getIsRotten() { return isRotten; }
+	void setIsRotten(bool value) { isRotten = value; }
+
+	int getRotsAfterTurn() { return rotsAfterTurn; }
+	void setRotsAfterTurn(int turnNumber) { rotsAfterTurn = turnNumber; }
 
 private:
 	void CombineWithItem(Item& item);
-	bool bIsRotten;
+	bool isRotten;
+	int rotsAfterTurn;
 };

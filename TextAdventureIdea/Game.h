@@ -32,8 +32,6 @@ public:
 	void PromptForDirection();
 	void SaveProgress();
 	void StartPlayerTurn();
-	
-	Food UnpackItem(Item& item);
 
 private:
 	static Game *instance;
