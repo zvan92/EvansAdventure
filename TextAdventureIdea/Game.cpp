@@ -228,6 +228,20 @@ void Game::DisplayCollectItemScreen()
 							}
 						}
 
+						// COLLECT CHEST
+						std::vector<Chest> roomChests = currentRoom->GetRoomChests();
+						std::vector<Chest>::iterator it5;
+						for (it5 = roomChests.begin(); it5 < roomChests.end(); ++it5)
+						{
+							if (itemNames[index].compare(it5->getName()) == 0)
+							{
+								Chest& chest = (*it5);
+								system("cls");
+								cout << Player::GetInstance()->getPlayerName() << " can't collect the " << chest.getName() << ".\n\n";
+								system("pause");
+							}
+						}
+
 						collectConfirmed = true;
 						confirmed = true;
 					}
