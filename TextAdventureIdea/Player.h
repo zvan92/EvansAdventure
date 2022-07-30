@@ -7,8 +7,6 @@
 #include <string>
 #include <vector>
 
-#define MAX_INVENTORY_ITEMS 6
-
 class Player
 {
 
@@ -37,16 +35,12 @@ public:
 
 	void setCurrentLocationGridID(std::string value) { sCurrentGridID = value; }
 	std::string getCurrentLocationGridID() { return sCurrentGridID; }
-
 	void setPlayerEnergy(int value) { iEnergy = value; }
 	int getPlayerEnergy() { return iEnergy; }
-
 	void setPlayerName(std::string value) { sName = value; }
 	std::string getPlayerName() { return sName; }
-
 	void setTurnsCompleted(int value) { iTurnsCompleted = value; }
 	int getTurnsCompleted() { return iTurnsCompleted; }
-
 	void setInventoryCount(int value) { iInventoryCount = value; }
 	int getInventoryCount() { return iInventoryCount; }
 
@@ -55,15 +49,14 @@ public:
 	std::vector<Potion> getPlayerPotions() { return playerPotions; }
 	std::vector<std::string> getPlayerItemNames() { return playerItemNames; }
 	//TODO: playerKeys
-
-	void AddItemToInventory(Item& item);
-	void AddItemToInventory(Food& food);
-	void AddItemToInventory(Potion& potion);
+	int AddItemToInventory(Item& item);
+	int AddItemToInventory(Food& food);
+	int AddItemToInventory(Potion& potion);
 	//TODO: playerKeys
 	void ConsumeItem(Item& item);
 	void ConsumeItem(Food& food);
 	void ConsumeItem(Potion& potion);
-	//TODO: playerKeys
+	void RemoveItem(Item& item); // will eventually be Key
 	void DropItem(Item& item);
 	void DropItem(Food& food);
 	void DropItem(Potion& potion);

@@ -4,9 +4,12 @@
 #include "Item.h"
 #include "Food.h"
 #include "Potion.h"
+#include "Chest.h"
 #include <list>
 #include <string>
 #include <vector>
+
+using namespace std;
 
 class Room
 {
@@ -19,7 +22,9 @@ public:
 		roomItemNames(),
 		roomItems(),
 		roomFood(),
-		roomPotions() {};
+		roomPotions(),
+		roomChests(),
+		iRoomItemCount(0) {};
 	~Room() {};
 
 	Room(bool setNorthWall,
@@ -29,7 +34,8 @@ public:
 		hasNorthWall(setNorthWall),
 		hasSouthWall(setSouthWall),
 		hasWestWall(setWestWall),
-		hasEastWall(setEastWall) {};
+		hasEastWall(setEastWall),
+		iRoomItemCount(0) {};
 
 //PUBLIC METHODS=========================================//
 
@@ -41,15 +47,19 @@ public:
 	std::vector<Item> GetRoomItems() { return roomItems; }
 	std::vector<Food> GetRoomFood() { return roomFood; }
 	std::vector<Potion> GetRoomPotions() { return roomPotions; }
+	std::vector<Chest> GetRoomChests() { return roomChests; }
+	int GetRoomItemCount() { return iRoomItemCount; }
+
 	void AddRoomItem(Item item);
 	void AddRoomFood(Food food);
 	void AddRoomPotion(Potion potion);
+	void AddRoomChest(Chest chest);
 	void RemoveRoomItem(Item item);
 	void RemoveRoomFood(Food food);
 	void RemoveRoomPotion(Potion potion);
+	void RemoveRoomChest(Chest chest);
 	//TODO: roomKeys
 	//TODO: roomDoors
-	//TODO: roomChests
 
 private:
 	bool hasNorthWall;
@@ -60,7 +70,9 @@ private:
 	std::vector<Item> roomItems;
 	std::vector<Food> roomFood;
 	std::vector<Potion> roomPotions;
+	std::vector<Chest> roomChests;
+	int iRoomItemCount;
 	//TODO: roomKeys
 	//TODO: roomDoors
-	//TODO: roomChests
+
 };

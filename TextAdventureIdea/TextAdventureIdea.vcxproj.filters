@@ -45,6 +45,9 @@
     <ClInclude Include="Potion.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Chest.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -71,10 +74,7 @@
     <ClCompile Include="Room.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Food.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Potion.cpp">
+    <ClCompile Include="Chest.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

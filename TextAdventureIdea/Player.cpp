@@ -5,7 +5,7 @@
 
 Player *Player::instance = 0;
 
-void Player::AddItemToInventory(Item& item)
+int Player::AddItemToInventory(Item& item)
 {
 	if (iInventoryCount < MAX_INVENTORY_ITEMS)
 	{
@@ -16,16 +16,24 @@ void Player::AddItemToInventory(Item& item)
 		it2 = playerItemNames.begin();
 		playerItemNames.insert(it2, item.getName());
 		iInventoryCount++;
+
+		if (!Game::GetInstance()->getGameIsInitializing())
+		{
+			cout << sName << " collected the " << item.getName() << ".\n\n";
+			system("pause");
+		}
 	}
 	else
 	{
 		system("cls");
 		cout << "Inventory full. Could not collect " << item.getName() << ".\n\n";
 		system("pause");
+		return 1;
 	}
+	return 0;
 }
 
-void Player::AddItemToInventory(Food& food)
+int Player::AddItemToInventory(Food& food)
 {
 	if (iInventoryCount < MAX_INVENTORY_ITEMS)
 	{
@@ -36,16 +44,24 @@ void Player::AddItemToInventory(Food& food)
 		it2 = playerItemNames.begin();
 		playerItemNames.insert(it2, food.getName());
 		iInventoryCount++;
+
+		if (!Game::GetInstance()->getGameIsInitializing())
+		{
+			cout << sName << " collected the " << food.getName() << ".\n\n";
+			system("pause");
+		}
 	}
 	else
 	{
 		system("cls");
 		cout << "Inventory full. Could not collect " << food.getName() << ".\n\n";
 		system("pause");
+		return 1;
 	}
+	return 0;
 }
 
-void Player::AddItemToInventory(Potion& potion)
+int Player::AddItemToInventory(Potion& potion)
 {
 	if (iInventoryCount < MAX_INVENTORY_ITEMS)
 	{
@@ -56,105 +72,129 @@ void Player::AddItemToInventory(Potion& potion)
 		it2 = playerItemNames.begin();
 		playerItemNames.insert(it2, potion.getName());
 		iInventoryCount++;
+
+		if (!Game::GetInstance()->getGameIsInitializing())
+		{
+			cout << sName << " collected the " << potion.getName() << ".\n\n";
+			system("pause");
+		}
 	}
 	else
 	{
 		system("cls");
 		cout << "Inventory full. Could not collect " << potion.getName() << ".\n\n";
 		system("pause");
+		return 1;
 	}
-}
-
-void Player::LookAround()
-{
-	MapManager::GetInstance()->DescribeRoom(Player::GetInstance()->getCurrentLocationGridID());
+	return 0;
 }
 
 void Player::DropItem(Item& item)
 {
-	cout << sName << " dropped the " << item.getName() << ".\n\n";
-	system("pause");
-
-	std::vector<Item>::iterator it;
-	for (it = playerItems.begin(); it < playerItems.end(); it++)
+	if (MapManager::GetInstance()->TransferItemToRoom(item, sCurrentGridID) == FAILED)
 	{
-		if (it->getName().compare(item.getName()) == 0)
-		{
-			std::vector<std::string>::iterator it2;
-			for (it2 = playerItemNames.begin(); it2 < playerItemNames.end(); it2++)
-			{
-				if (it2->compare(it->getName()) == 0)
-				{
-					playerItemNames.erase(it2);
-					break;
-				}
-			}
-
-			playerItems.erase(it);
-			break;
-		}
+		system("cls");
+		cout << "There is no room to drop the " << item.getName() << ".\n\n";
+		system("pause");
 	}
+	else
+	{
+		cout << sName << " dropped the " << item.getName() << ".\n\n";
+		system("pause");
 
-	iInventoryCount--;
-	MapManager::GetInstance()->TransferItemToRoom(item);
+		std::vector<Item>::iterator it;
+		for (it = playerItems.begin(); it < playerItems.end(); it++)
+		{
+			if (it->getName().compare(item.getName()) == 0)
+			{
+				std::vector<std::string>::iterator it2;
+				for (it2 = playerItemNames.begin(); it2 < playerItemNames.end(); it2++)
+				{
+					if (it2->compare(it->getName()) == 0)
+					{
+						playerItemNames.erase(it2);
+						break;
+					}
+				}
+
+				playerItems.erase(it);
+				break;
+			}
+		}
+		iInventoryCount--;
+	}
 }
 
 void Player::DropItem(Food& food)
 {
-	cout << sName << " dropped the " << food.getName() << ".\n\n";
-	system("pause");
-
-	std::vector<Food>::iterator it;
-	for (it = playerFood.begin(); it < playerFood.end(); it++)
+	if (MapManager::GetInstance()->TransferFoodToRoom(food, sCurrentGridID) == FAILED)
 	{
-		if (it->getName().compare(food.getName()) == 0)
-		{
-			std::vector<std::string>::iterator it2;
-			for (it2 = playerItemNames.begin(); it2 < playerItemNames.end(); it2++)
-			{
-				if (it2->compare(it->getName()) == 0)
-				{
-					playerItemNames.erase(it2);
-					break;
-				}
-			}
-
-			playerFood.erase(it);
-			break;
-		}
+		system("cls");
+		cout << "There is no room to drop the " << food.getName() << ".\n\n";
+		system("pause");
 	}
+	else
+	{
+		cout << sName << " dropped the " << food.getName() << ".\n\n";
+		system("pause");
 
-	iInventoryCount--;
-	MapManager::GetInstance()->TransferFoodToRoom(food);
+		std::vector<Food>::iterator it;
+		for (it = playerFood.begin(); it < playerFood.end(); it++)
+		{
+			if (it->getName().compare(food.getName()) == 0)
+			{
+				std::vector<std::string>::iterator it2;
+				for (it2 = playerItemNames.begin(); it2 < playerItemNames.end(); it2++)
+				{
+					if (it2->compare(it->getName()) == 0)
+					{
+						playerItemNames.erase(it2);
+						break;
+					}
+				}
+
+				playerFood.erase(it);
+				break;
+			}
+		}
+		iInventoryCount--;
+	}
 }
 
 void Player::DropItem(Potion& potion)
 {
-	cout << sName << " dropped the " << potion.getName() << ".\n\n";
-	system("pause");
-
-	std::vector<Potion>::iterator it;
-	for (it = playerPotions.begin(); it < playerPotions.end(); it++)
+	if (MapManager::GetInstance()->TransferPotionToRoom(potion, sCurrentGridID) == FAILED)
 	{
-		if (it->getName().compare(potion.getName()) == 0)
-		{
-			std::vector<std::string>::iterator it2;
-			for (it2 = playerItemNames.begin(); it2 < playerItemNames.end(); it2++)
-			{
-				if (it2->compare(it->getName()) == 0)
-				{
-					playerItemNames.erase(it2);
-					break;
-				}
-			}
-
-			playerPotions.erase(it);
-			break;
-		}
+		system("cls");
+		cout << "There is no room to drop the " << potion.getName() << ".\n\n";
+		system("pause");
 	}
+	else
+	{
+		cout << sName << " dropped the " << potion.getName() << ".\n\n";
+		system("pause");
 
-	iInventoryCount--;
-	MapManager::GetInstance()->TransferPotionToRoom(potion);
+		std::vector<Potion>::iterator it;
+		for (it = playerPotions.begin(); it < playerPotions.end(); it++)
+		{
+			if (it->getName().compare(potion.getName()) == 0)
+			{
+				std::vector<std::string>::iterator it2;
+				for (it2 = playerItemNames.begin(); it2 < playerItemNames.end(); it2++)
+				{
+					if (it2->compare(it->getName()) == 0)
+					{
+						playerItemNames.erase(it2);
+						break;
+					}
+				}
+
+				playerPotions.erase(it);
+				break;
+			}
+		}
+		iInventoryCount--;
+	}
 }
 
 void Player::ConsumeItem(Item& item)
@@ -175,7 +215,7 @@ void Player::ConsumeItem(Item& item)
 	}
 	else
 	{
-		//TODO: use item on what?
+		system("cls");
 		cout << sName << " can't consume the " << item.getName() << ".\n\n";
 		system("pause");
 		return;
@@ -200,6 +240,7 @@ void Player::ConsumeItem(Item& item)
 			break;
 		}
 	}
+	iInventoryCount--;
 }
 
 void Player::ConsumeItem(Food& food)
@@ -245,6 +286,7 @@ void Player::ConsumeItem(Food& food)
 			break;
 		}
 	}
+	iInventoryCount--;
 }
 
 void Player::ConsumeItem(Potion& potion)
@@ -290,6 +332,12 @@ void Player::ConsumeItem(Potion& potion)
 			break;
 		}
 	}
+	iInventoryCount--;
+}
+
+void Player::LookAround()
+{
+	MapManager::GetInstance()->DescribeRoom(Player::GetInstance()->getCurrentLocationGridID());
 }
 
 void Player::MoveNorth()
@@ -462,4 +510,33 @@ void Player::MoveWest()
 	}
 
 	system("pause");
+}
+
+// will need to become Key eventually
+void Player::RemoveItem(Item& item)
+{
+	system("cls");
+	cout << "The " << item.getName() << " vanished in a puff of smoke.\nLooks like " << sName << " won't be needing it anymore!\n\n";
+	system("pause");
+
+	std::vector<Item>::iterator it;
+	for (it = playerItems.begin(); it < playerItems.end(); it++)
+	{
+		if (it->getName().compare(item.getName()) == 0)
+		{
+			std::vector<std::string>::iterator it2;
+			for (it2 = playerItemNames.begin(); it2 < playerItemNames.end(); it2++)
+			{
+				if (it2->compare(it->getName()) == 0)
+				{
+					playerItemNames.erase(it2);
+					break;
+				}
+			}
+
+			playerItems.erase(it);
+			break;
+		}
+	}
+	iInventoryCount--;
 }

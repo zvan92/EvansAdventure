@@ -55,7 +55,4 @@ protected:
 	int damageFactor;
 	int healFactor;
 	std::string name;
-
-	//each item combination will produce different interactions
-	virtual void CombineWithItem(Item* item) {};
 };

@@ -151,6 +151,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Chest.h" />
     <ClInclude Include="FileManager.h" />
     <ClInclude Include="Food.h" />
     <ClInclude Include="Game.h" />
@@ -163,8 +164,8 @@
     <ClInclude Include="Room.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Chest.cpp" />
     <ClCompile Include="FileManager.cpp" />
-    <ClCompile Include="Food.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="MapManager.cpp" />
     <ClCompile Include="Menu.cpp" />
@@ -175,7 +176,6 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="Player.cpp" />
-    <ClCompile Include="Potion.cpp" />
     <ClCompile Include="Room.cpp" />
     <ClCompile Include="TextAdventureIdea.cpp" />
   </ItemGroup>

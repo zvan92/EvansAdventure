@@ -23,6 +23,5 @@ public:
 	void setIsPoison(bool value) { isPoison = value; }
 
 private:
-	void CombineWithItem(Item& item);
 	bool isPoison;
 };

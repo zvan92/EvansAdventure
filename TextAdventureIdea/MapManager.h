@@ -4,6 +4,7 @@
 #include "Food.h"
 #include "Potion.h"
 #include "Room.h"
+#include "Chest.h"
 #include <unordered_map>
 
 using namespace std;
@@ -38,11 +39,13 @@ public:
 	void CreateRooms();
 	void DescribeRoom(string gridID);
 	void TransferItemToPlayer(Item item);
-	void TransferItemToRoom(Item item);
+	int TransferItemToRoom(Item item, string gridID);
 	void TransferFoodToPlayer(Food food);
-	void TransferFoodToRoom(Food food);
+	int TransferFoodToRoom(Food food, string gridID);
 	void TransferPotionToPlayer(Potion potion);
-	void TransferPotionToRoom(Potion potion);
+	int TransferPotionToRoom(Potion potion, string gridID);
+	int TransferChestToRoom(Chest chest, string gridID);
+	void RemoveChest(Chest chest);
 	//TODO: transferKeyToPlayer
 	//TODO: transferKeyToRoom
 

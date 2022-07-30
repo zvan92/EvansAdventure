@@ -28,7 +28,6 @@ public:
 	void setRotsAfterTurn(int turnNumber) { rotsAfterTurn = turnNumber; }
 
 private:
-	void CombineWithItem(Item& item);
 	bool isRotten;
 	int rotsAfterTurn;
 };

@@ -13,6 +13,7 @@ using namespace std;
 Game *Game::instance = 0;
 
 bool Game::gameOverStatus = false;
+bool Game::gameIsInitializing = false;
 
 bool Game::CheckForCollision(MapManager::Direction direction)
 {
@@ -191,6 +192,7 @@ void Game::DisplayCollectItemScreen()
 						std::vector<std::string> itemNames = currentRoom->GetRoomItemNames();
 						std::vector<std::string>::iterator it;
 
+						// COLLECT ITEM
 						std::vector<Item> roomItems = currentRoom->GetRoomItems();
 						std::vector<Item>::iterator it2;
 						for (it2 = roomItems.begin(); it2 < roomItems.end(); ++it2)
@@ -202,6 +204,7 @@ void Game::DisplayCollectItemScreen()
 							}
 						}
 
+						// COLLECT FOOD
 						std::vector<Food> roomFood = currentRoom->GetRoomFood();
 						std::vector<Food>::iterator it3;
 						for (it3 = roomFood.begin(); it3 < roomFood.end(); ++it3)
@@ -213,6 +216,7 @@ void Game::DisplayCollectItemScreen()
 							}
 						}
 
+						// COLLECT POTION
 						std::vector<Potion> roomPotions = currentRoom->GetRoomPotions();
 						std::vector<Potion>::iterator it4;
 						for (it4 = roomPotions.begin(); it4 < roomPotions.end(); ++it4)
@@ -245,6 +249,80 @@ void Game::DisplayCollectItemScreen()
 		else
 		{
 			continue;
+		}
+	}
+}
+
+// will need to become Key eventually
+void Game::DisplayUseItemScreen(Item item)
+{
+	bool confirmed = false;
+
+	while (!confirmed)
+	{
+		system("cls");
+		cout << "      USE ITEM     \n";
+		cout << "====================\n\n";
+		cout << "Use item on what?\n\n";
+		ListRoomItems();
+		cout << "(P) Player\n";
+		cout << "(Q) Return\n\n";
+		cout << "Enter choice: ";
+
+		string input;
+		getline(cin, input);
+		stringstream stream(input);
+		char choice;
+		stream >> choice;
+
+		if (input.length() == 1 && (choice == 'p' || choice == 'P'))
+		{
+			Player::GetInstance()->ConsumeItem(item);
+			confirmed = true;
+		}
+		else if (input.length() == 1 && (choice == 'q' || choice == 'Q'))
+		{
+			confirmed = true;
+		}
+		else if (input.length() == 1) 
+		{
+			unordered_map<std::string, Room>roomMap = MapManager::GetInstance()->GetRoomMap();
+			Room* currentRoom = &roomMap[Player::GetInstance()->getCurrentLocationGridID()];
+			int roomItemsCount = currentRoom->GetRoomItemNames().size();
+			int iChoice = (int)choice - 48;
+
+			if (iChoice > 0 && iChoice <= roomItemsCount)
+			{
+				int index = iChoice - 1;
+				system("cls");
+
+				// USE KEY ON CHEST
+				std::vector<std::string> itemNames = currentRoom->GetRoomItemNames();
+				std::vector<std::string>::iterator it;
+
+				std::vector<Chest> roomChests = currentRoom->GetRoomChests();
+				std::vector<Chest>::iterator it2;
+				for (it2 = roomChests.begin(); it2 < roomChests.end(); ++it2)
+				{
+					if (itemNames[index].compare(it2->getName()) == 0)
+					{
+						Chest& chest = (*it2);
+						if (chest.CombineWithItem(item) == SUCCESS)
+						{
+							MapManager::GetInstance()->RemoveChest(chest);
+							Player::GetInstance()->RemoveItem(item);
+						}
+					}
+				}
+
+				// repeat for other items
+
+				confirmed = true;
+			}
+			else
+			{
+				continue;
+			}
 		}
 	}
 }
@@ -306,12 +384,6 @@ void Game::DisplayEndGameScreen()
 
 void Game::DisplayInventoryScreen()
 {
-	/*TODO:
-	#3) for use item:
-		-> ask which item # they want to use it on (including room items)
-		-> call MapManager::ListRoomItems() for using on room items
-	*/
-
 	bool confirmed = false;
 
 	while (!confirmed)
@@ -363,6 +435,7 @@ void Game::DisplayInventoryScreen()
 						int index = iChoice - 1;
 						system("cls");
 
+						// USE ITEM (will become Key)
 						std::vector<std::string> itemNames = Player::GetInstance()->getPlayerItemNames();
 						std::vector<std::string>::iterator it;
 
@@ -373,10 +446,11 @@ void Game::DisplayInventoryScreen()
 							if (itemNames[index].compare(it2->getName()) == 0)
 							{
 								Item& item = (*it2);
-								Player::GetInstance()->ConsumeItem(item);
+								DisplayUseItemScreen(item);
 							}
 						}
 
+						// USE FOOD
 						std::vector<Food> playerFood = Player::GetInstance()->getPlayerFood();
 						std::vector<Food>::iterator it3;
 						for (it3 = playerFood.begin(); it3 < playerFood.end(); ++it3)
@@ -388,6 +462,7 @@ void Game::DisplayInventoryScreen()
 							}
 						}
 
+						// USE POTION
 						std::vector<Potion> playerPotions = Player::GetInstance()->getPlayerPotions();
 						std::vector<Potion>::iterator it4;
 						for (it4 = playerPotions.begin(); it4 < playerPotions.end(); ++it4)
@@ -510,9 +585,10 @@ void Game::DisplayInventoryScreen()
 
 void Game::Init()
 {
+	gameIsInitializing = true;
+
 	MapManager::GetInstance()->CreateRooms();
 
-	//TODO: testing addition of items to player inventory
 	Food f;
 	f.setName("Apple");
 	f.setHealFactor(5);
@@ -535,14 +611,19 @@ void Game::Init()
 	i.setHealFactor(5);
 	Player::GetInstance()->AddItemToInventory(i);
 
-	Food j;
-	j.setName("Hamburger");
-	j.setHealFactor(5);
-	Player::GetInstance()->AddItemToInventory(j);
+	Chest blueChest;
+	blueChest.setName("Blue Chest");
+	blueChest.setIsChest(true);
+	// contents
+	MapManager::GetInstance()->TransferChestToRoom(blueChest, "A4");
 
-	Item k;
-	k.setName("T-Shirt");
-	Player::GetInstance()->AddItemToInventory(k);
+	// will become a Key eventually
+	Item blueKey;
+	blueKey.setName("Blue Key");
+	blueKey.setIsKey(true);
+	Player::GetInstance()->AddItemToInventory(blueKey);
+
+	gameIsInitializing = false;
 }
 
 void Game::ListRoomItems()
