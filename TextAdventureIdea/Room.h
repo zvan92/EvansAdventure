@@ -19,7 +19,6 @@ public:
 		hasSouthWall(false),
 		hasWestWall(false),
 		hasEastWall(false),
-		roomItemNames(),
 		roomItems(),
 		roomFood(),
 		roomPotions(),
@@ -51,13 +50,13 @@ public:
 	int GetRoomItemCount() { return iRoomItemCount; }
 
 	void AddRoomItem(Item item);
-	void AddRoomFood(Food food);
-	void AddRoomPotion(Potion potion);
-	void AddRoomChest(Chest chest);
+	void AddRoomItem(Food food);
+	void AddRoomItem(Potion potion);
+	void AddRoomItem(Chest chest);
 	void RemoveRoomItem(Item item);
-	void RemoveRoomFood(Food food);
-	void RemoveRoomPotion(Potion potion);
-	void RemoveRoomChest(Chest chest);
+	void RemoveRoomItem(Food food);
+	void RemoveRoomItem(Potion potion);
+	void RemoveRoomItem(Chest chest);
 	//TODO: roomKeys
 	//TODO: roomDoors
 

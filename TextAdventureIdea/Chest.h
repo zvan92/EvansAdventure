@@ -37,7 +37,6 @@ public:
 	void setIsYellow(bool value) { isYellow = value; }
 	//contents
 
-	// will need to become Key eventually
 	int CombineWithItem(Item item);
 
 private:

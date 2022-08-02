@@ -53,6 +53,7 @@ public:
 	int AddItemToInventory(Food& food);
 	int AddItemToInventory(Potion& potion);
 	//TODO: playerKeys
+	void ResetProgress();
 	void ConsumeItem(Item& item);
 	void ConsumeItem(Food& food);
 	void ConsumeItem(Potion& potion);

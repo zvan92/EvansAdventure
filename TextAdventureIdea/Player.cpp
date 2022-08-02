@@ -28,9 +28,9 @@ int Player::AddItemToInventory(Item& item)
 		system("cls");
 		cout << "Inventory full. Could not collect " << item.getName() << ".\n\n";
 		system("pause");
-		return 1;
+		return FAILED;
 	}
-	return 0;
+	return SUCCESS;
 }
 
 int Player::AddItemToInventory(Food& food)
@@ -56,9 +56,9 @@ int Player::AddItemToInventory(Food& food)
 		system("cls");
 		cout << "Inventory full. Could not collect " << food.getName() << ".\n\n";
 		system("pause");
-		return 1;
+		return FAILED;
 	}
-	return 0;
+	return SUCCESS;
 }
 
 int Player::AddItemToInventory(Potion& potion)
@@ -84,9 +84,9 @@ int Player::AddItemToInventory(Potion& potion)
 		system("cls");
 		cout << "Inventory full. Could not collect " << potion.getName() << ".\n\n";
 		system("pause");
-		return 1;
+		return FAILED;
 	}
-	return 0;
+	return SUCCESS;
 }
 
 void Player::DropItem(Item& item)
@@ -127,7 +127,7 @@ void Player::DropItem(Item& item)
 
 void Player::DropItem(Food& food)
 {
-	if (MapManager::GetInstance()->TransferFoodToRoom(food, sCurrentGridID) == FAILED)
+	if (MapManager::GetInstance()->TransferItemToRoom(food, sCurrentGridID) == FAILED)
 	{
 		system("cls");
 		cout << "There is no room to drop the " << food.getName() << ".\n\n";
@@ -163,7 +163,7 @@ void Player::DropItem(Food& food)
 
 void Player::DropItem(Potion& potion)
 {
-	if (MapManager::GetInstance()->TransferPotionToRoom(potion, sCurrentGridID) == FAILED)
+	if (MapManager::GetInstance()->TransferItemToRoom(potion, sCurrentGridID) == FAILED)
 	{
 		system("cls");
 		cout << "There is no room to drop the " << potion.getName() << ".\n\n";
@@ -510,6 +510,19 @@ void Player::MoveWest()
 	}
 
 	system("pause");
+}
+
+void Player::ResetProgress()
+{
+	playerItemNames.clear();
+	playerItems.clear();
+	playerPotions.clear();
+	playerFood.clear();
+	sName = "";
+	sCurrentGridID = "";
+	iTurnsCompleted = 0;
+	iInventoryCount = 0;
+	iEnergy = 0;
 }
 
 // will need to become Key eventually

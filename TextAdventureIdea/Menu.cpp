@@ -1,7 +1,6 @@
 #include "pch.h"
 #include "Menu.h"
 #include "Game.h"
-#include "FileManager.h"
 #include <iostream>
 #include <sstream>
 #include <string>
@@ -19,7 +18,7 @@ int Menu::Run()
 	cout << "==           EVAN'S ADVENTURE           ==\n";
 	cout << "==========================================\n";
 	cout << "      [ by Evan Sullivan (zvan92) ]\n\n";
-	cout << "(1) New Game\n(2) Load Game\n(3) Exit Game\n\nEnter choice: ";
+	cout << "(1) New Game\n(2) Exit Game\n\nEnter choice: ";
 
 	int choice;
 	string input;
@@ -37,13 +36,6 @@ int Menu::Run()
 		Game::GetInstance()->setGameOverStatus(false);
 		break;
 	case 2:
-		if (FileManager::GetInstance()->PromptForLoad() == 1)
-		{
-			return 1;
-		}
-		Game::GetInstance()->setGameOverStatus(false);
-		break;
-	case 3:
 		system("cls");
 		cout << "Thanks for playing!\n\n";
 		system("pause");

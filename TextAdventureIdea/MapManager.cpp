@@ -197,73 +197,73 @@ int MapManager::TransferItemToRoom(Item item, string gridID)
 	}
 	else
 	{
-		return 1;
+		return FAILED;
 	}
-	return 0;
+	return SUCCESS;
 }
 
-int MapManager::TransferFoodToRoom(Food food, string gridID)
+int MapManager::TransferItemToRoom(Food food, string gridID)
 {
 	Room* currentRoom = &roomMap[gridID];
 	if (currentRoom->GetRoomItemCount() < MAX_ROOM_ITEMS)
 	{
-		currentRoom->AddRoomFood(food);
+		currentRoom->AddRoomItem(food);
 	}
 	else
 	{
-		return 1;
+		return FAILED;
 	}
-	return 0;
+	return SUCCESS;
 }
 
-void MapManager::TransferFoodToPlayer(Food food)
+void MapManager::TransferItemToPlayer(Food food)
 {
 	Room* currentRoom = &roomMap[Player::GetInstance()->getCurrentLocationGridID()];
 	if (Player::GetInstance()->AddItemToInventory(food) == SUCCESS)
 	{
-		currentRoom->RemoveRoomFood(food);
+		currentRoom->RemoveRoomItem(food);
 	}
 }
 
-int MapManager::TransferPotionToRoom(Potion potion, string gridID)
+int MapManager::TransferItemToRoom(Potion potion, string gridID)
 {
 	Room* currentRoom = &roomMap[gridID];
 	if (currentRoom->GetRoomItemCount() < MAX_ROOM_ITEMS)
 	{
-		currentRoom->AddRoomPotion(potion);
+		currentRoom->AddRoomItem(potion);
 	}
 	else
 	{
-		return 1;
+		return FAILED;
 	}
-	return 0;
+	return SUCCESS;
 }
 
-void MapManager::TransferPotionToPlayer(Potion potion)
+void MapManager::TransferItemToPlayer(Potion potion)
 {
 	Room* currentRoom = &roomMap[Player::GetInstance()->getCurrentLocationGridID()];
 	if (Player::GetInstance()->AddItemToInventory(potion) == SUCCESS)
 	{
-		currentRoom->RemoveRoomPotion(potion);
+		currentRoom->RemoveRoomItem(potion);
 	}
 }
 
-int MapManager::TransferChestToRoom(Chest chest, string gridID)
+int MapManager::TransferItemToRoom(Chest chest, string gridID)
 {
 	Room* currentRoom = &roomMap[gridID];
 	if (currentRoom->GetRoomItemCount() < MAX_ROOM_ITEMS)
 	{
-		currentRoom->AddRoomChest(chest);
+		currentRoom->AddRoomItem(chest);
 	}
 	else
 	{
-		return 1;
+		return FAILED;
 	}
-	return 0;
+	return SUCCESS;
 }
 
-void MapManager::RemoveChest(Chest chest)
+void MapManager::RemoveItem(Chest chest)
 {
 	Room* currentRoom = &roomMap[Player::GetInstance()->getCurrentLocationGridID()];
-	currentRoom->RemoveRoomChest(chest);
+	currentRoom->RemoveRoomItem(chest);
 }

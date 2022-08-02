@@ -38,7 +38,7 @@ void Room::RemoveRoomItem(Item item)
 	iRoomItemCount--;
 }
 
-void Room::AddRoomFood(Food food)
+void Room::AddRoomItem(Food food)
 {
 	std::vector<Food>::iterator it;
 	it = roomFood.begin();
@@ -49,7 +49,7 @@ void Room::AddRoomFood(Food food)
 	iRoomItemCount++;
 }
 
-void Room::RemoveRoomFood(Food food)
+void Room::RemoveRoomItem(Food food)
 {
 	std::vector<Food>::iterator it;
 	for (it = roomFood.begin(); it < roomFood.end(); it++)
@@ -73,7 +73,7 @@ void Room::RemoveRoomFood(Food food)
 	iRoomItemCount--;
 }
 
-void Room::AddRoomPotion(Potion potion)
+void Room::AddRoomItem(Potion potion)
 {
 	std::vector<Potion>::iterator it;
 	it = roomPotions.begin();
@@ -84,7 +84,7 @@ void Room::AddRoomPotion(Potion potion)
 	iRoomItemCount++;
 }
 
-void Room::RemoveRoomPotion(Potion potion)
+void Room::RemoveRoomItem(Potion potion)
 {
 	std::vector<Potion>::iterator it;
 	for (it = roomPotions.begin(); it < roomPotions.end(); it++)
@@ -108,7 +108,7 @@ void Room::RemoveRoomPotion(Potion potion)
 	iRoomItemCount--;
 }
 
-void Room::AddRoomChest(Chest chest)
+void Room::AddRoomItem(Chest chest)
 {
 	std::vector<Chest>::iterator it;
 	it = roomChests.begin();
@@ -119,7 +119,7 @@ void Room::AddRoomChest(Chest chest)
 	iRoomItemCount++;
 }
 
-void Room::RemoveRoomChest(Chest chest)
+void Room::RemoveRoomItem(Chest chest)
 {
 	std::vector<Chest>::iterator it;
 	for (it = roomChests.begin(); it < roomChests.end(); it++)

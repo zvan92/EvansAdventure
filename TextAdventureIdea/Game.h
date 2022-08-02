@@ -38,7 +38,6 @@ public:
 	void DisplayUseItemScreen(Item item);
 	void Init();
 	void PromptForDirection();
-	void SaveProgress();
 	void StartPlayerTurn();
 
 private:

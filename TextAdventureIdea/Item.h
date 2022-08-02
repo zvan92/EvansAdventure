@@ -48,11 +48,11 @@ public:
 	int getIsChest() { return isChest; }
 
 protected:
+	std::string name;
 	bool isFood;
 	bool isPotion;
 	bool isKey;
 	bool isChest;
 	int damageFactor;
 	int healFactor;
-	std::string name;
 };

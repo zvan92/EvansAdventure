@@ -2,7 +2,6 @@
 #include "Game.h"
 #include "Player.h"
 #include "Menu.h"
-#include "FileManager.h"
 #include "MapManager.h"
 #include <iostream>
 #include <sstream>
@@ -115,6 +114,7 @@ int Game::CreatePlayer()
 
 		if (input.length() == 1 && (choice == 'y' || choice == 'Y'))
 		{
+			Player::GetInstance()->setPlayerName(name);
 			confirmed = true;
 		}
 		else if (input.length() == 1 && (choice == 'n' || choice == 'N'))
@@ -126,11 +126,6 @@ int Game::CreatePlayer()
 			continue;
 		}
 	}
-
-	Player::GetInstance()->setPlayerName(name);
-	Player::GetInstance()->setPlayerEnergy(180);
-	Player::GetInstance()->setTurnsCompleted(0);
-	Player::GetInstance()->setCurrentLocationGridID("A4");
 
 	return 0;
 }
@@ -212,7 +207,7 @@ void Game::DisplayCollectItemScreen()
 							if (itemNames[index].compare(it3->getName()) == 0)
 							{
 								Food& food = (*it3);
-								MapManager::GetInstance()->TransferFoodToPlayer(food);
+								MapManager::GetInstance()->TransferItemToPlayer(food);
 							}
 						}
 
@@ -224,7 +219,7 @@ void Game::DisplayCollectItemScreen()
 							if (itemNames[index].compare(it4->getName()) == 0)
 							{
 								Potion& potion = (*it4);
-								MapManager::GetInstance()->TransferPotionToPlayer(potion);
+								MapManager::GetInstance()->TransferItemToPlayer(potion);
 							}
 						}
 
@@ -323,7 +318,7 @@ void Game::DisplayUseItemScreen(Item item)
 						Chest& chest = (*it2);
 						if (chest.CombineWithItem(item) == SUCCESS)
 						{
-							MapManager::GetInstance()->RemoveChest(chest);
+							MapManager::GetInstance()->RemoveItem(chest);
 							Player::GetInstance()->RemoveItem(item);
 						}
 					}
@@ -382,6 +377,11 @@ void Game::DisplayEndGameScreen()
 		if (input.length() == 1 && (choice == 'y' || choice == 'Y'))
 		{
 			gameOverStatus = true;
+
+			MapManager::GetInstance()->GetRoomMap().clear();
+			Player::GetInstance()->ResetProgress();
+			Game::GetInstance()->Init();
+
 			confirmed = true;
 		}
 		if (input.length() == 1 && (choice == 'n' || choice == 'N'))
@@ -602,40 +602,44 @@ void Game::Init()
 	gameIsInitializing = true;
 
 	MapManager::GetInstance()->CreateRooms();
+	Player::GetInstance()->setPlayerEnergy(180);
+	Player::GetInstance()->setTurnsCompleted(0);
+	Player::GetInstance()->setCurrentLocationGridID("A4");
+	Player::GetInstance()->setInventoryCount(0);
 
 	Food f;
 	f.setName("Apple");
 	f.setHealFactor(5);
-	Player::GetInstance()->AddItemToInventory(f);
+	MapManager::GetInstance()->TransferItemToRoom(f, "A4");
 	
 	Potion g;
 	g.setName("Poison");
 	g.setDamageFactor(5);
 	g.setIsPoison(true);
-	Player::GetInstance()->AddItemToInventory(g);
+	MapManager::GetInstance()->TransferItemToRoom(g, "A4");
 
 	Food h;
 	h.setName("Rotten Apple");
 	h.setDamageFactor(5);
 	h.setIsRotten(true);
-	Player::GetInstance()->AddItemToInventory(h);
+	MapManager::GetInstance()->TransferItemToRoom(h, "A4");
 
 	Potion i;
 	i.setName("Health Potion");
 	i.setHealFactor(5);
-	Player::GetInstance()->AddItemToInventory(i);
+	MapManager::GetInstance()->TransferItemToRoom(i, "A4");
 
 	Chest blueChest;
 	blueChest.setName("Blue Chest");
 	blueChest.setIsChest(true);
-	// contents
-	MapManager::GetInstance()->TransferChestToRoom(blueChest, "A4");
+	//TODO: contents
+	MapManager::GetInstance()->TransferItemToRoom(blueChest, "A4");
 
 	// will become a Key eventually
 	Item blueKey;
 	blueKey.setName("Blue Key");
 	blueKey.setIsKey(true);
-	Player::GetInstance()->AddItemToInventory(blueKey);
+	MapManager::GetInstance()->TransferItemToRoom(blueKey, "A4");
 
 	gameIsInitializing = false;
 }
@@ -689,7 +693,7 @@ int Game::PromptForTurnAction()
 	cout << "Player health: " << Player::GetInstance()->getPlayerEnergy() << "\n";
 	cout << "Turns completed: " << Player::GetInstance()->getTurnsCompleted() << "\n\n";
 	cout << "What would you like to do, " << Player::GetInstance()->getPlayerName() << "?\n\n";
-	cout << "(1) Move\n(2) Look Around\n(3) Collect Item\n(4) View Inventory\n(5) View Map\n(6) Save Progress\n(7) End Game\n\nEnter Choice: ";
+	cout << "(1) Move\n(2) Look Around\n(3) Collect Item\n(4) View Inventory\n(5) View Map\n(6) End Game\n\nEnter Choice: ";
 
 	string input;
 	int choice;
@@ -702,8 +706,7 @@ int Game::PromptForTurnAction()
 		choice == 3 ||
 		choice == 4 ||
 		choice == 5 ||
-		choice == 6 ||
-		choice == 7)
+		choice == 6)
 	{
 		return choice;
 	}
@@ -766,11 +769,6 @@ void Game::PromptForDirection()
 	}
 }
 
-void Game::SaveProgress()
-{
-	FileManager::GetInstance()->PromptForSave();
-}
-
 void Game::StartPlayerTurn()
 {
 	//TODO: make better "game win" event
@@ -817,9 +815,6 @@ void Game::StartPlayerTurn()
 		DisplayMapScreen();
 		break;
 	case 6:
-		SaveProgress();
-		break;
-	case 7:
 		DisplayEndGameScreen();
 		break;
 	}

@@ -152,7 +152,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Chest.h" />
-    <ClInclude Include="FileManager.h" />
     <ClInclude Include="Food.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Potion.h" />
@@ -165,7 +164,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Chest.cpp" />
-    <ClCompile Include="FileManager.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="MapManager.cpp" />
     <ClCompile Include="Menu.cpp" />
