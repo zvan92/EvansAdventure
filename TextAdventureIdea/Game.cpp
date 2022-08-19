@@ -337,19 +337,21 @@ void Game::DisplayUseItemScreen(Item item)
 void Game::DisplayMapScreen()
 {
 	system("cls");
-	cout << "   EVAN'S ADVENTURE: MAP  \n";
-	cout << "===========================\n";
-	cout << "  _       _ _             \n";
-	cout << " | |  _ _|   |    _   _   \n";
-	cout << " | | |  _  | |_ _| |_| |_ \n";
-	cout << " | |_| |_ _|_ _ _   _ _ _|\n";
-	cout << " |_ _ _ _    |  _| |_ _  |\n";
-	cout << " |_ _   _ _| |_   _|_   _|\n";
-	cout << " |_    |  _ _|  _ _ _|   |\n";
-	cout << "   | |_| |  _ _   _ _| |_ END\n";
-	cout << "   |_ _  |_ _ _|_ _ _ _ _|\n";
-	cout << "      START               \n";
-	cout << "===========================\n\n";
+	cout << "    EVAN'S ADVENTURE: MAP    \n";
+	cout << "=============================\n";
+	cout << "     _       _ _             \n";
+	cout << "[H] | |  _ _|   |    _   _   \n";
+	cout << "|   | | |  _  | |_ _| |_| |_ \n";
+	cout << "|   | |_| |_ _|_ _ _   _ _ _|\n";
+	cout << "|   |_ _ _ _    |  _| |_ _  |\n";
+	cout << "|   |_ _   _ _| |_   _|_   _|\n";
+	cout << "|   |_    |  _ _|  _ _ _|   |\n";
+	cout << "|     | |_| |  _ _   _ _| |_ END\n";
+	cout << "[A]   |_ _  |_ _ _|_ _ _ _ _|\n";
+	cout << "         START               \n";
+	cout << "    [1]------------------[12]\n";
+	cout << "							  \n";
+	cout << "=============================\n\n";
 	system("pause");
 }
 
