@@ -447,7 +447,7 @@ void Game::DisplayInventoryScreen()
 						int index = iChoice - 1;
 						system("cls");
 
-						// USE ITEM (will become Key)
+						// ---- USE ITEM (will become Key)
 						std::vector<std::string> itemNames = Player::GetInstance()->getPlayerItemNames();
 						std::vector<std::string>::iterator it;
 
@@ -462,7 +462,7 @@ void Game::DisplayInventoryScreen()
 							}
 						}
 
-						// USE FOOD
+						// ---- USE FOOD
 						std::vector<Food> playerFood = Player::GetInstance()->getPlayerFood();
 						std::vector<Food>::iterator it3;
 						for (it3 = playerFood.begin(); it3 < playerFood.end(); ++it3)
@@ -474,7 +474,7 @@ void Game::DisplayInventoryScreen()
 							}
 						}
 
-						// USE POTION
+						// ---- USE POTION
 						std::vector<Potion> playerPotions = Player::GetInstance()->getPlayerPotions();
 						std::vector<Potion>::iterator it4;
 						for (it4 = playerPotions.begin(); it4 < playerPotions.end(); ++it4)
@@ -485,8 +485,6 @@ void Game::DisplayInventoryScreen()
 								Player::GetInstance()->ConsumeItem(potion);
 							}
 						}
-
-						//TODO: implement "Use On" action branch
 
 						useConfirmed = true;
 						confirmed = true;
@@ -537,6 +535,7 @@ void Game::DisplayInventoryScreen()
 						std::vector<std::string> itemNames = Player::GetInstance()->getPlayerItemNames();
 						std::vector<std::string>::iterator it;
 
+						// ---- DROP ITEMS
 						std::vector<Item> playerItems = Player::GetInstance()->getPlayerItems();
 						std::vector<Item>::iterator it2;
 						for (it2 = playerItems.begin(); it2 < playerItems.end(); ++it2)
@@ -548,6 +547,7 @@ void Game::DisplayInventoryScreen()
 							}
 						}
 
+						// ---- DROP FOOD
 						std::vector<Food> playerFood = Player::GetInstance()->getPlayerFood();
 						std::vector<Food>::iterator it3;
 						for (it3 = playerFood.begin(); it3 < playerFood.end(); ++it3)
@@ -559,6 +559,7 @@ void Game::DisplayInventoryScreen()
 							}
 						}
 
+						// ---- DROP POTIONS
 						std::vector<Potion> playerPotions = Player::GetInstance()->getPlayerPotions();
 						std::vector<Potion>::iterator it4;
 						for (it4 = playerPotions.begin(); it4 < playerPotions.end(); ++it4)

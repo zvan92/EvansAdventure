@@ -130,6 +130,7 @@ void MapManager::DescribeRoom(string gridID)
 		cout << "There are no walls nearby.\n";
 	}
 
+	// ---- ITEM IDENTIFY
 	std::vector<Item>::iterator it1;
 	std::vector<Item> roomItems = roomMap[gridID].GetRoomItems();
 	if (!roomItems.empty())
@@ -140,6 +141,7 @@ void MapManager::DescribeRoom(string gridID)
 		}
 	}
 
+	// ---- FOOD IDENTIFY
 	std::vector<Food>::iterator it2;
 	std::vector<Food> roomFood = roomMap[gridID].GetRoomFood();
 	if (!roomFood.empty())
@@ -150,6 +152,7 @@ void MapManager::DescribeRoom(string gridID)
 		}
 	}
 
+	// --- POTION IDENTIFY
 	std::vector<Potion>::iterator it3;
 	std::vector<Potion> roomPotions = roomMap[gridID].GetRoomPotions();
 	if (!roomPotions.empty())
@@ -160,6 +163,7 @@ void MapManager::DescribeRoom(string gridID)
 		}
 	}
 
+	// ---- CHEST IDENTIFY
 	std::vector<Chest>::iterator it4;
 	std::vector<Chest> roomChests = roomMap[gridID].GetRoomChests();
 	if (!roomChests.empty())
