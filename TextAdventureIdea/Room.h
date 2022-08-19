@@ -36,8 +36,6 @@ public:
 		hasEastWall(setEastWall),
 		iRoomItemCount(0) {};
 
-//PUBLIC METHODS=========================================//
-
 	bool GetHasNorthWall() { return hasNorthWall; }
 	bool GetHasSouthWall() { return hasSouthWall; }
 	bool GetHasEastWall() { return hasEastWall; }
@@ -48,7 +46,6 @@ public:
 	std::vector<Potion> GetRoomPotions() { return roomPotions; }
 	std::vector<Chest> GetRoomChests() { return roomChests; }
 	int GetRoomItemCount() { return iRoomItemCount; }
-
 	void AddRoomItem(Item item);
 	void AddRoomItem(Food food);
 	void AddRoomItem(Potion potion);

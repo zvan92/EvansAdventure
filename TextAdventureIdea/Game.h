@@ -22,8 +22,6 @@ public:
 		return instance;
 	}
 
-//PUBLIC METHODS=========================================//
-
 	bool getGameOverStatus() { return gameOverStatus; }
 	void setGameOverStatus(bool value) { gameOverStatus = value; }
 	bool getGameIsInitializing() { return gameIsInitializing; }
@@ -42,11 +40,8 @@ public:
 
 private:
 	static Game *instance;
-
 	static bool gameOverStatus;
 	static bool gameIsInitializing;
-
-//PRIVATE METHODS========================================//
 
 	int PromptForTurnAction();
 	void ListPlayerItems();

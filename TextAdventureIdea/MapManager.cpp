@@ -8,7 +8,6 @@
 #include <vector>
 
 using namespace std;
-
 MapManager *MapManager::instance = 0;
 
 void MapManager::CreateRooms()

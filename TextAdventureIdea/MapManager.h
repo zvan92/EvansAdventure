@@ -24,18 +24,15 @@ public:
 		return instance;
 	}
 
-	enum Direction
+	enum class Direction
 	{
-		NORTH,
-		SOUTH,
-		EAST,
-		WEST
+		NORTH	= 0,
+		SOUTH	= 1,
+		EAST	= 2,
+		WEST	= 3
 	};
 
-//PUBLIC METHODS=========================================//
-
 	unordered_map<string, Room> GetRoomMap() { return roomMap; }
-	
 	void CreateRooms();
 	void DescribeRoom(string gridID);
 	void TransferItemToPlayer(Item item);
@@ -51,7 +48,6 @@ public:
 
 private:
 	static MapManager *instance;
-
 	unordered_map<string, Room> roomMap;
 };
 

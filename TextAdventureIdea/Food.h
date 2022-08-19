@@ -23,7 +23,6 @@ public:
 
 	bool getIsRotten() { return isRotten; }
 	void setIsRotten(bool value) { isRotten = value; }
-
 	int getRotsAfterTurn() { return rotsAfterTurn; }
 	void setRotsAfterTurn(int turnNumber) { rotsAfterTurn = turnNumber; }
 

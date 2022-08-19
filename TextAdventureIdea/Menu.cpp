@@ -6,7 +6,6 @@
 #include <string>
 
 using namespace std;
-
 Menu *Menu::instance = 0;
 
 int Menu::Run()

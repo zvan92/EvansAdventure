@@ -31,8 +31,6 @@ public:
 		return instance;
 	}
 
-//PUBLIC METHODS=========================================//
-
 	void setCurrentLocationGridID(std::string value) { sCurrentGridID = value; }
 	std::string getCurrentLocationGridID() { return sCurrentGridID; }
 	void setPlayerEnergy(int value) { iEnergy = value; }
@@ -70,9 +68,7 @@ public:
 
 private:
 	static Player *instance;
-
-	//The Grid ID is an X/Y coordinate; the X is represented by a letter and the Y is represented by a number (e.g. A5).
-	std::string sCurrentGridID;
+	std::string sCurrentGridID; //The Grid ID is an X/Y coordinate; the X is represented by a letter and the Y is represented by a number (e.g. A5).
 	std::string sName;
 	int iEnergy;
 	int iTurnsCompleted;

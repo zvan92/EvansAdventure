@@ -16,8 +16,6 @@ public:
 		return instance;
 	}
 
-//PUBLIC METHODS=========================================//
-
 	bool getIsQuitting() { return bIsQuitting; }
 	void setIsQuitting(bool value) { bIsQuitting = value; }
 
@@ -25,7 +23,6 @@ public:
 
 private:
 	static Menu *instance;
-
 	bool bIsQuitting;
 };
 

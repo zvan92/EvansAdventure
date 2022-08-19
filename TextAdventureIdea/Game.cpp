@@ -8,9 +8,7 @@
 #include <string>
 
 using namespace std;
-
 Game *Game::instance = 0;
-
 bool Game::gameOverStatus = false;
 bool Game::gameIsInitializing = false;
 
@@ -172,7 +170,7 @@ void Game::DisplayCollectItemScreen()
 				{
 					unordered_map<std::string, Room>roomMap = MapManager::GetInstance()->GetRoomMap();
 					Room* currentRoom = &roomMap[Player::GetInstance()->getCurrentLocationGridID()];
-					int roomItemsCount = currentRoom->GetRoomItemNames().size();
+					int roomItemsCount = (int)currentRoom->GetRoomItemNames().size();
 					int iChoice = (int)choice - 48;
 
 					if (choice == 'q' || choice == 'Q')
@@ -187,7 +185,7 @@ void Game::DisplayCollectItemScreen()
 						std::vector<std::string> itemNames = currentRoom->GetRoomItemNames();
 						std::vector<std::string>::iterator it;
 
-						// COLLECT ITEM
+						// ---- COLLECT ITEM
 						std::vector<Item> roomItems = currentRoom->GetRoomItems();
 						std::vector<Item>::iterator it2;
 						for (it2 = roomItems.begin(); it2 < roomItems.end(); ++it2)
@@ -199,7 +197,7 @@ void Game::DisplayCollectItemScreen()
 							}
 						}
 
-						// COLLECT FOOD
+						// ---- COLLECT FOOD
 						std::vector<Food> roomFood = currentRoom->GetRoomFood();
 						std::vector<Food>::iterator it3;
 						for (it3 = roomFood.begin(); it3 < roomFood.end(); ++it3)
@@ -211,7 +209,7 @@ void Game::DisplayCollectItemScreen()
 							}
 						}
 
-						// COLLECT POTION
+						// ---- COLLECT POTION
 						std::vector<Potion> roomPotions = currentRoom->GetRoomPotions();
 						std::vector<Potion>::iterator it4;
 						for (it4 = roomPotions.begin(); it4 < roomPotions.end(); ++it4)
@@ -223,7 +221,7 @@ void Game::DisplayCollectItemScreen()
 							}
 						}
 
-						// COLLECT CHEST
+						// ---- COLLECT CHEST
 						std::vector<Chest> roomChests = currentRoom->GetRoomChests();
 						std::vector<Chest>::iterator it5;
 						for (it5 = roomChests.begin(); it5 < roomChests.end(); ++it5)
@@ -297,7 +295,7 @@ void Game::DisplayUseItemScreen(Item item)
 		{
 			unordered_map<std::string, Room>roomMap = MapManager::GetInstance()->GetRoomMap();
 			Room* currentRoom = &roomMap[Player::GetInstance()->getCurrentLocationGridID()];
-			int roomItemsCount = currentRoom->GetRoomItemNames().size();
+			int roomItemsCount = (int)currentRoom->GetRoomItemNames().size();
 			int iChoice = (int)choice - 48;
 
 			if (iChoice > 0 && iChoice <= roomItemsCount)
@@ -305,7 +303,7 @@ void Game::DisplayUseItemScreen(Item item)
 				int index = iChoice - 1;
 				system("cls");
 
-				// USE KEY ON CHEST
+				// ---- USE KEY ON CHEST
 				std::vector<std::string> itemNames = currentRoom->GetRoomItemNames();
 				std::vector<std::string>::iterator it;
 
@@ -651,7 +649,7 @@ void Game::ListRoomItems()
 
 	if (currentRoom->GetRoomItemNames().empty())
 	{
-		cout << "There are no items in this room.\n";
+		cout << "<< ROOM EMPTY >>\n";
 	}
 	else
 	{
@@ -671,7 +669,7 @@ void Game::ListPlayerItems()
 {
 	if (Player::GetInstance()->getInventoryCount() == 0)
 	{
-		cout << "(EMPTY)\n";
+		cout << "<< EMPTY >>\n";
 	}
 	else
 	{

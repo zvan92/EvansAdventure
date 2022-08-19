@@ -24,26 +24,18 @@ public:
 		isKey(item.isKey),
 		isChest(item.isChest) {};
 
-//PUBLIC METHODS=========================================//
-
 	void setDamageFactor(int value) { damageFactor = value; }
 	int getDamageFactor() { return damageFactor; }
-
 	void setHealFactor(int value) { healFactor = value; }
 	int getHealFactor() { return healFactor; }
-
 	void setName(std::string value) { name = value; }
 	std::string getName() { return name; }
-
 	void setIsFood(int value) { isFood = value; }
 	int getIsFood() { return isFood; }
-
 	void setIsPotion(int value) { isPotion = value; }
 	int getIsPotion() { return isPotion; }
-
 	void setIsKey(int value) { isKey = value; }
 	int getIsKey() { return isKey; }
-
 	void setIsChest(int value) { isChest = value; }
 	int getIsChest() { return isChest; }
 
