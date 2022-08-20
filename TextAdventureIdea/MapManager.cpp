@@ -191,7 +191,7 @@ void MapManager::DescribeRoom(string gridID)
 	cout << endl;
 }
 
-void MapManager::TransferItemToPlayer(Item item)
+void MapManager::TransferItemToPlayer(Item* item)
 {
 	Room* currentRoom = &roomMap[Player::GetInstance()->getCurrentLocationGridID()];
 	if (Player::GetInstance()->AddItemToInventory(item) == SUCCESS)
@@ -200,7 +200,7 @@ void MapManager::TransferItemToPlayer(Item item)
 	}
 }
 
-int MapManager::TransferItemToRoom(Item item, string gridID)
+int MapManager::TransferItemToRoom(Item* item, string gridID)
 {
 	Room* currentRoom = &roomMap[gridID];
 	if (currentRoom->GetRoomItemCount() < MAX_ROOM_ITEMS)
@@ -214,7 +214,7 @@ int MapManager::TransferItemToRoom(Item item, string gridID)
 	return SUCCESS;
 }
 
-int MapManager::TransferItemToRoom(Food food, string gridID)
+int MapManager::TransferItemToRoom(Food* food, string gridID)
 {
 	Room* currentRoom = &roomMap[gridID];
 	if (currentRoom->GetRoomItemCount() < MAX_ROOM_ITEMS)
@@ -228,7 +228,7 @@ int MapManager::TransferItemToRoom(Food food, string gridID)
 	return SUCCESS;
 }
 
-void MapManager::TransferItemToPlayer(Food food)
+void MapManager::TransferItemToPlayer(Food* food)
 {
 	Room* currentRoom = &roomMap[Player::GetInstance()->getCurrentLocationGridID()];
 	if (Player::GetInstance()->AddItemToInventory(food) == SUCCESS)
@@ -237,7 +237,7 @@ void MapManager::TransferItemToPlayer(Food food)
 	}
 }
 
-int MapManager::TransferItemToRoom(Potion potion, string gridID)
+int MapManager::TransferItemToRoom(Potion* potion, string gridID)
 {
 	Room* currentRoom = &roomMap[gridID];
 	if (currentRoom->GetRoomItemCount() < MAX_ROOM_ITEMS)
@@ -251,7 +251,7 @@ int MapManager::TransferItemToRoom(Potion potion, string gridID)
 	return SUCCESS;
 }
 
-void MapManager::TransferItemToPlayer(Potion potion)
+void MapManager::TransferItemToPlayer(Potion* potion)
 {
 	Room* currentRoom = &roomMap[Player::GetInstance()->getCurrentLocationGridID()];
 	if (Player::GetInstance()->AddItemToInventory(potion) == SUCCESS)
@@ -260,7 +260,7 @@ void MapManager::TransferItemToPlayer(Potion potion)
 	}
 }
 
-int MapManager::TransferItemToRoom(Chest chest, string gridID)
+int MapManager::TransferItemToRoom(Chest* chest, string gridID)
 {
 	Room* currentRoom = &roomMap[gridID];
 	if (currentRoom->GetRoomItemCount() < MAX_ROOM_ITEMS)
@@ -274,7 +274,7 @@ int MapManager::TransferItemToRoom(Chest chest, string gridID)
 	return SUCCESS;
 }
 
-void MapManager::RemoveItem(Chest chest)
+void MapManager::RemoveItem(Chest* chest)
 {
 	Room* currentRoom = &roomMap[Player::GetInstance()->getCurrentLocationGridID()];
 	currentRoom->RemoveRoomItem(chest);

@@ -193,7 +193,7 @@ void Game::DisplayCollectItemScreen()
 							if (itemNames[index].compare(it2->getName()) == 0)
 							{
 								Item& item = (*it2);
-								MapManager::GetInstance()->TransferItemToPlayer(item);
+								MapManager::GetInstance()->TransferItemToPlayer(&item);
 							}
 						}
 
@@ -205,7 +205,7 @@ void Game::DisplayCollectItemScreen()
 							if (itemNames[index].compare(it3->getName()) == 0)
 							{
 								Food& food = (*it3);
-								MapManager::GetInstance()->TransferItemToPlayer(food);
+								MapManager::GetInstance()->TransferItemToPlayer(&food);
 							}
 						}
 
@@ -217,7 +217,7 @@ void Game::DisplayCollectItemScreen()
 							if (itemNames[index].compare(it4->getName()) == 0)
 							{
 								Potion& potion = (*it4);
-								MapManager::GetInstance()->TransferItemToPlayer(potion);
+								MapManager::GetInstance()->TransferItemToPlayer(&potion);
 							}
 						}
 
@@ -261,7 +261,7 @@ void Game::DisplayCollectItemScreen()
 }
 
 // will need to become Key eventually
-void Game::DisplayUseItemScreen(Item item)
+void Game::DisplayUseItemScreen(Item* item)
 {
 	bool confirmed = false;
 
@@ -316,7 +316,7 @@ void Game::DisplayUseItemScreen(Item item)
 						Chest& chest = (*it2);
 						if (chest.CombineWithItem(item) == SUCCESS)
 						{
-							MapManager::GetInstance()->RemoveItem(chest);
+							MapManager::GetInstance()->RemoveItem(&chest);
 							Player::GetInstance()->RemoveItem(item);
 						}
 					}
@@ -460,7 +460,7 @@ void Game::DisplayInventoryScreen()
 							if (itemNames[index].compare(it2->getName()) == 0)
 							{
 								Item& item = (*it2);
-								DisplayUseItemScreen(item);
+								DisplayUseItemScreen(&item);
 							}
 						}
 
@@ -472,7 +472,7 @@ void Game::DisplayInventoryScreen()
 							if (itemNames[index].compare(it3->getName()) == 0)
 							{
 								Food& food = (*it3);
-								Player::GetInstance()->ConsumeItem(food);
+								Player::GetInstance()->ConsumeItem(&food);
 							}
 						}
 
@@ -484,7 +484,7 @@ void Game::DisplayInventoryScreen()
 							if (itemNames[index].compare(it4->getName()) == 0)
 							{
 								Potion& potion = (*it4);
-								Player::GetInstance()->ConsumeItem(potion);
+								Player::GetInstance()->ConsumeItem(&potion);
 							}
 						}
 
@@ -545,7 +545,7 @@ void Game::DisplayInventoryScreen()
 							if (itemNames[index].compare(it2->getName()) == 0)
 							{
 								Item& item = (*it2);
-								Player::GetInstance()->DropItem(item);
+								Player::GetInstance()->DropItem(&item);
 							}
 						}
 
@@ -557,7 +557,7 @@ void Game::DisplayInventoryScreen()
 							if (itemNames[index].compare(it3->getName()) == 0)
 							{
 								Food& food = (*it3);
-								Player::GetInstance()->DropItem(food);
+								Player::GetInstance()->DropItem(&food);
 							}
 						}
 
@@ -569,7 +569,7 @@ void Game::DisplayInventoryScreen()
 							if (itemNames[index].compare(it4->getName()) == 0)
 							{
 								Potion& potion = (*it4);
-								Player::GetInstance()->DropItem(potion);
+								Player::GetInstance()->DropItem(&potion);
 							}
 						}
 
@@ -608,39 +608,45 @@ void Game::Init()
 	Player::GetInstance()->setCurrentLocationGridID("A4");
 	Player::GetInstance()->setInventoryCount(0);
 
-	Food f;
-	f.setName("Apple");
-	f.setHealFactor(5);
+	Food* f = new Food();
+	f->setName("Apple");
+	f->setHealFactor(5);
 	MapManager::GetInstance()->TransferItemToRoom(f, "A4");
+	delete(f);
 	
-	Potion g;
-	g.setName("Poison");
-	g.setDamageFactor(5);
-	g.setIsPoison(true);
+	Potion* g = new Potion();
+	g->setName("Poison");
+	g->setDamageFactor(5);
+	g->setIsPoison(true);
 	MapManager::GetInstance()->TransferItemToRoom(g, "A4");
+	delete(g);
 
-	Food h;
-	h.setName("Rotten Apple");
-	h.setDamageFactor(5);
-	h.setIsRotten(true);
+	Food* h = new Food();
+	h->setName("Rotten Apple");
+	h->setDamageFactor(5);
+	h->setIsRotten(true);
 	MapManager::GetInstance()->TransferItemToRoom(h, "A4");
+	delete(h);
 
-	Potion i;
-	i.setName("Health Potion");
-	i.setHealFactor(5);
+	Potion* i = new Potion();
+	i->setName("Health Potion");
+	i->setHealFactor(5);
 	MapManager::GetInstance()->TransferItemToRoom(i, "A4");
+	delete(i);
 
-	Chest blueChest;
-	blueChest.setName("Blue Chest");
-	blueChest.setIsChest(true);
+	Chest* blueChest = new Chest();
+	blueChest->setName("Blue Chest");
+	blueChest->setIsChest(true);
 	//TODO: contents
 	MapManager::GetInstance()->TransferItemToRoom(blueChest, "A4");
+	delete(blueChest);
 
 	// will become a Key eventually
-	Item blueKey;
-	blueKey.setName("Blue Key");
-	blueKey.setIsKey(true);
+	Item* blueKey = new Item();
+	blueKey->setName("Blue Key");
+	blueKey->setIsKey(true);
 	MapManager::GetInstance()->TransferItemToRoom(blueKey, "A4");
+	delete(blueKey);
 
 	gameIsInitializing = false;
 }

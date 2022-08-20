@@ -35,19 +35,19 @@ public:
 	unordered_map<string, Room> GetRoomMap() { return roomMap; }
 	void CreateRooms();
 	void DescribeRoom(string gridID);
-	void TransferItemToPlayer(Item item);
-	int TransferItemToRoom(Item item, string gridID);
-	void TransferItemToPlayer(Food food);
-	int TransferItemToRoom(Food food, string gridID);
-	void TransferItemToPlayer(Potion potion);
-	int TransferItemToRoom(Potion potion, string gridID);
-	int TransferItemToRoom(Chest chest, string gridID);
-	void RemoveItem(Chest chest);
+	void TransferItemToPlayer(Item* item);
+	int TransferItemToRoom(Item* item, string gridID);
+	void TransferItemToPlayer(Food* food);
+	int TransferItemToRoom(Food* food, string gridID);
+	void TransferItemToPlayer(Potion* potion);
+	int TransferItemToRoom(Potion* potion, string gridID);
+	int TransferItemToRoom(Chest* chest, string gridID);
+	void RemoveItem(Chest* chest);
 	//TODO: transferKeyToPlayer
 	//TODO: transferKeyToRoom
 
 private:
-	static MapManager *instance;
+	static MapManager* instance;
 	unordered_map<string, Room> roomMap;
 };
 

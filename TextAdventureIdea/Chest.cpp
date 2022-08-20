@@ -4,7 +4,7 @@
 #include <iostream>
 
 // will need to become Key eventually
-int Chest::CombineWithItem(Item item)
+int Chest::CombineWithItem(Item* item)
 {
 	// something like...
 	/*
@@ -19,7 +19,7 @@ int Chest::CombineWithItem(Item item)
 	*/
 
 	// placeholder
-	if (item.getIsKey())
+	if (item->getIsKey())
 	{
 		system("cls");
 		std::cout << Player::GetInstance()->getPlayerName() << " unlocked a chest!\nThey open it, gather its contents, and it pops out of existence.\n\n";

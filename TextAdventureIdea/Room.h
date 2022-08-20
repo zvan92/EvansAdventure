@@ -46,14 +46,14 @@ public:
 	std::vector<Potion> GetRoomPotions() { return roomPotions; }
 	std::vector<Chest> GetRoomChests() { return roomChests; }
 	int GetRoomItemCount() { return iRoomItemCount; }
-	void AddRoomItem(Item item);
-	void AddRoomItem(Food food);
-	void AddRoomItem(Potion potion);
-	void AddRoomItem(Chest chest);
-	void RemoveRoomItem(Item item);
-	void RemoveRoomItem(Food food);
-	void RemoveRoomItem(Potion potion);
-	void RemoveRoomItem(Chest chest);
+	void AddRoomItem(Item* item);
+	void AddRoomItem(Food* food);
+	void AddRoomItem(Potion* potion);
+	void AddRoomItem(Chest* chest);
+	void RemoveRoomItem(Item* item);
+	void RemoveRoomItem(Food* food);
+	void RemoveRoomItem(Potion* potion);
+	void RemoveRoomItem(Chest* chest);
 	//TODO: roomKeys
 	//TODO: roomDoors
 

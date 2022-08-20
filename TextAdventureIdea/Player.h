@@ -47,18 +47,18 @@ public:
 	std::vector<Potion> getPlayerPotions() { return playerPotions; }
 	std::vector<std::string> getPlayerItemNames() { return playerItemNames; }
 	//TODO: playerKeys
-	int AddItemToInventory(Item& item);
-	int AddItemToInventory(Food& food);
-	int AddItemToInventory(Potion& potion);
+	int AddItemToInventory(Item* item);
+	int AddItemToInventory(Food* food);
+	int AddItemToInventory(Potion* potion);
 	//TODO: playerKeys
 	void ResetProgress();
-	void ConsumeItem(Item& item);
-	void ConsumeItem(Food& food);
-	void ConsumeItem(Potion& potion);
-	void RemoveItem(Item& item); // will eventually be Key
-	void DropItem(Item& item);
-	void DropItem(Food& food);
-	void DropItem(Potion& potion);
+	void ConsumeItem(Item* item);
+	void ConsumeItem(Food* food);
+	void ConsumeItem(Potion* potion);
+	void RemoveItem(Item* item); // will eventually be Key
+	void DropItem(Item* item);
+	void DropItem(Food* food);
+	void DropItem(Potion* potion);
 	//TODO: playerKeys
 	void LookAround();
 	void MoveNorth();

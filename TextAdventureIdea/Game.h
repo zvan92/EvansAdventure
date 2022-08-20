@@ -33,7 +33,7 @@ public:
 	void DisplayMapScreen();
 	void DisplayInventoryScreen();
 	void DisplayEndGameScreen();
-	void DisplayUseItemScreen(Item item);
+	void DisplayUseItemScreen(Item* item);
 	void Init();
 	void PromptForDirection();
 	void StartPlayerTurn();

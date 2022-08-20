@@ -37,7 +37,7 @@ public:
 	void setIsYellow(bool value) { isYellow = value; }
 	//contents
 
-	int CombineWithItem(Item item);
+	int CombineWithItem(Item* item);
 
 private:
 	bool isBlue;
