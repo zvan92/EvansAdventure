@@ -80,7 +80,7 @@ int Game::CreatePlayer()
 		cout << "==========================================\n";
 		cout << "==           EVAN'S ADVENTURE           ==\n";
 		cout << "==========================================\n";
-		cout << "               [ New Game ]\n\n";
+		cout << "               [ New Game ]             \n\n";
 		cout << "Enter character name or type 'esc' to cancel:\n\n";
 
 		string input;
@@ -135,8 +135,8 @@ void Game::DisplayCollectItemScreen()
 	while (!confirmed)
 	{
 		system("cls");
-		cout << "       COLLECT ITEM        \n";
-		cout << "===========================\n\n";
+		cout << "         COLLECT ITEM        \n";
+		cout << "=============================\n\n";
 		ListRoomItems();
 		cout << "(C) Collect Item\n";
 		cout << "(Q) Return\n\n";
@@ -155,8 +155,8 @@ void Game::DisplayCollectItemScreen()
 			while (!collectConfirmed)
 			{
 				system("cls");
-				cout << "       COLLECT ITEM        \n";
-				cout << "===========================\n\n";
+				cout << "         COLLECT ITEM        \n";
+				cout << "=============================\n\n";
 				cout << "Collect which item?\n\n";
 				ListRoomItems();
 				cout << "(Q) Return\n\n";
@@ -268,8 +268,8 @@ void Game::DisplayUseItemScreen(Item item)
 	while (!confirmed)
 	{
 		system("cls");
-		cout << "      USE ITEM     \n";
-		cout << "====================\n\n";
+		cout << "           USE ITEM          \n";
+		cout << "=============================\n\n";
 		cout << "Use item on what?\n\n";
 		ListRoomItems();
 		cout << "(P) Player\n";
@@ -403,8 +403,8 @@ void Game::DisplayInventoryScreen()
 	while (!confirmed)
 	{
 		system("cls");
-		cout << "      PLAYER INVENTORY     \n";
-		cout << "===========================\n\n";
+		cout << "       PLAYER INVENTORY      \n";
+		cout << "=============================\n\n";
 		ListPlayerItems();
 		cout << "(U) Use Item\n";
 		cout << "(D) Drop Item\n";
@@ -424,8 +424,8 @@ void Game::DisplayInventoryScreen()
 			while (!useConfirmed)
 			{
 				system("cls");
-				cout << "      PLAYER INVENTORY     \n";
-				cout << "===========================\n\n";
+				cout << "       PLAYER INVENTORY      \n";
+				cout << "=============================\n\n";
 				cout << "Use which item?\n\n";
 				ListPlayerItems();
 				cout << "(Q) Return\n\n";
@@ -509,8 +509,8 @@ void Game::DisplayInventoryScreen()
 			while (!dropConfirmed)
 			{
 				system("cls");
-				cout << "      PLAYER INVENTORY     \n";
-				cout << "===========================\n\n";
+				cout << "       PLAYER INVENTORY      \n";
+				cout << "=============================\n\n";
 				cout << "Drop which item?\n\n";
 				ListPlayerItems();
 				cout << "(Q) Return\n\n";
@@ -693,7 +693,7 @@ int Game::PromptForTurnAction()
 	system("cls");
 	cout << "Player health: " << Player::GetInstance()->getPlayerEnergy() << "\n";
 	cout << "Turns completed: " << Player::GetInstance()->getTurnsCompleted() << "\n\n";
-	cout << "What would you like to do, " << Player::GetInstance()->getPlayerName() << "?\n\n";
+	cout << "What would you like " << Player::GetInstance()->getPlayerName() << " to do?\n\n";
 	cout << "(1) Move\n(2) Look Around\n(3) Collect Item\n(4) View Inventory\n(5) View Map\n(6) End Game\n\nEnter Choice: ";
 
 	string input;
@@ -724,6 +724,8 @@ void Game::PromptForDirection()
 	while (!confirmed)
 	{
 		system("cls");
+		cout << "            MOVE             \n";
+		cout << "=============================\n\n";
 		cout << "Move in which direction?\n\n";
 		cout << "(1) North\n(2) South\n(3) East\n(4) West\n(5) Cancel\n\n";
 		cout << "Enter choice: ";

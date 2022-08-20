@@ -105,30 +105,35 @@ void MapManager::CreateRooms()
 void MapManager::DescribeRoom(string gridID)
 {
 	system("cls");
+	cout << "         LOOK AROUND         \n";
+	cout << "=============================\n\n";
 
+	cout << "Walls found:\n\n";
 	if (roomMap[gridID].GetHasNorthWall() == true)
 	{
-		cout << "There is a wall to the North.\n";
+		cout << "-> North\n";
 	}
 	if (roomMap[gridID].GetHasSouthWall() == true)
 	{
-		cout << "There is a wall to the South.\n";
+		cout << "-> South\n";
 	}
 	if (roomMap[gridID].GetHasEastWall() == true)
 	{
-		cout << "There is a wall to the East.\n";
+		cout << "-> East\n";
 	}
 	if (roomMap[gridID].GetHasWestWall() == true)
 	{
-		cout << "There is a wall to the West.\n";
+		cout << "-> West\n";
 	}
 	if (roomMap[gridID].GetHasNorthWall() == false &&
 		roomMap[gridID].GetHasSouthWall() == false &&
 		roomMap[gridID].GetHasEastWall() == false &&
 		roomMap[gridID].GetHasWestWall() == false)
 	{
-		cout << "There are no walls nearby.\n";
+		cout << "-> None\n";
 	}
+
+	cout << "\nItems found:\n";
 
 	// ---- ITEM IDENTIFY
 	std::vector<Item>::iterator it1;
@@ -137,7 +142,7 @@ void MapManager::DescribeRoom(string gridID)
 	{
 		for (it1 = roomItems.begin(); it1 < roomItems.end(); it1++)
 		{
-			cout << "\nThere is a " << it1->getName() << " on the ground.";
+			cout << "\n-> " << it1->getName();
 		}
 	}
 
@@ -148,7 +153,7 @@ void MapManager::DescribeRoom(string gridID)
 	{
 		for (it2 = roomFood.begin(); it2 < roomFood.end(); it2++)
 		{
-			cout << "\nThere is a " << it2->getName() << " on the ground.";
+			cout << "\n-> " << it2->getName();
 		}
 	}
 
@@ -159,7 +164,7 @@ void MapManager::DescribeRoom(string gridID)
 	{
 		for (it3 = roomPotions.begin(); it3 < roomPotions.end(); it3++)
 		{
-			cout << "\nThere is a " << it3->getName() << " on the ground.";
+			cout << "\n-> " << it3->getName();
 		}
 	}
 
@@ -170,7 +175,7 @@ void MapManager::DescribeRoom(string gridID)
 	{
 		for (it4 = roomChests.begin(); it4 < roomChests.end(); it4++)
 		{
-			cout << "\nThere is a " << it4->getName() << " on the ground.";
+			cout << "\n-> " << it4->getName();
 		}
 	}
 
@@ -178,6 +183,10 @@ void MapManager::DescribeRoom(string gridID)
 	if (!roomItemNames.empty())
 	{
 		cout << endl;
+	}
+	else
+	{
+		cout << "\n-> None" << endl;
 	}
 	cout << endl;
 }

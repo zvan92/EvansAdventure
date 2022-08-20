@@ -344,7 +344,7 @@ void Player::MoveNorth()
 {
 	if (Game::GetInstance()->CheckForCollision(MapManager::Direction::NORTH))
 	{
-		cout << "You cannot move North.\n\n";
+		cout << Player::GetInstance()->getPlayerName() << " cannot move North.\n\n";
 	}
 	else
 	{
@@ -369,7 +369,7 @@ void Player::MoveSouth()
 {
 	if (Game::GetInstance()->CheckForCollision(MapManager::Direction::SOUTH))
 	{
-		cout << "You cannot move South.\n\n";
+		cout << Player::GetInstance()->getPlayerName() << " cannot move South.\n\n";
 	}
 	else
 	{
@@ -394,7 +394,7 @@ void Player::MoveEast()
 {
 	if (Game::GetInstance()->CheckForCollision(MapManager::Direction::EAST))
 	{
-		cout << "You cannot move East.\n\n";
+		cout << Player::GetInstance()->getPlayerName() << " cannot move East.\n\n";
 	}
 	else
 	{
@@ -457,7 +457,7 @@ void Player::MoveWest()
 {
 	if (Game::GetInstance()->CheckForCollision(MapManager::Direction::WEST))
 	{
-		cout << "You cannot move West.\n\n";
+		cout << Player::GetInstance()->getPlayerName() << " cannot move West.\n\n";
 	}
 	else
 	{
