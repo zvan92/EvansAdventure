@@ -36,7 +36,7 @@ public:
 	bool getIsYellow () { return isYellow; }
 	void setIsYellow(bool value) { isYellow = value; }
 	//contents
-
+	// Can't instantiate Item objects - will be replaced with Key eventually
 	int CombineWithItem(Item* item);
 
 private:

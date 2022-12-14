@@ -17,6 +17,7 @@ public:
 		iEnergy(0),
 		iInventoryCount(0),
 		iTurnsCompleted(0),
+		// Can't instantiate Item objects - will be replaced with Key eventually
 		playerItems(), 
 		playerFood(), 
 		playerPotions() {};
@@ -41,21 +42,23 @@ public:
 	int getTurnsCompleted() { return iTurnsCompleted; }
 	void setInventoryCount(int value) { iInventoryCount = value; }
 	int getInventoryCount() { return iInventoryCount; }
-
+	// Can't instantiate Item objects - will be replaced with Key eventually
 	std::vector<Item> getPlayerItems() { return playerItems; }
 	std::vector<Food> getPlayerFood() { return playerFood; }
 	std::vector<Potion> getPlayerPotions() { return playerPotions; }
 	std::vector<std::string> getPlayerItemNames() { return playerItemNames; }
-	//TODO: playerKeys
+	// Can't instantiate Item objects - will be replaced with Key eventually
 	int AddItemToInventory(Item* item);
 	int AddItemToInventory(Food* food);
 	int AddItemToInventory(Potion* potion);
-	//TODO: playerKeys
 	void ResetProgress();
+	// Can't instantiate Item objects - will be replaced with Key eventually
 	void ConsumeItem(Item* item);
 	void ConsumeItem(Food* food);
 	void ConsumeItem(Potion* potion);
-	void RemoveItem(Item* item); // will eventually be Key
+	// Can't instantiate Item objects - will be replaced with Key eventually
+	void RemoveItem(Item* item);
+	// Can't instantiate Item objects - will be replaced with Key eventually
 	void DropItem(Item* item);
 	void DropItem(Food* food);
 	void DropItem(Potion* potion);
@@ -74,6 +77,7 @@ private:
 	int iTurnsCompleted;
 	int iInventoryCount;
 	std::vector<std::string> playerItemNames;
+	// Can't instantiate Item objects - will be replaced with Key eventually
 	std::vector<Item> playerItems;
 	std::vector<Food> playerFood;
 	std::vector<Potion> playerPotions;

@@ -134,7 +134,7 @@ void MapManager::DescribeRoom(string gridID)
 	}
 
 	cout << "\nItems found:\n";
-
+	// Can't instantiate Item objects - will be replaced with Key eventually
 	// ---- ITEM IDENTIFY
 	std::vector<Item>::iterator it1;
 	std::vector<Item> roomItems = roomMap[gridID].GetRoomItems();
@@ -190,7 +190,7 @@ void MapManager::DescribeRoom(string gridID)
 	}
 	cout << endl;
 }
-
+// Can't instantiate Item objects - will be replaced with Key eventually
 void MapManager::TransferItemToPlayer(Item* item)
 {
 	Room* currentRoom = &roomMap[Player::GetInstance()->getCurrentLocationGridID()];
@@ -199,7 +199,7 @@ void MapManager::TransferItemToPlayer(Item* item)
 		currentRoom->RemoveRoomItem(item);
 	}
 }
-
+// Can't instantiate Item objects - will be replaced with Key eventually
 int MapManager::TransferItemToRoom(Item* item, string gridID)
 {
 	Room* currentRoom = &roomMap[gridID];

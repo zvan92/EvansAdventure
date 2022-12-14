@@ -2,7 +2,7 @@
 #include "Room.h"
 #include <iostream>
 #include <vector>
-
+// Can't instantiate Item objects - will be replaced with Key eventually
 void Room::AddRoomItem(Item* item)
 {
 	std::vector<Item>::iterator it;
@@ -13,7 +13,7 @@ void Room::AddRoomItem(Item* item)
 	roomItemNames.insert(it2, item->getName());
 	iRoomItemCount++;
 }
-
+// Can't instantiate Item objects - will be replaced with Key eventually
 void Room::RemoveRoomItem(Item* item)
 {
 	std::vector<Item>::iterator it;

@@ -259,8 +259,7 @@ void GameManager::DisplayCollectItemScreen()
 		}
 	}
 }
-
-// will need to become Key eventually
+// Can't instantiate Item objects - will be replaced with Key eventually
 void GameManager::DisplayUseItemScreen(Item* item)
 {
 	bool confirmed = false;
@@ -449,7 +448,7 @@ void GameManager::DisplayInventoryScreen()
 						int index = iChoice - 1;
 						system("cls");
 
-						// ---- USE ITEM (will become Key)
+						// ---- USE ITEM (Item objects here will become Key eventually)
 						std::vector<std::string> itemNames = Player::GetInstance()->getPlayerItemNames();
 						std::vector<std::string>::iterator it;
 

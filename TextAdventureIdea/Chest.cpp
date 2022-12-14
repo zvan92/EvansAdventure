@@ -3,7 +3,7 @@
 #include "Player.h"
 #include <iostream>
 
-// will need to become Key eventually
+// Can't instantiate Item objects - will be replaced with Key eventually
 int Chest::CombineWithItem(Item* item)
 {
 	// something like...

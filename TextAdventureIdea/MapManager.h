@@ -35,7 +35,9 @@ public:
 	unordered_map<string, Room> GetRoomMap() { return roomMap; }
 	void CreateRooms();
 	void DescribeRoom(string gridID);
+	// Can't instantiate Item objects - will be replaced with Key eventually
 	void TransferItemToPlayer(Item* item);
+	// Can't instantiate Item objects - will be replaced with Key eventually
 	int TransferItemToRoom(Item* item, string gridID);
 	void TransferItemToPlayer(Food* food);
 	int TransferItemToRoom(Food* food, string gridID);

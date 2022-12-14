@@ -5,6 +5,7 @@
 
 Player *Player::instance = 0;
 
+// Can't instantiate Item objects - will be replaced with Key eventually
 int Player::AddItemToInventory(Item* item)
 {
 	if (iInventoryCount < MAX_INVENTORY_ITEMS)
@@ -88,7 +89,7 @@ int Player::AddItemToInventory(Potion* potion)
 	}
 	return SUCCESS;
 }
-
+// Can't instantiate Item objects - will be replaced with Key eventually
 void Player::DropItem(Item* item)
 {
 	if (MapManager::GetInstance()->TransferItemToRoom(item, sCurrentGridID) == FAILED)
@@ -196,7 +197,7 @@ void Player::DropItem(Potion* potion)
 		iInventoryCount--;
 	}
 }
-
+// Can't instantiate Item objects - will be replaced with Key eventually
 void Player::ConsumeItem(Item* item)
 {
 	if (item->getHealFactor() > 0)
@@ -524,8 +525,7 @@ void Player::ResetProgress()
 	iInventoryCount = 0;
 	iEnergy = 0;
 }
-
-// will need to become Key eventually
+// Can't instantiate Item objects - will be replaced with Key eventually
 void Player::RemoveItem(Item* item)
 {
 	system("cls");

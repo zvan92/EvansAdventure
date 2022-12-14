@@ -1,7 +1,7 @@
 ENGINE HOW-TO GUIDE
 ===================
 
-CREATING A NEW ITEM TYPE:
+>>>>> CREATING A NEW ITEM TYPE:
 
 (1) Create a new class:
 -----------------------
@@ -41,10 +41,11 @@ CREATING A NEW ITEM TYPE:
 -> for combinable items, refer to logic for Key
 -> add 'drop' logic within the scope of "else if (input.length() == 1 && (choice == 'd' || choice == 'D'))"
 
-[ DisplayUseItemScreen() ]
+[ DisplayUseItemScreen(<ITEM>* item) ]
 
--> only for collectible items
--> for combinable items, add logic within the scope of "else if (input.length() == 1)"
+-> only for collectible items that can interact with others
+-> create an override of this function that takes your new item as an input
+-> for interactions with other items, add logic within the scope of "else if (input.length() == 1)"
 
 (4) Changes to Room class:
 --------------------------
