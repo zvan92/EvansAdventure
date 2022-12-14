@@ -1,7 +1,7 @@
 #include "pch.h"
 #include "MapManager.h"
 #include "Menu.h"
-#include "Game.h"
+#include "GameManager.h"
 #include <iostream>
 
 using namespace std;
@@ -10,7 +10,7 @@ void Run()
 {
 	bool running = true;
 
-	Game::GetInstance()->Init();
+	GameManager::GetInstance()->Init();
 
 	while (running)
 	{
@@ -21,9 +21,9 @@ void Run()
 			menuResult = Menu::GetInstance()->Run();
 		} while (menuResult == 1);
 
-		while (Game::GetInstance()->getGameOverStatus() == false)
+		while (GameManager::GetInstance()->getGameOverStatus() == false)
 		{
-			Game::GetInstance()->StartPlayerTurn();
+			GameManager::GetInstance()->StartPlayerTurn();
 		}
 
 		if (Menu::GetInstance()->getIsQuitting() == true)

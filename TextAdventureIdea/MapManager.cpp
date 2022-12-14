@@ -1,5 +1,5 @@
 #include "pch.h"
-#include "Game.h"
+#include "GameManager.h"
 #include "MapManager.h"
 #include "Room.h"
 #include "Player.h"

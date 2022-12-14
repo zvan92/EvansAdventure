@@ -1,5 +1,5 @@
 #include "pch.h"
-#include "Game.h"
+#include "GameManager.h"
 #include "MapManager.h"
 #include "Player.h"
 
@@ -17,7 +17,7 @@ int Player::AddItemToInventory(Item* item)
 		playerItemNames.insert(it2, item->getName());
 		iInventoryCount++;
 
-		if (!Game::GetInstance()->getGameIsInitializing())
+		if (!GameManager::GetInstance()->getGameIsInitializing())
 		{
 			cout << sName << " collected the " << item->getName() << ".\n\n";
 			system("pause");
@@ -45,7 +45,7 @@ int Player::AddItemToInventory(Food* food)
 		playerItemNames.insert(it2, food->getName());
 		iInventoryCount++;
 
-		if (!Game::GetInstance()->getGameIsInitializing())
+		if (!GameManager::GetInstance()->getGameIsInitializing())
 		{
 			cout << sName << " collected the " << food->getName() << ".\n\n";
 			system("pause");
@@ -73,7 +73,7 @@ int Player::AddItemToInventory(Potion* potion)
 		playerItemNames.insert(it2, potion->getName());
 		iInventoryCount++;
 
-		if (!Game::GetInstance()->getGameIsInitializing())
+		if (!GameManager::GetInstance()->getGameIsInitializing())
 		{
 			cout << sName << " collected the " << potion->getName() << ".\n\n";
 			system("pause");
@@ -342,7 +342,7 @@ void Player::LookAround()
 
 void Player::MoveNorth()
 {
-	if (Game::GetInstance()->CheckForCollision(MapManager::Direction::NORTH))
+	if (GameManager::GetInstance()->CheckForCollision(MapManager::Direction::NORTH))
 	{
 		cout << Player::GetInstance()->getPlayerName() << " cannot move North.\n\n";
 	}
@@ -367,7 +367,7 @@ void Player::MoveNorth()
 
 void Player::MoveSouth()
 {
-	if (Game::GetInstance()->CheckForCollision(MapManager::Direction::SOUTH))
+	if (GameManager::GetInstance()->CheckForCollision(MapManager::Direction::SOUTH))
 	{
 		cout << Player::GetInstance()->getPlayerName() << " cannot move South.\n\n";
 	}
@@ -392,7 +392,7 @@ void Player::MoveSouth()
 
 void Player::MoveEast()
 {
-	if (Game::GetInstance()->CheckForCollision(MapManager::Direction::EAST))
+	if (GameManager::GetInstance()->CheckForCollision(MapManager::Direction::EAST))
 	{
 		cout << Player::GetInstance()->getPlayerName() << " cannot move East.\n\n";
 	}
@@ -455,7 +455,7 @@ void Player::MoveEast()
 
 void Player::MoveWest()
 {
-	if (Game::GetInstance()->CheckForCollision(MapManager::Direction::WEST))
+	if (GameManager::GetInstance()->CheckForCollision(MapManager::Direction::WEST))
 	{
 		cout << Player::GetInstance()->getPlayerName() << " cannot move West.\n\n";
 	}

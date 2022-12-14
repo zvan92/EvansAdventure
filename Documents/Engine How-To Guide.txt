@@ -26,7 +26,7 @@ CREATING A NEW ITEM TYPE:
 -> add an override of DropItem(), same argument format
 -> for destructible items, add an override of RemoveItem(), same argument format
 
-(3) Changes to Game class:
+(3) Changes to GameManager class:
 --------------------------
 
 [ DisplayCollectItemScreen() ]

@@ -1,6 +1,6 @@
 #include "pch.h"
 #include "Menu.h"
-#include "Game.h"
+#include "GameManager.h"
 #include <iostream>
 #include <sstream>
 #include <string>
@@ -28,17 +28,17 @@ int Menu::Run()
 	switch (choice)
 	{
 	case 1:
-		if (Game::GetInstance()->CreatePlayer() == 1)
+		if (GameManager::GetInstance()->CreatePlayer() == 1)
 		{
 			return 1;
 		}
-		Game::GetInstance()->setGameOverStatus(false);
+		GameManager::GetInstance()->setGameOverStatus(false);
 		break;
 	case 2:
 		system("cls");
 		cout << "Thanks for playing!\n\n";
 		system("pause");
-		Game::GetInstance()->setGameOverStatus(true);
+		GameManager::GetInstance()->setGameOverStatus(true);
 		Menu::GetInstance()->setIsQuitting(true);
 		break;
 	default:

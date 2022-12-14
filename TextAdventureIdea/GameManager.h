@@ -7,17 +7,17 @@
 #define MAX_INVENTORY_ITEMS 10
 #define MAX_ROOM_ITEMS 10
 
-class Game
+class GameManager
 {
 public:
-	Game() {};
-	~Game() {};
+	GameManager() {};
+	~GameManager() {};
 
-	static Game *GetInstance()
+	static GameManager *GetInstance()
 	{
 		if (!instance)
 		{
-			instance = new Game;
+			instance = new GameManager;
 		}
 		return instance;
 	}
@@ -39,7 +39,7 @@ public:
 	void StartPlayerTurn();
 
 private:
-	static Game *instance;
+	static GameManager *instance;
 	static bool gameOverStatus;
 	static bool gameIsInitializing;
 

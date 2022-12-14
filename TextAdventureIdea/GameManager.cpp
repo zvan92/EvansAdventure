@@ -1,5 +1,5 @@
 #include "pch.h"
-#include "Game.h"
+#include "GameManager.h"
 #include "Player.h"
 #include "Menu.h"
 #include "MapManager.h"
@@ -8,11 +8,11 @@
 #include <string>
 
 using namespace std;
-Game *Game::instance = 0;
-bool Game::gameOverStatus = false;
-bool Game::gameIsInitializing = false;
+GameManager *GameManager::instance = 0;
+bool GameManager::gameOverStatus = false;
+bool GameManager::gameIsInitializing = false;
 
-bool Game::CheckForCollision(MapManager::Direction direction)
+bool GameManager::CheckForCollision(MapManager::Direction direction)
 {
 	switch (direction)
 	{
@@ -65,7 +65,7 @@ bool Game::CheckForCollision(MapManager::Direction direction)
 	return false;
 }
 
-int Game::CreatePlayer()
+int GameManager::CreatePlayer()
 {
 	system("cls");
 
@@ -128,7 +128,7 @@ int Game::CreatePlayer()
 	return 0;
 }
 
-void Game::DisplayCollectItemScreen()
+void GameManager::DisplayCollectItemScreen()
 {
 	bool confirmed = false;
 
@@ -261,7 +261,7 @@ void Game::DisplayCollectItemScreen()
 }
 
 // will need to become Key eventually
-void Game::DisplayUseItemScreen(Item* item)
+void GameManager::DisplayUseItemScreen(Item* item)
 {
 	bool confirmed = false;
 
@@ -334,7 +334,7 @@ void Game::DisplayUseItemScreen(Item* item)
 	}
 }
 
-void Game::DisplayMapScreen()
+void GameManager::DisplayMapScreen()
 {
 	system("cls");
 	cout << "    EVAN'S ADVENTURE: MAP    \n";
@@ -355,7 +355,7 @@ void Game::DisplayMapScreen()
 	system("pause");
 }
 
-void Game::DisplayEndGameScreen()
+void GameManager::DisplayEndGameScreen()
 {
 	bool confirmed = false;
 
@@ -366,7 +366,7 @@ void Game::DisplayEndGameScreen()
 		cout << "==           EVAN'S ADVENTURE           ==\n";
 		cout << "==========================================\n";
 		cout << "               [ End Game ]\n\n";
-		cout << "All unsaved progress will be lost.\n\nAre you sure, " << Player::GetInstance()->getPlayerName() << "? (Y/N): ";
+		cout << "All progress will be lost.\n\nAre you sure, " << Player::GetInstance()->getPlayerName() << "? (Y/N): ";
 
 		string input;
 		char choice;
@@ -380,7 +380,7 @@ void Game::DisplayEndGameScreen()
 
 			MapManager::GetInstance()->GetRoomMap().clear();
 			Player::GetInstance()->ResetProgress();
-			Game::GetInstance()->Init();
+			GameManager::GetInstance()->Init();
 
 			confirmed = true;
 		}
@@ -396,7 +396,7 @@ void Game::DisplayEndGameScreen()
 
 }
 
-void Game::DisplayInventoryScreen()
+void GameManager::DisplayInventoryScreen()
 {
 	bool confirmed = false;
 
@@ -598,7 +598,7 @@ void Game::DisplayInventoryScreen()
 	}
 }
 
-void Game::Init()
+void GameManager::Init()
 {
 	gameIsInitializing = true;
 
@@ -651,7 +651,7 @@ void Game::Init()
 	gameIsInitializing = false;
 }
 
-void Game::ListRoomItems()
+void GameManager::ListRoomItems()
 {
 	unordered_map<string, Room> roomMap = MapManager::GetInstance()->GetRoomMap();
 	Room* currentRoom = &roomMap[Player::GetInstance()->getCurrentLocationGridID()];
@@ -674,7 +674,7 @@ void Game::ListRoomItems()
 	cout << endl;
 }
 
-void Game::ListPlayerItems()
+void GameManager::ListPlayerItems()
 {
 	if (Player::GetInstance()->getInventoryCount() == 0)
 	{
@@ -694,7 +694,7 @@ void Game::ListPlayerItems()
 	cout << endl;
 }
 
-int Game::PromptForTurnAction()
+int GameManager::PromptForTurnAction()
 {
 	system("cls");
 	cout << "Player health: " << Player::GetInstance()->getPlayerEnergy() << "\n";
@@ -723,7 +723,7 @@ int Game::PromptForTurnAction()
 	}
 }
 
-void Game::PromptForDirection()
+void GameManager::PromptForDirection()
 {
 	bool confirmed = false;
 
@@ -778,7 +778,7 @@ void Game::PromptForDirection()
 	}
 }
 
-void Game::StartPlayerTurn()
+void GameManager::StartPlayerTurn()
 {
 	//TODO: make better "game win" event
 	if (Player::GetInstance()->getCurrentLocationGridID() == "B13")
