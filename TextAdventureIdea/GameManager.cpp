@@ -3,6 +3,7 @@
 #include "Player.h"
 #include "Menu.h"
 #include "MapManager.h"
+#include "Key.h"
 #include <iostream>
 #include <sstream>
 #include <string>
@@ -185,15 +186,15 @@ void GameManager::DisplayCollectItemScreen()
 						std::vector<std::string> itemNames = currentRoom->GetRoomItemNames();
 						std::vector<std::string>::iterator it;
 
-						// ---- COLLECT ITEM
-						std::vector<Item> roomItems = currentRoom->GetRoomItems();
-						std::vector<Item>::iterator it2;
-						for (it2 = roomItems.begin(); it2 < roomItems.end(); ++it2)
+						// ---- COLLECT KEY
+						std::vector<Key> roomKeys = currentRoom->GetRoomKeys();
+						std::vector<Key>::iterator it2;
+						for (it2 = roomKeys.begin(); it2 < roomKeys.end(); ++it2)
 						{
 							if (itemNames[index].compare(it2->getName()) == 0)
 							{
-								Item& item = (*it2);
-								MapManager::GetInstance()->TransferItemToPlayer(&item);
+								Key& key = (*it2);
+								MapManager::GetInstance()->TransferItemToPlayer(&key);
 							}
 						}
 
@@ -259,8 +260,8 @@ void GameManager::DisplayCollectItemScreen()
 		}
 	}
 }
-// Can't instantiate Item objects - will be replaced with Key eventually
-void GameManager::DisplayUseItemScreen(Item* item)
+
+void GameManager::DisplayUseItemScreen(Key* key)
 {
 	bool confirmed = false;
 
@@ -269,7 +270,7 @@ void GameManager::DisplayUseItemScreen(Item* item)
 		system("cls");
 		cout << "           USE ITEM          \n";
 		cout << "=============================\n\n";
-		cout << "Use item on what?\n\n";
+		cout << "Use " << key->getName() << " on which room item? \n\n";
 		ListRoomItems();
 		cout << "(P) Player\n";
 		cout << "(Q) Return\n\n";
@@ -283,7 +284,7 @@ void GameManager::DisplayUseItemScreen(Item* item)
 
 		if (input.length() == 1 && (choice == 'p' || choice == 'P'))
 		{
-			Player::GetInstance()->ConsumeItem(item);
+			Player::GetInstance()->ConsumeItem(key);
 			confirmed = true;
 		}
 		else if (input.length() == 1 && (choice == 'q' || choice == 'Q'))
@@ -302,10 +303,10 @@ void GameManager::DisplayUseItemScreen(Item* item)
 				int index = iChoice - 1;
 				system("cls");
 
-				// ---- USE KEY ON CHEST
 				std::vector<std::string> itemNames = currentRoom->GetRoomItemNames();
 				std::vector<std::string>::iterator it;
 
+				// ---- USE KEY ON CHEST
 				std::vector<Chest> roomChests = currentRoom->GetRoomChests();
 				std::vector<Chest>::iterator it2;
 				for (it2 = roomChests.begin(); it2 < roomChests.end(); ++it2)
@@ -313,11 +314,47 @@ void GameManager::DisplayUseItemScreen(Item* item)
 					if (itemNames[index].compare(it2->getName()) == 0)
 					{
 						Chest& chest = (*it2);
-						if (chest.CombineWithItem(item) == SUCCESS)
+						if (key->CombineWithItem(&chest) == SUCCESS)
 						{
 							MapManager::GetInstance()->RemoveItem(&chest);
-							Player::GetInstance()->RemoveItem(item);
+							Player::GetInstance()->RemoveItem(key);
 						}
+					}
+				}
+
+				// ---- USE KEY ON FOOD
+				std::vector<Food> roomFood = currentRoom->GetRoomFood();
+				std::vector<Food>::iterator it3;
+				for (it3 = roomFood.begin(); it3 < roomFood.end(); ++it3)
+				{
+					if (itemNames[index].compare(it3->getName()) == 0)
+					{
+						Food& food = (*it3);
+						key->CombineWithItem(&food);
+					}
+				}
+
+				// ---- USE KEY ON POTION
+				std::vector<Potion> roomPotions = currentRoom->GetRoomPotions();
+				std::vector<Potion>::iterator it4;
+				for (it4 = roomPotions.begin(); it4 < roomPotions.end(); ++it4)
+				{
+					if (itemNames[index].compare(it4->getName()) == 0)
+					{
+						Potion& potion = (*it4);
+						key->CombineWithItem(&potion);
+					}
+				}
+
+				// ---- USE KEY ON KEY
+				std::vector<Key> roomKeys = currentRoom->GetRoomKeys();
+				std::vector<Key>::iterator it5;
+				for (it5 = roomKeys.begin(); it5 < roomKeys.end(); ++it5)
+				{
+					if (itemNames[index].compare(it5->getName()) == 0)
+					{
+						Key& otherKey = (*it5);
+						key->CombineWithItem(&otherKey);
 					}
 				}
 
@@ -448,18 +485,18 @@ void GameManager::DisplayInventoryScreen()
 						int index = iChoice - 1;
 						system("cls");
 
-						// ---- USE ITEM (Item objects here will become Key eventually)
+						// ---- USE KEY
 						std::vector<std::string> itemNames = Player::GetInstance()->getPlayerItemNames();
 						std::vector<std::string>::iterator it;
 
-						std::vector<Item> playerItems = Player::GetInstance()->getPlayerItems();
-						std::vector<Item>::iterator it2;
-						for (it2 = playerItems.begin(); it2 < playerItems.end(); ++it2)
+						std::vector<Key> playerKeys = Player::GetInstance()->getPlayerKeys();
+						std::vector<Key>::iterator it2;
+						for (it2 = playerKeys.begin(); it2 < playerKeys.end(); ++it2)
 						{
 							if (itemNames[index].compare(it2->getName()) == 0)
 							{
-								Item& item = (*it2);
-								DisplayUseItemScreen(&item);
+								Key& key = (*it2);
+								DisplayUseItemScreen(&key);
 							}
 						}
 
@@ -536,15 +573,15 @@ void GameManager::DisplayInventoryScreen()
 						std::vector<std::string> itemNames = Player::GetInstance()->getPlayerItemNames();
 						std::vector<std::string>::iterator it;
 
-						// ---- DROP ITEMS
-						std::vector<Item> playerItems = Player::GetInstance()->getPlayerItems();
-						std::vector<Item>::iterator it2;
-						for (it2 = playerItems.begin(); it2 < playerItems.end(); ++it2)
+						// ---- DROP KEYS
+						std::vector<Key> playerKeys = Player::GetInstance()->getPlayerKeys();
+						std::vector<Key>::iterator it2;
+						for (it2 = playerKeys.begin(); it2 < playerKeys.end(); ++it2)
 						{
 							if (itemNames[index].compare(it2->getName()) == 0)
 							{
-								Item& item = (*it2);
-								Player::GetInstance()->DropItem(&item);
+								Key& key = (*it2);
+								Player::GetInstance()->DropItem(&key);
 							}
 						}
 
@@ -635,17 +672,28 @@ void GameManager::Init()
 
 	Chest* blueChest = new Chest();
 	blueChest->setName("Blue Chest");
-	blueChest->setIsChest(true);
+	blueChest->setIsBlue(true);
 	//TODO: contents
 	MapManager::GetInstance()->TransferItemToRoom(blueChest, "A4");
 	delete(blueChest);
 
-	// will become a Key eventually
-	Item* blueKey = new Item();
+	Key* blueKey = new Key();
 	blueKey->setName("Blue Key");
-	blueKey->setIsKey(true);
+	blueKey->setIsBlue(true);
 	MapManager::GetInstance()->TransferItemToRoom(blueKey, "A4");
 	delete(blueKey);
+
+	Key* redKey = new Key();
+	redKey->setName("Red Key");
+	redKey->setIsRed(true);
+	MapManager::GetInstance()->TransferItemToRoom(redKey, "A4");
+	delete(redKey);
+
+	Key* greenKey = new Key();
+	greenKey->setName("Green Key");
+	greenKey->setIsGreen(true);
+	Player::GetInstance()->AddItemToInventory(greenKey);
+	delete(greenKey);
 
 	gameIsInitializing = false;
 }

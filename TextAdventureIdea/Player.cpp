@@ -5,29 +5,28 @@
 
 Player *Player::instance = 0;
 
-// Can't instantiate Item objects - will be replaced with Key eventually
-int Player::AddItemToInventory(Item* item)
+int Player::AddItemToInventory(Key* key)
 {
 	if (iInventoryCount < MAX_INVENTORY_ITEMS)
 	{
-		std::vector<Item>::iterator it;
-		it = playerItems.begin();
-		playerItems.insert(it, *item);
+		std::vector<Key>::iterator it;
+		it = playerKeys.begin();
+		playerKeys.insert(it, *key);
 		std::vector<std::string>::iterator it2;
 		it2 = playerItemNames.begin();
-		playerItemNames.insert(it2, item->getName());
+		playerItemNames.insert(it2, key->getName());
 		iInventoryCount++;
 
 		if (!GameManager::GetInstance()->getGameIsInitializing())
 		{
-			cout << sName << " collected the " << item->getName() << ".\n\n";
+			cout << sName << " collected the " << key->getName() << ".\n\n";
 			system("pause");
 		}
 	}
 	else
 	{
 		system("cls");
-		cout << "Inventory full. Could not collect " << item->getName() << ".\n\n";
+		cout << "Inventory full. Could not collect " << key->getName() << ".\n\n";
 		system("pause");
 		return FAILED;
 	}
@@ -89,24 +88,24 @@ int Player::AddItemToInventory(Potion* potion)
 	}
 	return SUCCESS;
 }
-// Can't instantiate Item objects - will be replaced with Key eventually
-void Player::DropItem(Item* item)
+
+void Player::DropItem(Key* key)
 {
-	if (MapManager::GetInstance()->TransferItemToRoom(item, sCurrentGridID) == FAILED)
+	if (MapManager::GetInstance()->TransferItemToRoom(key, sCurrentGridID) == FAILED)
 	{
 		system("cls");
-		cout << "There is no room to drop the " << item->getName() << ".\n\n";
+		cout << "There is no room to drop the " << key->getName() << ".\n\n";
 		system("pause");
 	}
 	else
 	{
-		cout << sName << " dropped the " << item->getName() << ".\n\n";
+		cout << sName << " dropped the " << key->getName() << ".\n\n";
 		system("pause");
 
-		std::vector<Item>::iterator it;
-		for (it = playerItems.begin(); it < playerItems.end(); it++)
+		std::vector<Key>::iterator it;
+		for (it = playerKeys.begin(); it < playerKeys.end(); it++)
 		{
-			if (it->getName().compare(item->getName()) == 0)
+			if (it->getName().compare(key->getName()) == 0)
 			{
 				std::vector<std::string>::iterator it2;
 				for (it2 = playerItemNames.begin(); it2 < playerItemNames.end(); it2++)
@@ -118,7 +117,7 @@ void Player::DropItem(Item* item)
 					}
 				}
 
-				playerItems.erase(it);
+				playerKeys.erase(it);
 				break;
 			}
 		}
@@ -197,51 +196,13 @@ void Player::DropItem(Potion* potion)
 		iInventoryCount--;
 	}
 }
-// Can't instantiate Item objects - will be replaced with Key eventually
-void Player::ConsumeItem(Item* item)
+
+void Player::ConsumeItem(Key* key)
 {
-	if (item->getHealFactor() > 0)
-	{
-		iEnergy += item->getHealFactor();
-		
-		cout << "The " << item->getName() << " increased " << sName << "'s energy by " << item->getHealFactor() << ".\n\n";
-		system("pause");
-	}
-	else if (item->getDamageFactor() > 0)
-	{
-		iEnergy -= item->getDamageFactor();
-
-		cout << "The " << item->getName() << " decreased " << sName << "'s energy by " << item->getDamageFactor() << ".\n\n";
-		system("pause");
-	}
-	else
-	{
-		system("cls");
-		cout << sName << " can't consume the " << item->getName() << ".\n\n";
-		system("pause");
-		return;
-	}
-
-	std::vector<Item>::iterator it;
-	for (it = playerItems.begin(); it < playerItems.end(); it++)
-	{
-		if (it->getName().compare(item->getName()) == 0)
-		{
-			std::vector<std::string>::iterator it2;
-			for (it2 = playerItemNames.begin(); it2 < playerItemNames.end(); it2++)
-			{
-				if (it2->compare(it->getName()) == 0)
-				{
-					playerItemNames.erase(it2);
-					break;
-				}
-			}
-
-			playerItems.erase(it);
-			break;
-		}
-	}
-	iInventoryCount--;
+	system("cls");
+	cout << sName << " can't consume the " << key->getName() << ".\n\n";
+	system("pause");
+	return;
 }
 
 void Player::ConsumeItem(Food* food)
@@ -516,7 +477,7 @@ void Player::MoveWest()
 void Player::ResetProgress()
 {
 	playerItemNames.clear();
-	playerItems.clear();
+	playerKeys.clear();
 	playerPotions.clear();
 	playerFood.clear();
 	sName = "";
@@ -525,17 +486,17 @@ void Player::ResetProgress()
 	iInventoryCount = 0;
 	iEnergy = 0;
 }
-// Can't instantiate Item objects - will be replaced with Key eventually
-void Player::RemoveItem(Item* item)
+
+void Player::RemoveItem(Key* key)
 {
 	system("cls");
-	cout << "The " << item->getName() << " vanished in a puff of smoke.\nLooks like " << sName << " won't be needing it anymore!\n\n";
+	cout << "The " << key->getName() << " vanished in a puff of smoke.\nLooks like " << sName << " won't be needing it anymore!\n\n";
 	system("pause");
 
-	std::vector<Item>::iterator it;
-	for (it = playerItems.begin(); it < playerItems.end(); it++)
+	std::vector<Key>::iterator it;
+	for (it = playerKeys.begin(); it < playerKeys.end(); it++)
 	{
-		if (it->getName().compare(item->getName()) == 0)
+		if (it->getName().compare(key->getName()) == 0)
 		{
 			std::vector<std::string>::iterator it2;
 			for (it2 = playerItemNames.begin(); it2 < playerItemNames.end(); it2++)
@@ -547,7 +508,7 @@ void Player::RemoveItem(Item* item)
 				}
 			}
 
-			playerItems.erase(it);
+			playerKeys.erase(it);
 			break;
 		}
 	}

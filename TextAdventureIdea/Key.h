@@ -2,30 +2,28 @@
 
 #include "Item.h"
 
-class Chest : public Item
+class Key : public Item
 {
 public:
-	Chest() :
+	Key() :
 		isBlue(false),
 		isGreen(false),
 		isRed(false),
 		isYellow(false)
-		//contents
 	{
-		isChest = true;
-	};
-	~Chest() {};
+		isKey = true;
+	}
+	~Key() {};
 
-	Chest(const Item& item) :
+	Key(const Item& item) :
 		Item(item),
 		isBlue(false),
 		isGreen(false),
 		isRed(false),
 		isYellow(false)
-		//contents
 	{
-		isChest = true;
-	};
+		isKey = true;
+	}
 
 	bool getIsBlue() { return isBlue; }
 	void setIsBlue(bool value) { isBlue = value; }
@@ -33,14 +31,17 @@ public:
 	void setIsGreen(bool value) { isGreen = value; }
 	bool getIsRed() { return isRed; }
 	void setIsRed(bool value) { isRed = value; }
-	bool getIsYellow () { return isYellow; }
+	bool getIsYellow() { return isYellow; }
 	void setIsYellow(bool value) { isYellow = value; }
-	//contents
+
+	int CombineWithItem(Chest* chest);
+	int CombineWithItem(Food* food);
+	int CombineWithItem(Potion* potion);
+	int CombineWithItem(Key* key);
 
 private:
 	bool isBlue;
 	bool isGreen;
 	bool isRed;
 	bool isYellow;
-	//contents
 };

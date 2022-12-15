@@ -2,24 +2,24 @@
 #include "Room.h"
 #include <iostream>
 #include <vector>
-// Can't instantiate Item objects - will be replaced with Key eventually
-void Room::AddRoomItem(Item* item)
+
+void Room::AddRoomItem(Key* key)
 {
-	std::vector<Item>::iterator it;
-	it = roomItems.begin();
-	roomItems.insert(it, *item);
+	std::vector<Key>::iterator it;
+	it = roomKeys.begin();
+	roomKeys.insert(it, *key);
 	std::vector<std::string>::iterator it2;
 	it2 = roomItemNames.begin();
-	roomItemNames.insert(it2, item->getName());
+	roomItemNames.insert(it2, key->getName());
 	iRoomItemCount++;
 }
-// Can't instantiate Item objects - will be replaced with Key eventually
-void Room::RemoveRoomItem(Item* item)
+
+void Room::RemoveRoomItem(Key* key)
 {
-	std::vector<Item>::iterator it;
-	for (it = roomItems.begin(); it < roomItems.end(); it++)
+	std::vector<Key>::iterator it;
+	for (it = roomKeys.begin(); it < roomKeys.end(); it++)
 	{
-		if (it->getName().compare(item->getName()) == 0)
+		if (it->getName().compare(key->getName()) == 0)
 		{
 			std::vector<std::string>::iterator it2;
 			for (it2 = roomItemNames.begin(); it2 < roomItemNames.end(); it2++)
@@ -31,7 +31,7 @@ void Room::RemoveRoomItem(Item* item)
 				}
 			}
 
-			roomItems.erase(it);
+			roomKeys.erase(it);
 			break;
 		}
 	}

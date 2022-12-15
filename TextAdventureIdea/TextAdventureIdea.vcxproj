@@ -154,6 +154,7 @@
     <ClInclude Include="Chest.h" />
     <ClInclude Include="Food.h" />
     <ClInclude Include="GameManager.h" />
+    <ClInclude Include="Key.h" />
     <ClInclude Include="Potion.h" />
     <ClInclude Include="Item.h" />
     <ClInclude Include="MapManager.h" />
@@ -165,6 +166,7 @@
   <ItemGroup>
     <ClCompile Include="Chest.cpp" />
     <ClCompile Include="GameManager.cpp" />
+    <ClCompile Include="Key.cpp" />
     <ClCompile Include="MapManager.cpp" />
     <ClCompile Include="Menu.cpp" />
     <ClCompile Include="pch.cpp">

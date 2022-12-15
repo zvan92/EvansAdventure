@@ -35,18 +35,14 @@ public:
 	unordered_map<string, Room> GetRoomMap() { return roomMap; }
 	void CreateRooms();
 	void DescribeRoom(string gridID);
-	// Can't instantiate Item objects - will be replaced with Key eventually
-	void TransferItemToPlayer(Item* item);
-	// Can't instantiate Item objects - will be replaced with Key eventually
-	int TransferItemToRoom(Item* item, string gridID);
+	void TransferItemToPlayer(Key* key);
+	int TransferItemToRoom(Key* key, string gridID);
 	void TransferItemToPlayer(Food* food);
 	int TransferItemToRoom(Food* food, string gridID);
 	void TransferItemToPlayer(Potion* potion);
 	int TransferItemToRoom(Potion* potion, string gridID);
 	int TransferItemToRoom(Chest* chest, string gridID);
 	void RemoveItem(Chest* chest);
-	//TODO: transferKeyToPlayer
-	//TODO: transferKeyToRoom
 
 private:
 	static MapManager* instance;

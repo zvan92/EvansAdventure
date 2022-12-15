@@ -108,7 +108,7 @@ void MapManager::DescribeRoom(string gridID)
 	cout << "         LOOK AROUND         \n";
 	cout << "=============================\n\n";
 
-	cout << "Walls found:\n\n";
+	cout << "Walls blocking your path:\n\n";
 	if (roomMap[gridID].GetHasNorthWall() == true)
 	{
 		cout << "-> North\n";
@@ -133,11 +133,11 @@ void MapManager::DescribeRoom(string gridID)
 		cout << "-> None\n";
 	}
 
-	cout << "\nItems found:\n";
-	// Can't instantiate Item objects - will be replaced with Key eventually
-	// ---- ITEM IDENTIFY
-	std::vector<Item>::iterator it1;
-	std::vector<Item> roomItems = roomMap[gridID].GetRoomItems();
+	cout << "\nItems in the room:\n";
+	
+	// ---- KEY IDENTIFY
+	std::vector<Key>::iterator it1;
+	std::vector<Key> roomItems = roomMap[gridID].GetRoomKeys();
 	if (!roomItems.empty())
 	{
 		for (it1 = roomItems.begin(); it1 < roomItems.end(); it1++)
@@ -190,22 +190,22 @@ void MapManager::DescribeRoom(string gridID)
 	}
 	cout << endl;
 }
-// Can't instantiate Item objects - will be replaced with Key eventually
-void MapManager::TransferItemToPlayer(Item* item)
+
+void MapManager::TransferItemToPlayer(Key* key)
 {
 	Room* currentRoom = &roomMap[Player::GetInstance()->getCurrentLocationGridID()];
-	if (Player::GetInstance()->AddItemToInventory(item) == SUCCESS)
+	if (Player::GetInstance()->AddItemToInventory(key) == SUCCESS)
 	{
-		currentRoom->RemoveRoomItem(item);
+		currentRoom->RemoveRoomItem(key);
 	}
 }
-// Can't instantiate Item objects - will be replaced with Key eventually
-int MapManager::TransferItemToRoom(Item* item, string gridID)
+
+int MapManager::TransferItemToRoom(Key* key, string gridID)
 {
 	Room* currentRoom = &roomMap[gridID];
 	if (currentRoom->GetRoomItemCount() < MAX_ROOM_ITEMS)
 	{
-		currentRoom->AddRoomItem(item);
+		currentRoom->AddRoomItem(key);
 	}
 	else
 	{
