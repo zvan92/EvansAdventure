@@ -11,10 +11,10 @@ ENGINE HOW-TO GUIDE
 -> add a copy constructor that copies from an Item
 -> create members as desired, with getters and setters
 -> if the item can be used in combination with another item, write a CombineWithItem() method with argument format '<OTHERITEM> <otherItem>'
--> for combinable items, refer to CombineWithItem() logic for Chest class
+-> for combinable items, refer to CombineWithItem() logic for Key class
 -> [TIP]: most of the work on the item's interaction logic takes place inside its CombineWithItem()
 
-(2) Changes to Player class:
+(2) Changes to Player class (if item is collectible):
 ----------------------------
 
 -> include new item's header in Player.h
@@ -22,26 +22,25 @@ ENGINE HOW-TO GUIDE
 -> add the vector to the Player constructor initialization list
 -> add a getter for the vector named 'getPlayer<ITEM>s()'
 -> add an override of AddItemToInventory(), with argument format '<ITEM>& <item>'
--> add an override of ConsumeItem(), same argument format
 -> add an override of DropItem(), same argument format
--> for destructible items, add an override of RemoveItem(), same argument format
+-> add an override of ConsumeItem(), same argument format
+-> if the item can be consumed, add an override of RemoveItem(), same argument format
 
 (3) Changes to GameManager class:
 --------------------------
 
-[ DisplayCollectItemScreen() ]
+DisplayCollectItemScreen():
 
 -> add 'collect' logic within scope of if "(input.length() == 1 && (choice == 'c' || choice == 'C'))"
 -> for non-collectible items, refer to logic for Chest
 
-[ DisplayInventoryScreen() ]
+DisplayInventoryScreen() (if item is collectible):
 
--> only for collectible items
 -> add 'use' logic within the scope of "if (input.length() == 1 && (choice == 'u' || choice == 'U'))"
 -> for combinable items, refer to logic for Key
 -> add 'drop' logic within the scope of "else if (input.length() == 1 && (choice == 'd' || choice == 'D'))"
 
-[ DisplayUseItemScreen(<ITEM>* item) ]
+DisplayUseItemScreen(<ITEM>* item) (if item is collectible):
 
 -> only for collectible items that can interact with others
 -> create an override of this function that takes your new item as an input
@@ -61,11 +60,11 @@ ENGINE HOW-TO GUIDE
 --------------------------------
 
 -> include new item's header in MapManager.h
--> add an override of TransferItemToPlayer(), with argument format '<ITEM> <item>'
+-> if item is collectible, add an override of TransferItemToPlayer(), with argument format '<ITEM> <item>'
 -> add an override of TransferItemToRoom(), with argument format '<ITEM> <item>, string gridID'
--> for destructible items, add an override of RemoveItem, with argument format '<ITEM> <item>'
+-> for colectible or destructible items, add an override of RemoveItem, with argument format '<ITEM> <item>'
 
-[ DescribeRoom() ]
+DescribeRoom():
 
 -> add 'identify' logic
 
@@ -74,4 +73,4 @@ ENGINE HOW-TO GUIDE
 
 -> declare and initialize item instances in Game::Init()
 -> use MapManager::GetInstance()->TransferItemToRoom() to spawn in a specific map grid location
--> use Player::GetInstance()->AddItemToInventory() to spawn in player inventory
+-> if item is collectible, use Player::GetInstance()->AddItemToInventory() to spawn in player inventory
