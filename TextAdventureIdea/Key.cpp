@@ -14,14 +14,7 @@ int Key::CombineWithItem(Chest* chest)
 		match = true;
 	}
 
-	if (match)
-	{
-		// placeholder - will reveal contents + give player option to collect
-		system("cls");
-		std::cout << Player::GetInstance()->getPlayerName() << " unlocked a chest!\nThey open it, gather its contents, and it pops out of existence.\n\n";
-		system("pause");
-	}
-	else
+	if (!match)
 	{
 		system("cls");
 		std::cout << Player::GetInstance()->getPlayerName() << " attempted to use the " << getName() << " on the " << chest->getName() << ", but it didn't fit.\n\n";

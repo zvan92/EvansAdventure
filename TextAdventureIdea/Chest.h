@@ -40,6 +40,8 @@ public:
 	void setIsRed(bool value) { isRed = value; }
 	bool getIsYellow() { return isYellow; }
 	void setIsYellow(bool value) { isYellow = value; }
+	int getItemCount() { return iItemCount; }
+	void setItemCount(int value) { iItemCount = value; }
 	std::vector<Key> getChestKeys() { return chestKeys; }
 	std::vector<Food> getChestFood() { return chestFood; }
 	std::vector<Potion> getChestPotions() { return chestPotions; }

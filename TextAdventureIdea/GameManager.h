@@ -35,6 +35,7 @@ public:
 	void DisplayInventoryScreen();
 	void DisplayEndGameScreen();
 	void DisplayUseItemScreen(Key* key);
+	void DisplayChestScreen(Chest* chest);
 	void Init();
 	void PromptForDirection();
 	void StartPlayerTurn();
@@ -47,5 +48,6 @@ private:
 	int PromptForTurnAction();
 	void ListPlayerItems();
 	void ListRoomItems();
+	void ListChestItems(Chest* chest);
 };
 

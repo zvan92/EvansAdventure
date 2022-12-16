@@ -262,6 +262,107 @@ void GameManager::DisplayCollectItemScreen()
 	}
 }
 
+void GameManager::DisplayChestScreen(Chest* chest)
+{
+	bool confirmed = false;
+
+	while (!confirmed)
+	{
+		system("cls");
+		cout << "            CHEST            \n";
+		cout << "=============================\n\n";
+		cout << Player::GetInstance()->getPlayerName() << " unlocked the chest and found:\n\n";
+		ListChestItems(chest);
+		if (chest->getItemCount() == 0)
+		{
+			cout << "(Q) Return\n\n";
+		}
+		else
+		{
+			cout << "(C) Collect\n";
+			cout << "(Q) Return\n\n";
+		}
+		cout << "Enter choice: ";
+
+		string input;
+		getline(cin, input);
+		stringstream stream(input);
+		char choice;
+		stream >> choice;
+
+		if (input.length() == 1 && (choice == 'c' || choice == 'C') && (chest->getItemCount() > 0))
+		{
+			system("cls");
+
+			std::vector<std::string> chestItemNames = chest->getChestItemNames();
+			std::vector<std::string>::iterator it;
+
+			// ---- COLLECT CHEST FOOD
+			std::vector<Food> chestFood = chest->getChestFood();
+			std::vector<Food>::iterator it1;
+			for (it1 = chestFood.begin(); it1 < chestFood.end(); ++it1)
+			{
+				if (chestItemNames[0].compare(it1->getName()) == 0)
+				{
+					Food& food = (*it1);
+					if (Player::GetInstance()->AddItemToInventory(&food) == SUCCESS)
+					{
+						system("cls");
+						cout << "The chest vanished in a puff of smoke.\n\n";
+						system("pause");
+						chest->RemoveItemFromChest(&food);
+					}
+				}
+			}
+
+			// ---- COLLECT CHEST POTION
+			std::vector<Potion> chestPotions = chest->getChestPotions();
+			std::vector<Potion>::iterator it2;
+			for (it2 = chestPotions.begin(); it2 < chestPotions.end(); ++it2)
+			{
+				if (chestItemNames[0].compare(it2->getName()) == 0)
+				{
+					Potion& potion = (*it2);
+					if (Player::GetInstance()->AddItemToInventory(&potion) == SUCCESS)
+					{
+						system("cls");
+						cout << "The chest vanished in a puff of smoke.\n\n";
+						system("pause");
+						chest->RemoveItemFromChest(&potion);
+					}
+				}
+			}
+
+			// ---- COLLECT CHEST KEY
+			std::vector<Key> chestKeys = chest->getChestKeys();
+			std::vector<Key>::iterator it3;
+			for (it3 = chestKeys.begin(); it3 < chestKeys.end(); ++it3)
+			{
+				if (chestItemNames[0].compare(it3->getName()) == 0)
+				{
+					Key& key = (*it3);
+					if (Player::GetInstance()->AddItemToInventory(&key) == SUCCESS)
+					{
+						system("cls");
+						cout << "The chest vanished in a puff of smoke.\n\n";
+						system("pause");
+						chest->RemoveItemFromChest(&key);
+					}
+				}
+			}
+
+			confirmed = true;
+		}
+		else if (input.length() == 1 && (choice == 'q' || choice == 'Q'))
+		{
+			system("cls");
+			cout << "The chest vanishes in a puff of smoke.\n\n";
+			system("pause");
+			confirmed = true;
+		}
+	}
+}
+
 void GameManager::DisplayUseItemScreen(Key* key)
 {
 	bool confirmed = false;
@@ -317,8 +418,9 @@ void GameManager::DisplayUseItemScreen(Key* key)
 						Chest& chest = (*it2);
 						if (key->CombineWithItem(&chest) == SUCCESS)
 						{
-							MapManager::GetInstance()->RemoveItem(&chest);
 							Player::GetInstance()->RemoveItem(key);
+							DisplayChestScreen(&chest);
+							MapManager::GetInstance()->RemoveItem(&chest);
 						}
 					}
 				}
@@ -665,7 +767,7 @@ void GameManager::Init()
 	MapManager::GetInstance()->TransferItemToRoom(h, "A4");
 	delete(h);
 
-	// potion is added to blue chest
+	// added to blue chest
 	Potion* i = new Potion();
 	i->setName("Health Potion");
 	i->setHealFactor(5);
@@ -681,7 +783,7 @@ void GameManager::Init()
 	Key* blueKey = new Key();
 	blueKey->setName("Blue Key");
 	blueKey->setIsBlue(true);
-	MapManager::GetInstance()->TransferItemToRoom(blueKey, "A4");
+	Player::GetInstance()->AddItemToInventory(blueKey);
 	delete(blueKey);
 
 	Key* redKey = new Key();
@@ -737,6 +839,24 @@ void GameManager::ListPlayerItems()
 		{
 			cout << counter << ") " << it->c_str() << "\n";
 			counter++;
+		}
+	}
+	cout << endl;
+}
+
+void GameManager::ListChestItems(Chest* chest)
+{
+	if (chest->getItemCount() == 0)
+	{
+		cout << "<< EMPTY >>\n";
+	}
+	else
+	{
+		std::vector<std::string>::iterator it;
+		std::vector<std::string> v1 = chest->getChestItemNames();
+		for (it = v1.begin(); it < v1.end(); it++)
+		{
+			cout << it->c_str() << "\n";
 		}
 	}
 	cout << endl;

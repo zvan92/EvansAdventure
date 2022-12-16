@@ -490,7 +490,7 @@ void Player::ResetProgress()
 void Player::RemoveItem(Key* key)
 {
 	system("cls");
-	cout << "The " << key->getName() << " vanished in a puff of smoke.\nLooks like " << sName << " won't be needing it anymore!\n\n";
+	cout << getPlayerName() << " used the " << key->getName() << " and it vanished in a puff of smoke.\nLooks like " << sName << " won't be needing it anymore!\n\n";
 	system("pause");
 
 	std::vector<Key>::iterator it;
