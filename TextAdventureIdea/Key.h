@@ -12,7 +12,7 @@ public:
 		isYellow(false)
 	{
 		isKey = true;
-	}
+	};
 	~Key() {};
 
 	Key(const Item& item) :
@@ -23,7 +23,7 @@ public:
 		isYellow(false)
 	{
 		isKey = true;
-	}
+	};
 
 	bool getIsBlue() { return isBlue; }
 	void setIsBlue(bool value) { isBlue = value; }

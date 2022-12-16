@@ -29,6 +29,8 @@ ENGINE HOW-TO GUIDE
 (3) Changes to GameManager class:
 --------------------------
 
+-> add an #include for the new item class
+
 DisplayCollectItemScreen():
 
 -> add 'collect' logic within scope of if "(input.length() == 1 && (choice == 'c' || choice == 'C'))"
@@ -56,7 +58,18 @@ DisplayUseItemScreen(<ITEM>* item) (if item is collectible):
 -> add an override of AddRoomItem(), with argument format '<ITEM> item'
 -> add an override of RemoveRoomItem(), same argument format
 
-(5) Changes to MapManager class:
+(5) Changes to Key class:
+-------------------------
+
+-> add an override of CombineWithItem(), with argument format '<ITEM> item'
+
+(6) Changes to Chest class (if item is collectible):
+---------------------------
+
+-> add an override of AddItemToChest(), with argument format '<ITEM> item'
+-> add an override of RemoveItemFromChest(), same argument format
+
+(7) Changes to MapManager class:
 --------------------------------
 
 -> include new item's header in MapManager.h
@@ -68,9 +81,10 @@ DescribeRoom():
 
 -> add 'identify' logic
 
-(6) Spawning the item:
+(8) Spawning the item:
 ----------------------
 
 -> declare and initialize item instances in Game::Init()
 -> use MapManager::GetInstance()->TransferItemToRoom() to spawn in a specific map grid location
 -> if item is collectible, use Player::GetInstance()->AddItemToInventory() to spawn in player inventory
+-> if item is collectible, use a chest instance's AddItemToChest(<ITEM>) to spawn item inside the chest

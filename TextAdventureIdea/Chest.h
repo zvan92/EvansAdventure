@@ -1,6 +1,11 @@
 #pragma once
 
 #include "Item.h"
+#include <iostream>
+#include <string>
+#include <vector>
+
+class Key;
 
 class Chest : public Item
 {
@@ -9,8 +14,8 @@ public:
 		isBlue(false),
 		isGreen(false),
 		isRed(false),
-		isYellow(false)
-		//contents
+		isYellow(false),
+		iItemCount(0)
 	{
 		isChest = true;
 	};
@@ -21,8 +26,8 @@ public:
 		isBlue(false),
 		isGreen(false),
 		isRed(false),
-		isYellow(false)
-		//contents
+		isYellow(false),
+		iItemCount(0)
 	{
 		isChest = true;
 	};
@@ -33,14 +38,29 @@ public:
 	void setIsGreen(bool value) { isGreen = value; }
 	bool getIsRed() { return isRed; }
 	void setIsRed(bool value) { isRed = value; }
-	bool getIsYellow () { return isYellow; }
+	bool getIsYellow() { return isYellow; }
 	void setIsYellow(bool value) { isYellow = value; }
-	//contents
+	std::vector<Key> getChestKeys() { return chestKeys; }
+	std::vector<Food> getChestFood() { return chestFood; }
+	std::vector<Potion> getChestPotions() { return chestPotions; }
+	std::vector<std::string> getChestItemNames() { return chestItemNames; }
+
+	int AddItemToChest(Food* food);
+	int AddItemToChest(Potion* potion);
+	int AddItemToChest(Key* key);
+	void RemoveItemFromChest(Food* food);
+	void RemoveItemFromChest(Potion* potion);
+	void RemoveItemFromChest(Key* key);
 
 private:
 	bool isBlue;
 	bool isGreen;
 	bool isRed;
 	bool isYellow;
-	//contents
+	int iItemCount;
+	std::vector<std::string> chestItemNames;
+	std::vector<Key> chestKeys;
+	std::vector<Food> chestFood;
+	std::vector<Potion> chestPotions;
+	
 };

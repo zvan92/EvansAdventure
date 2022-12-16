@@ -5,21 +5,18 @@
 
 int Key::CombineWithItem(Chest* chest)
 {
-	// something like...
-	/*
-		if (isBlue && key->getIsBlue() ||
-		isGreen && key->getIsGreen() ||
-		isRed && key->getIsRed() ||
-		isYellow && key->getIsYellow())
+	bool match = false;
+	if (isBlue && chest->getIsBlue() ||
+		isGreen && chest->getIsGreen() ||
+		isRed && chest->getIsRed() ||
+		isYellow && chest->getIsYellow())
 	{
-		//success! the chest opens and...
-		//collect contents or get hurt
+		match = true;
 	}
-	*/
 
-	// placeholder
-	if (isBlue && chest->getIsBlue())
+	if (match)
 	{
+		// placeholder - will reveal contents + give player option to collect
 		system("cls");
 		std::cout << Player::GetInstance()->getPlayerName() << " unlocked a chest!\nThey open it, gather its contents, and it pops out of existence.\n\n";
 		system("pause");

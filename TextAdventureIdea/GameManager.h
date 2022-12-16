@@ -6,6 +6,7 @@
 #define FAILED 1
 #define MAX_INVENTORY_ITEMS 10
 #define MAX_ROOM_ITEMS 10
+#define MAX_CHEST_ITEMS 1
 
 class GameManager
 {

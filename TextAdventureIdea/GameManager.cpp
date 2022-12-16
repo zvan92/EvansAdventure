@@ -4,6 +4,7 @@
 #include "Menu.h"
 #include "MapManager.h"
 #include "Key.h"
+#include "Chest.h"
 #include <iostream>
 #include <sstream>
 #include <string>
@@ -664,18 +665,18 @@ void GameManager::Init()
 	MapManager::GetInstance()->TransferItemToRoom(h, "A4");
 	delete(h);
 
+	// potion is added to blue chest
 	Potion* i = new Potion();
 	i->setName("Health Potion");
 	i->setHealFactor(5);
-	MapManager::GetInstance()->TransferItemToRoom(i, "A4");
-	delete(i);
 
 	Chest* blueChest = new Chest();
 	blueChest->setName("Blue Chest");
 	blueChest->setIsBlue(true);
-	//TODO: contents
+	blueChest->AddItemToChest(i);
 	MapManager::GetInstance()->TransferItemToRoom(blueChest, "A4");
 	delete(blueChest);
+	delete(i);
 
 	Key* blueKey = new Key();
 	blueKey->setName("Blue Key");

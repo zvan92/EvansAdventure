@@ -5,6 +5,7 @@
 #include "Potion.h"
 #include "Room.h"
 #include "Chest.h"
+#include "Key.h"
 #include <unordered_map>
 
 using namespace std;
