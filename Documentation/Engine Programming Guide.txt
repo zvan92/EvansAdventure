@@ -1,5 +1,5 @@
-ENGINE HOW-TO GUIDE
-===================
+ENGINE PROGRAMMING GUIDE
+========================
 
 >>>>> CREATING A NEW ITEM TYPE:
 
@@ -15,7 +15,7 @@ ENGINE HOW-TO GUIDE
 -> [TIP]: most of the work on the item's interaction logic takes place inside its CombineWithItem()
 
 (2) Changes to Player class (if item is collectible):
-----------------------------
+-----------------------------------------------------
 
 -> include new item's header in Player.h
 -> add a private vector of new item's type named 'player<ITEM>s'
@@ -27,7 +27,7 @@ ENGINE HOW-TO GUIDE
 -> if the item can be consumed, add an override of RemoveItem(), same argument format
 
 (3) Changes to GameManager class:
---------------------------
+---------------------------------
 
 -> add an #include for the new item class in GameManager.cpp
 
@@ -60,7 +60,7 @@ DisplayUseItemScreen(<ITEM>* item) (if item is collectible):
 -> add an override of RemoveRoomItem(), same argument format
 
 (5) Changes to Chest class (if item is collectible):
----------------------------
+----------------------------------------------------
 
 -> add an override of AddItemToChest(), with argument format '<ITEM> item'
 -> add an override of RemoveItemFromChest(), same argument format

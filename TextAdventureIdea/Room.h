@@ -1,6 +1,5 @@
 #pragma once
 
-//#include "MapManager.h"
 #include "Item.h"
 #include "Food.h"
 #include "Potion.h"

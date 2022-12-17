@@ -1,0 +1,34 @@
+GAME PROGRAMMING GUIDE
+======================
+
+>>>> SPAWNING GAME ITEMS
+
+GameManager::Init():
+
+-> Create items by creating object pointers:
+example: "Food* apple = new Food();"
+
+-> Set item properties by calling "setter" functions:
+example: "apple->setName("Apple");" , "apple->setHealingFactor(5);"
+
+-> Add item to player inventory by calling the Player object's "add item to inventory" function:
+example: "Player:GetInstance()->AddItemToInventory(apple);"
+
+-> Place item in a room by calling the MapManager's "transfer item to room" function:
+example: "MapManager::GetInstance()->TransferItemToRoom(apple, "A4");"
+
+-------------------------
+
+>>>> CREATING ROOMS
+
+MapManager::CreateRooms():
+
+-> Create a room at a specific map coordinate by calling the Room constructor with extra parameters:
+
+	Constructor format: Room(hasNorthWall, hasSouthWall, hasEastWall, hasWestWall, hasNorthDoor, hasSouthDoor, hasEastDoor, hasWestDoor)
+
+	Constructor example: "Room(0, 1, 0, 1, 1, 0, 0, 0);" 
+	<1 = present, 0 = not present>
+
+	Full example with constructor: "roomMap["A4"] = Room(0, 1, 0, 1, 1, 0, 0, 0);"
+	<Creates a room at map coordinate "A4" with a South wall, West wall, and North door>
