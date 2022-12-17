@@ -47,3 +47,24 @@ int Key::CombineWithItem(Key* key)
 	system("pause");
 	return FAILED;
 }
+
+int Key::CombineWithItem(Room* room)
+{
+	bool match = false;
+	if (isBrass && room->GetHasNorthWall() ||
+		isBrass && room->GetHasSouthWall() ||
+		isBrass && room->GetHasEastWall() ||
+		isBrass && room->GetHasWestWall())
+	{
+		match = true;
+	}
+
+	if (!match)
+	{
+		system("cls");
+		std::cout << Player::GetInstance()->getPlayerName() << " attempted to use the " << getName() << " on the locked door, but it didn't fit.\n\n";
+		system("pause");
+		return FAILED;
+	}
+	return SUCCESS;
+}

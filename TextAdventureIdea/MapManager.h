@@ -34,6 +34,7 @@ public:
 	};
 
 	unordered_map<string, Room> GetRoomMap() { return roomMap; }
+	unordered_map<string, Room>* GetRoomMapPtr() { return &roomMap; }
 	void CreateRooms();
 	void DescribeRoom(string gridID);
 	void TransferItemToPlayer(Key* key);

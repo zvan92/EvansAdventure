@@ -2,6 +2,8 @@
 
 #include "Item.h"
 
+class Room;
+
 class Key : public Item
 {
 public:
@@ -9,7 +11,8 @@ public:
 		isBlue(false),
 		isGreen(false),
 		isRed(false),
-		isYellow(false)
+		isYellow(false),
+		isBrass(false)
 	{
 		isKey = true;
 	};
@@ -20,7 +23,8 @@ public:
 		isBlue(false),
 		isGreen(false),
 		isRed(false),
-		isYellow(false)
+		isYellow(false),
+		isBrass(false)
 	{
 		isKey = true;
 	};
@@ -33,15 +37,19 @@ public:
 	void setIsRed(bool value) { isRed = value; }
 	bool getIsYellow() { return isYellow; }
 	void setIsYellow(bool value) { isYellow = value; }
+	bool getIsBrass() { return isBrass; }
+	void setIsBrass(bool value) { isBrass = value; }
 
 	int CombineWithItem(Chest* chest);
 	int CombineWithItem(Food* food);
 	int CombineWithItem(Potion* potion);
 	int CombineWithItem(Key* key);
+	int CombineWithItem(Room* room);
 
 private:
 	bool isBlue;
 	bool isGreen;
 	bool isRed;
 	bool isYellow;
+	bool isBrass;
 };

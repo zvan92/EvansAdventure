@@ -20,7 +20,8 @@ bool GameManager::CheckForCollision(MapManager::Direction direction)
 	{
 	case MapManager::Direction::WEST:
 	{
-		if (MapManager::GetInstance()->GetRoomMap()[Player::GetInstance()->getCurrentLocationGridID()].GetHasWestWall() == true)
+		if (MapManager::GetInstance()->GetRoomMap()[Player::GetInstance()->getCurrentLocationGridID()].GetHasWestWall() == true ||
+			MapManager::GetInstance()->GetRoomMap()[Player::GetInstance()->getCurrentLocationGridID()].GetHasWestDoor() == true)
 		{
 			return true;
 		}
@@ -31,7 +32,8 @@ bool GameManager::CheckForCollision(MapManager::Direction direction)
 	}
 	case MapManager::Direction::NORTH:
 	{
-		if (MapManager::GetInstance()->GetRoomMap()[Player::GetInstance()->getCurrentLocationGridID()].GetHasNorthWall() == true)
+		if (MapManager::GetInstance()->GetRoomMap()[Player::GetInstance()->getCurrentLocationGridID()].GetHasNorthWall() == true ||
+			MapManager::GetInstance()->GetRoomMap()[Player::GetInstance()->getCurrentLocationGridID()].GetHasNorthDoor() == true)
 		{
 			return true;
 		}
@@ -42,7 +44,8 @@ bool GameManager::CheckForCollision(MapManager::Direction direction)
 	}
 	case MapManager::Direction::EAST:
 	{
-		if (MapManager::GetInstance()->GetRoomMap()[Player::GetInstance()->getCurrentLocationGridID()].GetHasEastWall() == true)
+		if (MapManager::GetInstance()->GetRoomMap()[Player::GetInstance()->getCurrentLocationGridID()].GetHasEastWall() == true ||
+			MapManager::GetInstance()->GetRoomMap()[Player::GetInstance()->getCurrentLocationGridID()].GetHasEastDoor() == true)
 		{
 			return true;
 		}
@@ -53,7 +56,8 @@ bool GameManager::CheckForCollision(MapManager::Direction direction)
 	}
 	case MapManager::Direction::SOUTH:
 	{
-		if (MapManager::GetInstance()->GetRoomMap()[Player::GetInstance()->getCurrentLocationGridID()].GetHasSouthWall() == true)
+		if (MapManager::GetInstance()->GetRoomMap()[Player::GetInstance()->getCurrentLocationGridID()].GetHasSouthWall() == true ||
+			MapManager::GetInstance()->GetRoomMap()[Player::GetInstance()->getCurrentLocationGridID()].GetHasSouthDoor() == true)
 		{
 			return true;
 		}
@@ -139,6 +143,7 @@ void GameManager::DisplayCollectItemScreen()
 		system("cls");
 		cout << "         COLLECT ITEM        \n";
 		cout << "=============================\n\n";
+		cout << "Items in the room:\n\n";
 		ListRoomItems();
 		cout << "(C) Collect Item\n";
 		cout << "(Q) Return\n\n";
@@ -352,6 +357,7 @@ void GameManager::DisplayChestScreen(Chest* chest)
 			}
 
 			confirmed = true;
+			break;
 		}
 		else if (input.length() == 1 && (choice == 'q' || choice == 'Q'))
 		{
@@ -359,6 +365,7 @@ void GameManager::DisplayChestScreen(Chest* chest)
 			cout << "The chest vanishes in a puff of smoke.\n\n";
 			system("pause");
 			confirmed = true;
+			break;
 		}
 	}
 }
@@ -372,8 +379,21 @@ void GameManager::DisplayUseItemScreen(Key* key)
 		system("cls");
 		cout << "           USE ITEM          \n";
 		cout << "=============================\n\n";
-		cout << "Use " << key->getName() << " on which room item? \n\n";
+		cout << "Use " << key->getName() << " on what? \n\n";
+		cout << "Things in the room:\n\n";
 		ListRoomItems();
+		bool hasDoor = false;
+		unordered_map<std::string, Room> roomMap = MapManager::GetInstance()->GetRoomMap();
+		Room* currentRoom = &roomMap[Player::GetInstance()->getCurrentLocationGridID()];
+		if (currentRoom->GetHasNorthDoor() ||
+			currentRoom->GetHasSouthDoor() ||
+			currentRoom->GetHasEastDoor() ||
+			currentRoom->GetHasWestDoor())
+		{
+			hasDoor = true;
+			cout << "(D) Locked door\n";
+		}
+
 		cout << "(P) Player\n";
 		cout << "(Q) Return\n\n";
 		cout << "Enter choice: ";
@@ -384,19 +404,50 @@ void GameManager::DisplayUseItemScreen(Key* key)
 		char choice;
 		stream >> choice;
 
+		if (input.length() == 1 && (choice == 'd' || choice == 'D') && hasDoor)
+		{
+			unordered_map<std::string, Room>* roomMapPtr = MapManager::GetInstance()->GetRoomMapPtr();
+			currentRoom = &roomMapPtr->at(Player::GetInstance()->getCurrentLocationGridID());
+
+			if (key->CombineWithItem(currentRoom) == SUCCESS)
+			{
+				if (currentRoom->GetHasNorthDoor())
+				{
+					currentRoom->SetHasNorthDoor(false);
+				}
+				else if (currentRoom->GetHasSouthDoor())
+				{
+					currentRoom->SetHasSouthDoor(false);
+				}
+				else if (currentRoom->GetHasEastDoor())
+				{
+					currentRoom->SetHasEastDoor(false);
+				}
+				else if (currentRoom->GetHasWestDoor())
+				{
+					currentRoom->SetHasWestDoor(false);
+				}
+				system("cls");
+				cout << Player::GetInstance()->getPlayerName() << " unlocked the North door using the " << key->getName() << ".\n\n";
+				system("pause");
+			}
+
+			confirmed = true;
+			break;
+		}
 		if (input.length() == 1 && (choice == 'p' || choice == 'P'))
 		{
 			Player::GetInstance()->ConsumeItem(key);
 			confirmed = true;
+			break;
 		}
 		else if (input.length() == 1 && (choice == 'q' || choice == 'Q'))
 		{
 			confirmed = true;
+			break;
 		}
 		else if (input.length() == 1) 
 		{
-			unordered_map<std::string, Room>roomMap = MapManager::GetInstance()->GetRoomMap();
-			Room* currentRoom = &roomMap[Player::GetInstance()->getCurrentLocationGridID()];
 			int roomItemsCount = (int)currentRoom->GetRoomItemNames().size();
 			int iChoice = (int)choice - 48;
 
@@ -461,9 +512,8 @@ void GameManager::DisplayUseItemScreen(Key* key)
 					}
 				}
 
-				// repeat for other items
-
 				confirmed = true;
+				break;
 			}
 			else
 			{
@@ -522,10 +572,12 @@ void GameManager::DisplayEndGameScreen()
 			GameManager::GetInstance()->Init();
 
 			confirmed = true;
+			break;
 		}
 		if (input.length() == 1 && (choice == 'n' || choice == 'N'))
 		{
 			confirmed = true;
+			break;
 		}
 		else
 		{
@@ -629,6 +681,7 @@ void GameManager::DisplayInventoryScreen()
 
 						useConfirmed = true;
 						confirmed = true;
+						break;
 					}
 					else
 					{
@@ -714,6 +767,7 @@ void GameManager::DisplayInventoryScreen()
 
 						dropConfirmed = true;
 						confirmed = true;
+						break;
 					}
 					else
 					{
@@ -797,6 +851,12 @@ void GameManager::Init()
 	greenKey->setIsGreen(true);
 	Player::GetInstance()->AddItemToInventory(greenKey);
 	delete(greenKey);
+
+	Key* brassKey = new Key();
+	brassKey->setName("Brass Key");
+	brassKey->setIsBrass(true);
+	Player::GetInstance()->AddItemToInventory(brassKey);
+	delete(brassKey);
 
 	gameIsInitializing = false;
 }

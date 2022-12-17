@@ -13,93 +13,93 @@ MapManager *MapManager::instance = 0;
 void MapManager::CreateRooms()
 {
 	// H ROW
-	roomMap["H1"] = Room(1, 0, 1, 1);
-	roomMap["H5"] = Room(1, 0, 1, 0);
-	roomMap["H6"] = Room(1, 0, 0, 1);
+	roomMap["H1"] = Room(1, 0, 1, 1, 0 , 0 , 0 , 0);
+	roomMap["H5"] = Room(1, 0, 1, 0, 0, 0, 0, 0);
+	roomMap["H6"] = Room(1, 0, 0, 1, 0, 0, 0, 0);
 	// G ROW
-	roomMap["G1"] = Room(0, 0, 1, 1);
-	roomMap["G3"] = Room(1, 0, 1, 0);
-	roomMap["G4"] = Room(1, 1, 0, 0);
-	roomMap["G5"] = Room(0, 0, 0, 1);
-	roomMap["G6"] = Room(0, 0, 1, 1);
-	roomMap["G9"] = Room(1, 0, 1, 1);
-	roomMap["G11"] = Room(1, 0, 1, 1);
+	roomMap["G1"] = Room(0, 0, 1, 1, 0, 0, 0, 0);
+	roomMap["G3"] = Room(1, 0, 1, 0, 0, 0, 0, 0);
+	roomMap["G4"] = Room(1, 1, 0, 0, 0, 0, 0, 0);
+	roomMap["G5"] = Room(0, 0, 0, 1, 0, 0, 0, 0);
+	roomMap["G6"] = Room(0, 0, 1, 1, 0, 0, 0, 0);
+	roomMap["G9"] = Room(1, 0, 1, 1, 0, 0, 0, 0);
+	roomMap["G11"] = Room(1, 0, 1, 1, 0, 0, 0, 0);
 	// F ROW
-	roomMap["F1"] = Room(0, 0, 1, 1);
-	roomMap["F3"] = Room(0, 0, 1, 1);
-	roomMap["F4"] = Room(1, 1, 1, 0);
-	roomMap["F5"] = Room(0, 1, 0, 1);
-	roomMap["F6"] = Room(0, 1, 1, 0);
-	roomMap["F7"] = Room(1, 1, 0, 0);
-	roomMap["F8"] = Room(1, 1, 0, 0);
-	roomMap["F9"] = Room(0, 0, 0, 0);
-	roomMap["F10"] = Room(1, 1, 0, 0);
-	roomMap["F11"] = Room(0, 1, 0, 0);
-	roomMap["F12"] = Room(1, 1, 0, 1);
+	roomMap["F1"] = Room(0, 0, 1, 1, 0, 0, 0, 0);
+	roomMap["F3"] = Room(0, 0, 1, 1, 0, 0, 0, 0);
+	roomMap["F4"] = Room(1, 1, 1, 0, 0, 0, 0, 0);
+	roomMap["F5"] = Room(0, 1, 0, 1, 0, 0, 0, 0);
+	roomMap["F6"] = Room(0, 1, 1, 0, 0, 0, 0, 0);
+	roomMap["F7"] = Room(1, 1, 0, 0, 0, 0, 0, 0);
+	roomMap["F8"] = Room(1, 1, 0, 0, 0, 0, 0, 0);
+	roomMap["F9"] = Room(0, 0, 0, 0, 0, 0, 0, 0);
+	roomMap["F10"] = Room(1, 1, 0, 0, 0, 0, 0, 0);
+	roomMap["F11"] = Room(0, 1, 0, 0, 0, 0, 0, 0);
+	roomMap["F12"] = Room(1, 1, 0, 1, 0, 0, 0, 0);
 	// E ROW
-	roomMap["E1"] = Room(0, 1, 1, 0);
-	roomMap["E2"] = Room(1, 1, 0, 0);
-	roomMap["E3"] = Room(0, 1, 0, 0);
-	roomMap["E4"] = Room(1, 1, 0, 0);
-	roomMap["E5"] = Room(1, 0, 0, 0);
-	roomMap["E6"] = Room(1, 0, 0, 1);
-	roomMap["E7"] = Room(1, 0, 1, 0);
-	roomMap["E8"] = Room(1, 1, 0, 1);
-	roomMap["E9"] = Room(0, 0, 1, 1);
-	roomMap["E10"] = Room(1, 1, 1, 0);
-	roomMap["E11"] = Room(1, 1, 0, 0);
-	roomMap["E12"] = Room(1, 0, 0, 1);
+	roomMap["E1"] = Room(0, 1, 1, 0, 0, 0, 0, 0);
+	roomMap["E2"] = Room(1, 1, 0, 0, 0, 0, 0, 0);
+	roomMap["E3"] = Room(0, 1, 0, 0, 0, 0, 0, 0);
+	roomMap["E4"] = Room(1, 1, 0, 0, 0, 0, 0, 0);
+	roomMap["E5"] = Room(1, 0, 0, 0, 0, 0, 0, 0);
+	roomMap["E6"] = Room(1, 0, 0, 1, 0, 0, 0, 0);
+	roomMap["E7"] = Room(1, 0, 1, 0, 0, 0, 0, 0);
+	roomMap["E8"] = Room(1, 1, 0, 1, 0, 0, 0, 0);
+	roomMap["E9"] = Room(0, 0, 1, 1, 0, 0, 0, 0);
+	roomMap["E10"] = Room(1, 1, 1, 0, 0, 0, 0, 0);
+	roomMap["E11"] = Room(1, 1, 0, 0, 0, 0, 0, 0);
+	roomMap["E12"] = Room(1, 0, 0, 1, 0, 0, 0, 0);
 	// D ROW
-	roomMap["D1"] = Room(1, 1, 1, 0);
-	roomMap["D2"] = Room(1, 1, 0, 0);
-	roomMap["D3"] = Room(1, 0, 0, 0);
-	roomMap["D4"] = Room(1, 1, 0, 0);
-	roomMap["D5"] = Room(0, 1, 0, 1);
-	roomMap["D6"] = Room(0, 0, 1, 1);
-	roomMap["D7"] = Room(0, 1, 1, 0);
-	roomMap["D8"] = Room(1, 0, 0, 0);
-	roomMap["D9"] = Room(0, 1, 0, 1);
-	roomMap["D10"] = Room(1, 1, 1, 0);
-	roomMap["D11"] = Room(1, 0, 0, 0);
-	roomMap["D12"] = Room(0, 1, 0, 1);
+	roomMap["D1"] = Room(1, 1, 1, 0, 0, 0, 0, 0);
+	roomMap["D2"] = Room(1, 1, 0, 0, 0, 0, 0, 0);
+	roomMap["D3"] = Room(1, 0, 0, 0, 0, 0, 0, 0);
+	roomMap["D4"] = Room(1, 1, 0, 0, 0, 0, 0, 0);
+	roomMap["D5"] = Room(0, 1, 0, 1, 0, 0, 0, 0);
+	roomMap["D6"] = Room(0, 0, 1, 1, 0, 0, 0, 0);
+	roomMap["D7"] = Room(0, 1, 1, 0, 0, 0, 0, 0);
+	roomMap["D8"] = Room(1, 0, 0, 0, 0, 0, 0, 0);
+	roomMap["D9"] = Room(0, 1, 0, 1, 0, 0, 0, 0);
+	roomMap["D10"] = Room(1, 1, 1, 0, 0, 0, 0, 0);
+	roomMap["D11"] = Room(1, 0, 0, 0, 0, 0, 0, 0);
+	roomMap["D12"] = Room(0, 1, 0, 1, 0, 0, 0, 0);
 	// C ROW
-	roomMap["C1"] = Room(1, 1, 1, 0);
-	roomMap["C2"] = Room(1, 0, 0, 0);
-	roomMap["C3"] = Room(0, 0, 0, 1);
-	roomMap["C4"] = Room(1, 0, 1, 0);
-	roomMap["C5"] = Room(1, 1, 0, 0);
-	roomMap["C6"] = Room(0, 1, 0, 1);
-	roomMap["C7"] = Room(1, 0, 1, 0);
-	roomMap["C8"] = Room(0, 1, 0, 0);
-	roomMap["C9"] = Room(1, 1, 0, 0);
-	roomMap["C10"] = Room(1, 1, 0, 1);
-	roomMap["C11"] = Room(0, 0, 1, 0);
-	roomMap["C12"] = Room(1, 0, 0, 1);
+	roomMap["C1"] = Room(1, 1, 1, 0, 0, 0, 0, 0);
+	roomMap["C2"] = Room(1, 0, 0, 0, 0, 0, 0, 0);
+	roomMap["C3"] = Room(0, 0, 0, 1, 0, 0, 0, 0);
+	roomMap["C4"] = Room(1, 0, 1, 0, 0, 0, 0, 0);
+	roomMap["C5"] = Room(1, 1, 0, 0, 0, 0, 0, 0);
+	roomMap["C6"] = Room(0, 1, 0, 1, 0, 0, 0, 0);
+	roomMap["C7"] = Room(1, 0, 1, 0, 0, 0, 0, 0);
+	roomMap["C8"] = Room(0, 1, 0, 0, 0, 0, 0, 0);
+	roomMap["C9"] = Room(1, 1, 0, 0, 0, 0, 0, 0);
+	roomMap["C10"] = Room(1, 1, 0, 1, 0, 0, 0, 0);
+	roomMap["C11"] = Room(0, 0, 1, 0, 0, 0, 0, 0);
+	roomMap["C12"] = Room(1, 0, 0, 1, 0, 0, 0, 0);
 	// B ROW
-	roomMap["B2"] = Room(0, 0, 1, 1);
-	roomMap["B3"] = Room(0, 1, 1, 1);
-	roomMap["B4"] = Room(0, 0, 1, 1);
-	roomMap["B5"] = Room(1, 0, 1, 0);
-	roomMap["B6"] = Room(1, 1, 0, 0);
-	roomMap["B7"] = Room(0, 1, 0, 0);
-	roomMap["B8"] = Room(1, 0, 0, 0);
-	roomMap["B9"] = Room(1, 1, 0, 0);
-	roomMap["B10"] = Room(1, 1, 0, 1);
-	roomMap["B11"] = Room(0, 0, 1, 1);
-	roomMap["B12"] = Room(0, 1, 1, 0);
-	roomMap["B13"] = Room(0, 0, 0, 0); // THE EXIT ROOM!
+	roomMap["B2"] = Room(0, 0, 1, 1, 0, 0, 0, 0);
+	roomMap["B3"] = Room(0, 1, 1, 1, 0, 0, 0, 0);
+	roomMap["B4"] = Room(0, 0, 1, 1, 0, 0, 0, 0);
+	roomMap["B5"] = Room(1, 0, 1, 0, 0, 0, 0, 0);
+	roomMap["B6"] = Room(1, 1, 0, 0, 0, 0, 0, 0);
+	roomMap["B7"] = Room(0, 1, 0, 0, 0, 0, 0, 0);
+	roomMap["B8"] = Room(1, 0, 0, 0, 0, 0, 0, 0);
+	roomMap["B9"] = Room(1, 1, 0, 0, 0, 0, 0, 0);
+	roomMap["B10"] = Room(1, 1, 0, 1, 0, 0, 0, 0);
+	roomMap["B11"] = Room(0, 0, 1, 1, 0, 0, 0, 0);
+	roomMap["B12"] = Room(0, 1, 1, 0, 0, 0, 0, 0);
+	roomMap["B13"] = Room(0, 0, 0, 0, 0, 0, 0, 0); // THE EXIT ROOM!
 	// A ROW
-	roomMap["A2"] = Room(0, 1, 1, 0);
-	roomMap["A3"] = Room(1, 1, 0, 0);
-	roomMap["A4"] = Room(0, 1, 0, 1); // THE START!
-	roomMap["A5"] = Room(0, 1, 1, 0);
-	roomMap["A6"] = Room(1, 1, 0, 0);
-	roomMap["A7"] = Room(1, 1, 0, 1);
-	roomMap["A8"] = Room(0, 1, 1, 0);
-	roomMap["A9"] = Room(1, 1, 0, 0);
-	roomMap["A10"] = Room(1, 1, 0, 0);
-	roomMap["A11"] = Room(0, 1, 0, 0);
-	roomMap["A12"] = Room(1, 1, 0, 1);
+	roomMap["A2"] = Room(0, 1, 1, 0, 0, 0, 0, 0);
+	roomMap["A3"] = Room(1, 1, 0, 0, 0, 0, 0, 0);
+	roomMap["A4"] = Room(0, 1, 0, 1, 1, 0, 0, 0); // THE START!
+	roomMap["A5"] = Room(0, 1, 1, 0, 0, 0, 0, 0);
+	roomMap["A6"] = Room(1, 1, 0, 0, 0, 0, 0, 0);
+	roomMap["A7"] = Room(1, 1, 0, 1, 0, 0, 0, 0);
+	roomMap["A8"] = Room(0, 1, 1, 0, 0, 0, 0, 0);
+	roomMap["A9"] = Room(1, 1, 0, 0, 0, 0, 0, 0);
+	roomMap["A10"] = Room(1, 1, 0, 0, 0, 0, 0, 0);
+	roomMap["A11"] = Room(0, 1, 0, 0, 0, 0, 0, 0);
+	roomMap["A12"] = Room(1, 1, 0, 1, 0, 0, 0, 0);
 }
 
 void MapManager::DescribeRoom(string gridID)
@@ -108,27 +108,47 @@ void MapManager::DescribeRoom(string gridID)
 	cout << "         LOOK AROUND         \n";
 	cout << "=============================\n\n";
 
-	cout << "Walls blocking your path:\n\n";
+	cout << "Obstacles blocking your path:\n\n";
 	if (roomMap[gridID].GetHasNorthWall() == true)
 	{
-		cout << "-> North\n";
+		cout << "-> Wall (North)\n";
+	}
+	if (roomMap[gridID].GetHasNorthDoor() == true)
+	{
+		cout << "-> Locked door (North)\n";
 	}
 	if (roomMap[gridID].GetHasSouthWall() == true)
 	{
-		cout << "-> South\n";
+		cout << "-> Wall (South)\n";
+	}
+	if (roomMap[gridID].GetHasSouthDoor() == true)
+	{
+		cout << "-> Locked door (South)\n";
 	}
 	if (roomMap[gridID].GetHasEastWall() == true)
 	{
-		cout << "-> East\n";
+		cout << "-> Wall (East)\n";
+	}
+	if (roomMap[gridID].GetHasEastDoor() == true)
+	{
+		cout << "-> Locked door (East)\n";
 	}
 	if (roomMap[gridID].GetHasWestWall() == true)
 	{
-		cout << "-> West\n";
+		cout << "-> Wall (West)\n";
+	}
+	if (roomMap[gridID].GetHasWestDoor() == true)
+	{
+		cout << "-> Locked door (West)\n";
 	}
 	if (roomMap[gridID].GetHasNorthWall() == false &&
+		roomMap[gridID].GetHasNorthDoor() == false &&
 		roomMap[gridID].GetHasSouthWall() == false &&
+		roomMap[gridID].GetHasSouthDoor() == false &&
 		roomMap[gridID].GetHasEastWall() == false &&
-		roomMap[gridID].GetHasWestWall() == false)
+		roomMap[gridID].GetHasEastDoor() == false &&
+		roomMap[gridID].GetHasWestWall() == false &&
+		roomMap[gridID].GetHasWestDoor() == false)
 	{
 		cout << "-> None\n";
 	}

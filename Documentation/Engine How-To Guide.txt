@@ -29,7 +29,7 @@ ENGINE HOW-TO GUIDE
 (3) Changes to GameManager class:
 --------------------------
 
--> add an #include for the new item class
+-> add an #include for the new item class in GameManager.cpp
 
 DisplayCollectItemScreen():
 
@@ -39,7 +39,7 @@ DisplayCollectItemScreen():
 DisplayInventoryScreen() (if item is collectible):
 
 -> add 'use' logic within the scope of "if (input.length() == 1 && (choice == 'u' || choice == 'U'))"
--> for combinable items, refer to logic for Key
+-> for items that interact with others, refer to logic for Key
 -> add 'drop' logic within the scope of "else if (input.length() == 1 && (choice == 'd' || choice == 'D'))"
 
 DisplayUseItemScreen(<ITEM>* item) (if item is collectible):
@@ -47,6 +47,7 @@ DisplayUseItemScreen(<ITEM>* item) (if item is collectible):
 -> only for collectible items that can interact with others
 -> create an override of this function that takes your new item as an input
 -> for interactions with other items, add logic within the scope of "else if (input.length() == 1)"
+-> for items that interact with others, refer to logic for Key
 
 (4) Changes to Room class:
 --------------------------
@@ -58,18 +59,13 @@ DisplayUseItemScreen(<ITEM>* item) (if item is collectible):
 -> add an override of AddRoomItem(), with argument format '<ITEM> item'
 -> add an override of RemoveRoomItem(), same argument format
 
-(5) Changes to Key class:
--------------------------
-
--> add an override of CombineWithItem(), with argument format '<ITEM> item'
-
-(6) Changes to Chest class (if item is collectible):
+(5) Changes to Chest class (if item is collectible):
 ---------------------------
 
 -> add an override of AddItemToChest(), with argument format '<ITEM> item'
 -> add an override of RemoveItemFromChest(), same argument format
 
-(7) Changes to MapManager class:
+(6) Changes to MapManager class:
 --------------------------------
 
 -> include new item's header in MapManager.h
@@ -81,7 +77,7 @@ DescribeRoom():
 
 -> add 'identify' logic
 
-(8) Spawning the item:
+(7) Spawning the item:
 ----------------------
 
 -> declare and initialize item instances in Game::Init()
