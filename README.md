@@ -1,8 +1,6 @@
 # Evan's Adventure
-A roguelike survival text adventure game I'm building from scratch as I learn C++.
+A bare-bones, roguelike, survival text adventure game built in C++.
 
-Goals/Objectives:
-* No build warnings
-* Standard C++ libraries only
+A pen and paper for taking notes is highly recommended when playing this game.
 
 <b>Trello:</b> https://trello.com/b/72r342tv/evans-adventure
