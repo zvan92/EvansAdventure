@@ -411,22 +411,130 @@ void GameManager::DisplayUseItemScreen(Key* key)
 
 			if (key->CombineWithItem(currentRoom) == SUCCESS)
 			{
+				string currentGridID = Player::GetInstance()->getCurrentLocationGridID();
+				int letter;
+				int number;
+				Room* nextRoom = new Room();
+				string newGridID = "";
+
+				// find and store current gridID's letter
+				if (currentGridID.find("A") != string::npos)
+				{
+					letter = 65;
+				}
+				else if (currentGridID.find("B") != string::npos)
+				{
+					letter = 66;
+				}
+				else if (currentGridID.find("C") != string::npos)
+				{
+					letter = 67;
+				}
+				else if (currentGridID.find("D") != string::npos)
+				{
+					letter = 68;
+				}
+				else if (currentGridID.find("E") != string::npos)
+				{
+					letter = 69;
+				}
+				else if (currentGridID.find("F") != string::npos)
+				{
+					letter = 70;
+				}
+				else if (currentGridID.find("G") != string::npos)
+				{
+					letter = 71;
+				}
+
+				// find and store current gridID's number
+				if (currentGridID.find("1") != string::npos)
+				{
+					number = 1;
+				}
+				else if (currentGridID.find("2") != string::npos)
+				{
+					number = 2;
+				}
+				else if (currentGridID.find("3") != string::npos)
+				{
+					number = 3;
+				}
+				else if (currentGridID.find("4") != string::npos)
+				{
+					number = 4;
+				}
+				else if (currentGridID.find("5") != string::npos)
+				{
+					number = 5;
+				}
+				else if (currentGridID.find("6") != string::npos)
+				{
+					number = 6;
+				}
+				else if (currentGridID.find("7") != string::npos)
+				{
+					number = 7;
+				}
+				else if (currentGridID.find("8") != string::npos)
+				{
+					number = 8;
+				}
+				else if (currentGridID.find("9") != string::npos)
+				{
+					number = 9;
+				}
+				else if (currentGridID.find("10") != string::npos)
+				{
+					number = 10;
+				}
+				else if (currentGridID.find("11") != string::npos)
+				{
+					number = 11;
+				}
+				else if (currentGridID.find("12") != string::npos)
+				{
+					number = 12;
+				}
+
 				if (currentRoom->GetHasNorthDoor())
 				{
 					currentRoom->SetHasNorthDoor(false);
+					letter++;
+					newGridID = char(letter);
+					newGridID.append(to_string(number));
+					nextRoom = &roomMapPtr->at(newGridID);
+					nextRoom->SetHasSouthDoor(false);
 				}
 				else if (currentRoom->GetHasSouthDoor())
 				{
 					currentRoom->SetHasSouthDoor(false);
+					letter--;
+					newGridID = char(letter);
+					newGridID.append(to_string(number));
+					nextRoom = &roomMapPtr->at(newGridID);
+					nextRoom->SetHasNorthDoor(false);
 				}
 				else if (currentRoom->GetHasEastDoor())
 				{
 					currentRoom->SetHasEastDoor(false);
+					number++;
+					newGridID = char(letter);
+					newGridID.append(to_string(number));
+					nextRoom = &roomMapPtr->at(newGridID);
+					nextRoom->SetHasWestDoor(false);
 				}
 				else if (currentRoom->GetHasWestDoor())
 				{
 					currentRoom->SetHasWestDoor(false);
+					number--;
+					newGridID = char(letter);
+					newGridID.append(to_string(number));
+					nextRoom = &roomMapPtr->at(newGridID);
+					nextRoom->SetHasEastDoor(false);
 				}
+				delete(nextRoom);
+
 				system("cls");
 				cout << Player::GetInstance()->getPlayerName() << " unlocked the North door using the " << key->getName() << ".\n\n";
 				system("pause");
@@ -798,34 +906,88 @@ void GameManager::Init()
 	MapManager::GetInstance()->CreateRooms();
 	Player::GetInstance()->setPlayerEnergy(100);
 	Player::GetInstance()->setTurnsCompleted(0);
-	Player::GetInstance()->setCurrentLocationGridID("A4");
+	Player::GetInstance()->setCurrentLocationGridID("C4");
 	Player::GetInstance()->setInventoryCount(0);
 
+	// KEYS (START)
+
+	Key* a4_brassKey = new Key();
+	a4_brassKey->setName("Brass Key");
+	a4_brassKey->setIsBrass(true);
+	MapManager::GetInstance()->TransferItemToRoom(a4_brassKey, "A4");
+	delete(a4_brassKey);
+
+	Key* d5_brassKey = new Key();
+	d5_brassKey->setName("Brass Key");
+	d5_brassKey->setIsBrass(true);
+	MapManager::GetInstance()->TransferItemToRoom(d5_brassKey, "D5");
+	delete(d5_brassKey);
+
+	Key* g1_brassKey = new Key();
+	g1_brassKey->setName("Brass Key");
+	g1_brassKey->setIsBrass(true);
+	MapManager::GetInstance()->TransferItemToRoom(g1_brassKey, "G1");
+	delete(g1_brassKey);
+
+	Key* f6_brassKey = new Key();
+	f6_brassKey->setName("Brass Key");
+	f6_brassKey->setIsBrass(true);
+	MapManager::GetInstance()->TransferItemToRoom(f6_brassKey, "F6");
+	delete(f6_brassKey);
+
+	Key* g9_brassKey = new Key();
+	g9_brassKey->setName("Brass Key");
+	g9_brassKey->setIsBrass(true);
+	MapManager::GetInstance()->TransferItemToRoom(g9_brassKey, "G9");
+	delete(g9_brassKey);
+
+	Key* f10_brassKey = new Key();
+	f10_brassKey->setName("Brass Key");
+	f10_brassKey->setIsBrass(true);
+	MapManager::GetInstance()->TransferItemToRoom(f10_brassKey, "F10");
+	delete(f10_brassKey);
+
+	Key* e9_brassKey = new Key();
+	e9_brassKey->setName("Brass Key");
+	e9_brassKey->setIsBrass(true);
+	MapManager::GetInstance()->TransferItemToRoom(e9_brassKey, "E9");
+	delete(e9_brassKey);
+
+	Key* c9_brassKey = new Key();
+	c9_brassKey->setName("Brass Key");
+	c9_brassKey->setIsBrass(true);
+	MapManager::GetInstance()->TransferItemToRoom(c9_brassKey, "C9");
+	delete(c9_brassKey);
+
+	Key* a7_brassKey = new Key();
+	a7_brassKey->setName("Brass Key");
+	a7_brassKey->setIsBrass(true);
+	MapManager::GetInstance()->TransferItemToRoom(a7_brassKey, "A7");
+	delete(a7_brassKey);
+
+	Key* b11_brassKey = new Key();
+	b11_brassKey->setName("Brass Key");
+	b11_brassKey->setIsBrass(true);
+	MapManager::GetInstance()->TransferItemToRoom(b11_brassKey, "B11");
+	delete(b11_brassKey);
+
+	// KEYS (END)
+
+	// CONSUMABLES (START)
+
+	/*
 	Food* f = new Food();
 	f->setName("Apple");
 	f->setHealFactor(5);
 	MapManager::GetInstance()->TransferItemToRoom(f, "A4");
 	delete(f);
+	*/
+
+	// CONSUMABLES (END)
 	
-	Potion* g = new Potion();
-	g->setName("Poison");
-	g->setDamageFactor(5);
-	g->setIsPoison(true);
-	MapManager::GetInstance()->TransferItemToRoom(g, "A4");
-	delete(g);
+	// CHESTS (START)
 
-	Food* h = new Food();
-	h->setName("Rotten Apple");
-	h->setDamageFactor(5);
-	h->setIsRotten(true);
-	MapManager::GetInstance()->TransferItemToRoom(h, "A4");
-	delete(h);
-
-	// added to blue chest
-	Potion* i = new Potion();
-	i->setName("Health Potion");
-	i->setHealFactor(5);
-
+	/*
 	Chest* blueChest = new Chest();
 	blueChest->setName("Blue Chest");
 	blueChest->setIsBlue(true);
@@ -833,30 +995,9 @@ void GameManager::Init()
 	MapManager::GetInstance()->TransferItemToRoom(blueChest, "A4");
 	delete(blueChest);
 	delete(i);
+	*/
 
-	Key* blueKey = new Key();
-	blueKey->setName("Blue Key");
-	blueKey->setIsBlue(true);
-	Player::GetInstance()->AddItemToInventory(blueKey);
-	delete(blueKey);
-
-	Key* redKey = new Key();
-	redKey->setName("Red Key");
-	redKey->setIsRed(true);
-	MapManager::GetInstance()->TransferItemToRoom(redKey, "A4");
-	delete(redKey);
-
-	Key* greenKey = new Key();
-	greenKey->setName("Green Key");
-	greenKey->setIsGreen(true);
-	Player::GetInstance()->AddItemToInventory(greenKey);
-	delete(greenKey);
-
-	Key* brassKey = new Key();
-	brassKey->setName("Brass Key");
-	brassKey->setIsBrass(true);
-	Player::GetInstance()->AddItemToInventory(brassKey);
-	delete(brassKey);
+	// CHESTS (END)
 
 	gameIsInitializing = false;
 }

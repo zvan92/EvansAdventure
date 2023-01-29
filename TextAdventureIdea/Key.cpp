@@ -51,10 +51,10 @@ int Key::CombineWithItem(Key* key)
 int Key::CombineWithItem(Room* room)
 {
 	bool match = false;
-	if (isBrass && room->GetHasNorthWall() ||
-		isBrass && room->GetHasSouthWall() ||
-		isBrass && room->GetHasEastWall() ||
-		isBrass && room->GetHasWestWall())
+	if (isBrass && room->GetHasNorthDoor() ||
+		isBrass && room->GetHasSouthDoor() ||
+		isBrass && room->GetHasEastDoor() ||
+		isBrass && room->GetHasWestDoor())
 	{
 		match = true;
 	}
