@@ -414,8 +414,8 @@ void GameManager::DisplayUseItemScreen(Key* key)
 				string currentGridID = Player::GetInstance()->getCurrentLocationGridID();
 				int letter;
 				int number;
-				Room* nextRoom = new Room();
 				string newGridID = "";
+				Room* nextRoom = new Room();
 
 				// find and store current gridID's letter
 				if (currentGridID.find("A") != string::npos)
@@ -533,6 +533,7 @@ void GameManager::DisplayUseItemScreen(Key* key)
 					nextRoom = &roomMapPtr->at(newGridID);
 					nextRoom->SetHasEastDoor(false);
 				}
+				nextRoom = nullptr;
 				delete(nextRoom);
 
 				system("cls");
