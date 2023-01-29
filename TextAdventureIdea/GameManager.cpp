@@ -906,7 +906,7 @@ void GameManager::Init()
 	MapManager::GetInstance()->CreateRooms();
 	Player::GetInstance()->setPlayerEnergy(100);
 	Player::GetInstance()->setTurnsCompleted(0);
-	Player::GetInstance()->setCurrentLocationGridID("C4");
+	Player::GetInstance()->setCurrentLocationGridID("A4");
 	Player::GetInstance()->setInventoryCount(0);
 
 	// KEYS (START)
