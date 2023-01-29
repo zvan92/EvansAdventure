@@ -905,7 +905,7 @@ void GameManager::Init()
 	gameIsInitializing = true;
 
 	MapManager::GetInstance()->CreateRooms();
-	Player::GetInstance()->setPlayerEnergy(5);
+	Player::GetInstance()->setPlayerEnergy(100);
 	Player::GetInstance()->setTurnsCompleted(0);
 	Player::GetInstance()->setCurrentLocationGridID("A4");
 	Player::GetInstance()->setInventoryCount(0);
