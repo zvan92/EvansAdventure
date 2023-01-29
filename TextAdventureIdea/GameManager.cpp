@@ -1064,26 +1064,27 @@ void GameManager::ListChestItems(Chest* chest)
 	cout << endl;
 }
 
-int GameManager::PromptForTurnAction()
+char GameManager::PromptForTurnAction()
 {
 	system("cls");
 	cout << "Player health: " << Player::GetInstance()->getPlayerEnergy() << "\n";
 	cout << "Turns completed: " << Player::GetInstance()->getTurnsCompleted() << "\n\n";
 	cout << "What would you like " << Player::GetInstance()->getPlayerName() << " to do?\n\n";
-	cout << "(1) Move\n(2) Look Around\n(3) Collect Item\n(4) View Inventory\n(5) View Map\n(6) End Game\n\nEnter Choice: ";
+	cout << "(1) Move\n(2) Look Around\n(3) Collect Item\n(4) View Inventory\n(5) View Map\n\n(Q) End Game\n\nEnter Choice: ";
 
 	string input;
-	int choice;
+	char choice;
 	getline(cin, input);
 	stringstream stream(input);
 	stream >> choice;
 
-	if (choice == 1 ||
-		choice == 2 ||
-		choice == 3 ||
-		choice == 4 ||
-		choice == 5 ||
-		choice == 6)
+	if (choice == '1' ||
+		choice == '2' ||
+		choice == '3' ||
+		choice == '4' ||
+		choice == '5' ||
+		choice == 'q' ||
+		choice == 'Q')
 	{
 		return choice;
 	}
@@ -1103,16 +1104,16 @@ void GameManager::PromptForDirection()
 		cout << "            MOVE             \n";
 		cout << "=============================\n\n";
 		cout << "Move in which direction?\n\n";
-		cout << "(1) North\n(2) South\n(3) East\n(4) West\n(5) Cancel\n\n";
+		cout << "(1) North\n(2) South\n(3) East\n(4) West\n\n(Q) Cancel\n\n";
 		cout << "Enter choice: ";
 
-		int choice;
+		char choice;
 		string input;
 		getline(cin, input);
 		stringstream stream(input);
 		stream >> choice;
 
-		if (input.length() != 1 && (choice < 1 && choice > 5))
+		if (input.length() != 1)
 		{
 			continue;
 		}
@@ -1120,27 +1121,30 @@ void GameManager::PromptForDirection()
 		{
 			switch (choice)
 			{
-			case 1:
+			case '1':
 				system("cls");
 				Player::GetInstance()->MoveNorth();
 				confirmed = true;
 				break;
-			case 2:
+			case '2':
 				system("cls");
 				Player::GetInstance()->MoveSouth();
 				confirmed = true;
 				break;
-			case 3:
+			case '3':
 				system("cls");
 				Player::GetInstance()->MoveEast();
 				confirmed = true;
 				break;
-			case 4:
+			case '4':
 				system("cls");
 				Player::GetInstance()->MoveWest();
 				confirmed = true;
 				break;
-			case 5:
+			case 'q':
+				confirmed = true;
+				break;
+			case 'Q':
 				confirmed = true;
 				break;
 			}
@@ -1169,32 +1173,33 @@ void GameManager::StartPlayerTurn()
 		gameOverStatus = true;
 	}
 
-	int choice = 0;
-	while (choice == 0)
-	{
-		choice = PromptForTurnAction();
-	}
-
+	char choice = PromptForTurnAction();
 	switch (choice)
 	{
-	case 1:
+	case '1':
 		PromptForDirection();
 		break;
-	case 2:
+	case '2':
 		Player::GetInstance()->LookAround();
 		system("PAUSE");
 		break;
-	case 3:
+	case '3':
 		DisplayCollectItemScreen();
 		break;
-	case 4:
+	case '4':
 		DisplayInventoryScreen();
 		break;
-	case 5:
+	case '5':
 		DisplayMapScreen();
 		break;
-	case 6:
+	case 'q':
 		DisplayEndGameScreen();
+		break;
+	case 'Q':
+		DisplayEndGameScreen();
+		break;
+	default:
+		choice = PromptForTurnAction();
 		break;
 	}
 }

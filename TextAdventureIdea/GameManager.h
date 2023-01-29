@@ -45,7 +45,7 @@ private:
 	static bool gameOverStatus;
 	static bool gameIsInitializing;
 
-	int PromptForTurnAction();
+	char PromptForTurnAction();
 	void ListPlayerItems();
 	void ListRoomItems();
 	void ListChestItems(Chest* chest);

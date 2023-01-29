@@ -17,12 +17,12 @@ public:
 	Room() :
 		hasNorthWall(false),
 		hasSouthWall(false),
-		hasWestWall(false),
 		hasEastWall(false),
+		hasWestWall(false),
 		hasNorthDoor(false),
 		hasSouthDoor(false),
-		hasWestDoor(false),
 		hasEastDoor(false),
+		hasWestDoor(false),
 		roomKeys(),
 		roomFood(),
 		roomPotions(),
@@ -32,20 +32,20 @@ public:
 
 	Room(bool setNorthWall,
 		bool setSouthWall,
-		bool setWestWall,
 		bool setEastWall,
+		bool setWestWall,
 		bool setNorthDoor,
 		bool setSouthDoor,
-		bool setWestDoor,
-		bool setEastDoor) :
+		bool setEastDoor,
+		bool setWestDoor) :
 		hasNorthWall(setNorthWall),
 		hasSouthWall(setSouthWall),
-		hasWestWall(setWestWall),
 		hasEastWall(setEastWall),
+		hasWestWall(setWestWall),
 		hasNorthDoor(setNorthDoor),
 		hasSouthDoor(setSouthDoor),
-		hasWestDoor(setWestDoor),
 		hasEastDoor(setEastDoor),
+		hasWestDoor(setWestDoor),
 		iRoomItemCount(0) {};
 
 	bool GetHasNorthWall() { return hasNorthWall; }
@@ -84,12 +84,12 @@ public:
 private:
 	bool hasNorthWall;
 	bool hasSouthWall;
-	bool hasWestWall;
 	bool hasEastWall;
+	bool hasWestWall;
 	bool hasNorthDoor;
 	bool hasSouthDoor;
-	bool hasWestDoor;
 	bool hasEastDoor;
+	bool hasWestDoor;
 	std::vector<std::string> roomItemNames;
 	std::vector<Key> roomKeys;
 	std::vector<Food> roomFood;

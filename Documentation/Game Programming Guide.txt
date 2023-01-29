@@ -32,3 +32,39 @@ MapManager::CreateRooms():
 
 	Full example with constructor: "roomMap["A4"] = Room(0, 1, 0, 1, 1, 0, 0, 0);"
 	<Creates a room at map coordinate "A4" with a South wall, West wall, and North door>
+
+	<!> IMPORTANT <!> - When creating a door you must program it into both of the rooms that are connected by the door.
+	Example: if room B4 has a North door, C4 must have a South door.
+
+-------------------------
+
+>>>> RULES / GAME MECHANICS
+
+Rooms:
+
+-> Can have doors.
+-> Can contain multiple items (limited by MAX_ROOM_ITEMS in GameManager.h).
+-> Should not have more than 3 walls.
+-> Should not have more than 3 doors.
+
+Doors:
+
+-> Must be unlocked by keys.
+-> Can either be colour coded or regular.
+-> If colour coded, the key should match the its colour. 
+-> If regular, the key should be brass.
+
+Chests:
+
+-> Can contain food, potions, and keys.
+-> Can contain multiple items (limited by MAX_CHEST_ITEMS in GameManager.h).
+
+Food:
+
+-> Should either heal or hurt the player.
+-> Can be rotten (which hurts), or regular (which heals).
+
+Potions:
+
+-> Should either heal or hurt the player.
+-> Can be poison (which hurts a lot), or regular (which heals a lot).
