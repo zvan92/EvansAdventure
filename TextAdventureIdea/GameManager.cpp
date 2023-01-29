@@ -905,7 +905,7 @@ void GameManager::Init()
 	gameIsInitializing = true;
 
 	MapManager::GetInstance()->CreateRooms();
-	Player::GetInstance()->setPlayerEnergy(100);
+	Player::GetInstance()->setPlayerEnergy(5);
 	Player::GetInstance()->setTurnsCompleted(0);
 	Player::GetInstance()->setCurrentLocationGridID("A4");
 	Player::GetInstance()->setInventoryCount(0);
@@ -1171,6 +1171,12 @@ void GameManager::StartPlayerTurn()
 		system("pause");
 
 		gameOverStatus = true;
+
+		MapManager::GetInstance()->GetRoomMap().clear();
+		Player::GetInstance()->ResetProgress();
+		GameManager::GetInstance()->Init();
+
+		return;
 	}
 
 	char choice = PromptForTurnAction();
