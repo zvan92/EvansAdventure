@@ -104,38 +104,38 @@ void MapManager::CreateRooms()
 
 void MapManager::DescribeRoom(string gridID)
 {
-	cout << "Obstacles blocking your path:\n\n";
+	cout << "Obstacles nearby:\n\n";
 	if (roomMap[gridID].GetHasNorthWall() == true)
 	{
-		cout << "-> Wall (North)\n";
+		cout << "-> North - Wall\n";
 	}
 	if (roomMap[gridID].GetHasNorthDoor() == true)
 	{
-		cout << "-> Locked door (North)\n";
+		cout << "-> North - Locked door\n";
 	}
 	if (roomMap[gridID].GetHasSouthWall() == true)
 	{
-		cout << "-> Wall (South)\n";
+		cout << "-> South - Wall\n";
 	}
 	if (roomMap[gridID].GetHasSouthDoor() == true)
 	{
-		cout << "-> Locked door (South)\n";
+		cout << "-> South - Locked door\n";
 	}
 	if (roomMap[gridID].GetHasEastWall() == true)
 	{
-		cout << "-> Wall (East)\n";
+		cout << "-> East - Wall\n";
 	}
 	if (roomMap[gridID].GetHasEastDoor() == true)
 	{
-		cout << "-> Locked door (East)\n";
+		cout << "-> East - Locked door\n";
 	}
 	if (roomMap[gridID].GetHasWestWall() == true)
 	{
-		cout << "-> Wall (West)\n";
+		cout << "-> West - Wall\n";
 	}
 	if (roomMap[gridID].GetHasWestDoor() == true)
 	{
-		cout << "-> Locked door (West)\n";
+		cout << "-> West - Locked door\n";
 	}
 	if (roomMap[gridID].GetHasNorthWall() == false &&
 		roomMap[gridID].GetHasNorthDoor() == false &&
@@ -149,7 +149,7 @@ void MapManager::DescribeRoom(string gridID)
 		cout << "-> None\n";
 	}
 
-	cout << "\nItems in the room:\n";
+	cout << "\nItems nearby:\n";
 	
 	// ---- KEY IDENTIFY
 	std::vector<Key>::iterator it1;

@@ -143,9 +143,9 @@ void GameManager::DisplayCollectItemScreen()
 		system("cls");
 		cout << "         COLLECT ITEM        \n";
 		cout << "=============================\n\n";
-		cout << "Items in the room:\n\n";
+		cout << "Items nearby:\n\n";
 		ListRoomItems();
-		cout << "(C) Collect Item\n";
+		cout << "(C) Collect\n";
 		cout << "(Q) Return\n\n";
 		cout << "Enter choice: ";
 
@@ -380,7 +380,7 @@ void GameManager::DisplayUseItemScreen(Key* key)
 		cout << "           USE ITEM          \n";
 		cout << "=============================\n\n";
 		cout << "Use " << key->getName() << " on what? \n\n";
-		cout << "Things in the room:\n\n";
+		cout << "Items nearby:\n\n";
 		ListRoomItems();
 		bool hasDoor = false;
 		unordered_map<std::string, Room> roomMap = MapManager::GetInstance()->GetRoomMap();
@@ -706,8 +706,8 @@ void GameManager::DisplayInventoryScreen()
 		cout << "       PLAYER INVENTORY      \n";
 		cout << "=============================\n\n";
 		ListPlayerItems();
-		cout << "(U) Use Item\n";
-		cout << "(D) Drop Item\n";
+		cout << "(U) Use\n";
+		cout << "(D) Drop\n";
 		cout << "(Q) Return\n\n";
 		cout << "Enter choice: ";
 
@@ -1010,7 +1010,7 @@ void GameManager::ListRoomItems()
 
 	if (currentRoom->GetRoomItemNames().empty())
 	{
-		cout << "<< ROOM EMPTY >>\n";
+		cout << "-> None\n";
 	}
 	else
 	{
@@ -1072,7 +1072,7 @@ char GameManager::PromptForTurnAction()
 	cout << "\n==============================\n\n";
 	MapManager::GetInstance()->DescribeRoom(Player::GetInstance()->getCurrentLocationGridID());
 	cout << "\n==============================\n\n";
-	cout << "What would you like " << Player::GetInstance()->getPlayerName() << " to do?\n\n";
+	cout << "What should " << Player::GetInstance()->getPlayerName() << " do?\n\n";
 	cout << "(1) Move\n(2) Collect Item\n(3) View Inventory\n(4) View Map\n\n(Q) End Game\n\nEnter Choice: ";
 
 	string input;
@@ -1106,7 +1106,7 @@ void GameManager::PromptForDirection()
 		cout << "            MOVE             \n";
 		cout << "=============================\n\n";
 		cout << "Move in which direction?\n\n";
-		cout << "(1) North\n(2) South\n(3) East\n(4) West\n\n(Q) Cancel\n\n";
+		cout << "(W) North\n(S) South\n(D) East\n(A) West\n\n(Q) Cancel\n\n";
 		cout << "Enter choice: ";
 
 		char choice;
@@ -1123,22 +1123,42 @@ void GameManager::PromptForDirection()
 		{
 			switch (choice)
 			{
-			case '1':
+			case 'W':
 				system("cls");
 				Player::GetInstance()->MoveNorth();
 				confirmed = true;
 				break;
-			case '2':
+			case 'w':
+				system("cls");
+				Player::GetInstance()->MoveNorth();
+				confirmed = true;
+				break;
+			case 'S':
 				system("cls");
 				Player::GetInstance()->MoveSouth();
 				confirmed = true;
 				break;
-			case '3':
+			case 's':
+				system("cls");
+				Player::GetInstance()->MoveSouth();
+				confirmed = true;
+				break;
+			case 'D':
 				system("cls");
 				Player::GetInstance()->MoveEast();
 				confirmed = true;
 				break;
-			case '4':
+			case 'd':
+				system("cls");
+				Player::GetInstance()->MoveEast();
+				confirmed = true;
+				break;
+			case 'A':
+				system("cls");
+				Player::GetInstance()->MoveWest();
+				confirmed = true;
+				break;
+			case 'a':
 				system("cls");
 				Player::GetInstance()->MoveWest();
 				confirmed = true;
