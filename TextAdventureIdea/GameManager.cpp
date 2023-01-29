@@ -1068,9 +1068,12 @@ char GameManager::PromptForTurnAction()
 {
 	system("cls");
 	cout << "Player health: " << Player::GetInstance()->getPlayerEnergy() << "\n";
-	cout << "Turns completed: " << Player::GetInstance()->getTurnsCompleted() << "\n\n";
+	cout << "Turns completed: " << Player::GetInstance()->getTurnsCompleted() << "\n";
+	cout << "\n==============================\n\n";
+	MapManager::GetInstance()->DescribeRoom(Player::GetInstance()->getCurrentLocationGridID());
+	cout << "\n==============================\n\n";
 	cout << "What would you like " << Player::GetInstance()->getPlayerName() << " to do?\n\n";
-	cout << "(1) Move\n(2) Look Around\n(3) Collect Item\n(4) View Inventory\n(5) View Map\n\n(Q) End Game\n\nEnter Choice: ";
+	cout << "(1) Move\n(2) Collect Item\n(3) View Inventory\n(4) View Map\n\n(Q) End Game\n\nEnter Choice: ";
 
 	string input;
 	char choice;
@@ -1082,7 +1085,6 @@ char GameManager::PromptForTurnAction()
 		choice == '2' ||
 		choice == '3' ||
 		choice == '4' ||
-		choice == '5' ||
 		choice == 'q' ||
 		choice == 'Q')
 	{
@@ -1186,16 +1188,12 @@ void GameManager::StartPlayerTurn()
 		PromptForDirection();
 		break;
 	case '2':
-		Player::GetInstance()->LookAround();
-		system("PAUSE");
-		break;
-	case '3':
 		DisplayCollectItemScreen();
 		break;
-	case '4':
+	case '3':
 		DisplayInventoryScreen();
 		break;
-	case '5':
+	case '4':
 		DisplayMapScreen();
 		break;
 	case 'q':

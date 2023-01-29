@@ -55,7 +55,6 @@ public:
 	void DropItem(Food* food);
 	void DropItem(Potion* potion);
 
-	void LookAround();
 	void MoveNorth();
 	void MoveSouth();
 	void MoveEast();

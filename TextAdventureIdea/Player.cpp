@@ -297,11 +297,6 @@ void Player::ConsumeItem(Potion* potion)
 	iInventoryCount--;
 }
 
-void Player::LookAround()
-{
-	MapManager::GetInstance()->DescribeRoom(Player::GetInstance()->getCurrentLocationGridID());
-}
-
 void Player::MoveNorth()
 {
 	if (GameManager::GetInstance()->CheckForCollision(MapManager::Direction::NORTH))

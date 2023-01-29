@@ -104,10 +104,6 @@ void MapManager::CreateRooms()
 
 void MapManager::DescribeRoom(string gridID)
 {
-	system("cls");
-	cout << "         LOOK AROUND         \n";
-	cout << "=============================\n\n";
-
 	cout << "Obstacles blocking your path:\n\n";
 	if (roomMap[gridID].GetHasNorthWall() == true)
 	{
@@ -208,7 +204,6 @@ void MapManager::DescribeRoom(string gridID)
 	{
 		cout << "\n-> None" << endl;
 	}
-	cout << endl;
 }
 
 void MapManager::TransferItemToPlayer(Key* key)
