@@ -13,14 +13,6 @@ public:
 	};
 	~Food() {};
 
-	Food(const Item& item) :
-		Item(item),
-		isRotten(false),
-		rotsAfterTurn(NULL)
-	{
-		isFood = true;
-	};
-
 	bool getIsRotten() { return isRotten; }
 	void setIsRotten(bool value) { isRotten = value; }
 	int getRotsAfterTurn() { return rotsAfterTurn; }

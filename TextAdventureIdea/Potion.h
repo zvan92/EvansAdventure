@@ -12,13 +12,6 @@ public:
 	};
 	~Potion() {};
 
-	Potion(const Item& item) :
-		Item(item),
-		isPoison(false)
-	{
-		isPotion = true;
-	};
-
 	bool getIsPoison() { return isPoison; }
 	void setIsPoison(bool value) { isPoison = value; }
 

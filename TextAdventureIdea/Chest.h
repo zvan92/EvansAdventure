@@ -21,17 +21,6 @@ public:
 	};
 	~Chest() {};
 
-	Chest(const Item& item) :
-		Item(item),
-		isBlue(false),
-		isGreen(false),
-		isRed(false),
-		isYellow(false),
-		iItemCount(0)
-	{
-		isChest = true;
-	};
-
 	bool getIsBlue() { return isBlue; }
 	void setIsBlue(bool value) { isBlue = value; }
 	bool getIsGreen() { return isGreen; }

@@ -18,17 +18,6 @@ public:
 	};
 	~Key() {};
 
-	Key(const Item& item) :
-		Item(item),
-		isBlue(false),
-		isGreen(false),
-		isRed(false),
-		isYellow(false),
-		isBrass(false)
-	{
-		isKey = true;
-	};
-
 	bool getIsBlue() { return isBlue; }
 	void setIsBlue(bool value) { isBlue = value; }
 	bool getIsGreen() { return isGreen; }

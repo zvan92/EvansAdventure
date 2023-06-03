@@ -15,15 +15,6 @@ public:
 		isChest(false) {};
 	~Item() {};
 
-	Item(const Item& item) :
-		name(item.name),
-		damageFactor(item.damageFactor),
-		healFactor(item.healFactor),
-		isFood(item.isFood),
-		isPotion(item.isPotion),
-		isKey(item.isKey),
-		isChest(item.isChest) {};
-
 	void setDamageFactor(int value) { damageFactor = value; }
 	int getDamageFactor() { return damageFactor; }
 	void setHealFactor(int value) { healFactor = value; }
