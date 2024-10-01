@@ -297,11 +297,11 @@ void Player::ConsumeItem(Potion* potion)
 	iInventoryCount--;
 }
 
-void Player::MoveNorth()
+void Player::MoveForward()
 {
-	if (GameManager::GetInstance()->CheckForCollision(MapManager::Direction::NORTH))
+	if (GameManager::GetInstance()->CheckForCollision(MapManager::Direction::FORWARD))
 	{
-		cout << Player::GetInstance()->getPlayerName() << " cannot move North.\n\n";
+		cout << Player::GetInstance()->getPlayerName() << " cannot move forward.\n\n";
 	}
 	else
 	{
@@ -311,7 +311,7 @@ void Player::MoveNorth()
 		xValue++;
 		sCurrentGridID[0] = xValue;
 
-		cout << Player::GetInstance()->getPlayerName() << " moved North.\n\n";
+		cout << Player::GetInstance()->getPlayerName() << " moved forward.\n";
 		cout << Player::GetInstance()->getPlayerName() << " used 5 energy.\n\n";
 		Player::GetInstance()->setPlayerEnergy(Player::GetInstance()->getPlayerEnergy() - 5);
 
@@ -322,11 +322,11 @@ void Player::MoveNorth()
 	system("pause");
 }
 
-void Player::MoveSouth()
+void Player::MoveBackward()
 {
-	if (GameManager::GetInstance()->CheckForCollision(MapManager::Direction::SOUTH))
+	if (GameManager::GetInstance()->CheckForCollision(MapManager::Direction::BACKWARD))
 	{
-		cout << Player::GetInstance()->getPlayerName() << " cannot move South.\n\n";
+		cout << Player::GetInstance()->getPlayerName() << " cannot move backward.\n\n";
 	}
 	else
 	{
@@ -336,7 +336,7 @@ void Player::MoveSouth()
 		xValue--;
 		sCurrentGridID[0] = xValue;
 
-		cout << Player::GetInstance()->getPlayerName() << " moved South.\n\n";
+		cout << Player::GetInstance()->getPlayerName() << " moved backward.\n";
 		cout << Player::GetInstance()->getPlayerName() << " used 5 energy.\n\n";
 		Player::GetInstance()->setPlayerEnergy(Player::GetInstance()->getPlayerEnergy() - 5);
 
@@ -347,11 +347,11 @@ void Player::MoveSouth()
 	system("pause");
 }
 
-void Player::MoveEast()
+void Player::MoveRight()
 {
-	if (GameManager::GetInstance()->CheckForCollision(MapManager::Direction::EAST))
+	if (GameManager::GetInstance()->CheckForCollision(MapManager::Direction::RIGHT))
 	{
-		cout << Player::GetInstance()->getPlayerName() << " cannot move East.\n\n";
+		cout << Player::GetInstance()->getPlayerName() << " cannot move right.\n\n";
 	}
 	else
 	{
@@ -379,7 +379,7 @@ void Player::MoveEast()
 				yValue1 = (int)sCurrentGridID[1];
 			}
 
-			//move east on the grid
+			//move left on the grid
 			if (sCurrentGridID[2] != NULL)
 			{
 				yValue2++;
@@ -399,7 +399,7 @@ void Player::MoveEast()
 			}
 		}
 
-		cout << Player::GetInstance()->getPlayerName() << " moved East.\n\n";
+		cout << Player::GetInstance()->getPlayerName() << " moved right.\n";
 
 		Player::GetInstance()->setCurrentLocationGridID(sCurrentGridID);
 		Player::GetInstance()->setTurnsCompleted(Player::GetInstance()->getTurnsCompleted() + 1);
@@ -410,11 +410,11 @@ void Player::MoveEast()
 	system("pause");
 }
 
-void Player::MoveWest()
+void Player::MoveLeft()
 {
-	if (GameManager::GetInstance()->CheckForCollision(MapManager::Direction::WEST))
+	if (GameManager::GetInstance()->CheckForCollision(MapManager::Direction::LEFT))
 	{
-		cout << Player::GetInstance()->getPlayerName() << " cannot move West.\n\n";
+		cout << Player::GetInstance()->getPlayerName() << " cannot move left.\n\n";
 	}
 	else
 	{
@@ -458,7 +458,7 @@ void Player::MoveWest()
 			}
 		}
 
-		cout << Player::GetInstance()->getPlayerName() << " moved West.\n\n";
+		cout << Player::GetInstance()->getPlayerName() << " moved left.\n";
 
 		Player::GetInstance()->setCurrentLocationGridID(sCurrentGridID);
 		Player::GetInstance()->setTurnsCompleted(Player::GetInstance()->getTurnsCompleted() + 1);

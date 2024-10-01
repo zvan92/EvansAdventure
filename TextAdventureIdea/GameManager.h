@@ -46,8 +46,8 @@ private:
 	static bool gameIsInitializing;
 
 	char PromptForTurnAction();
-	void ListPlayerItems();
-	void ListRoomItems();
+	void ListPlayerItems(bool isSelectable);
+	void ListRoomItems(bool isSelectable);
 	void ListChestItems(Chest* chest);
 };
 

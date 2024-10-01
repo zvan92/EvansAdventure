@@ -18,10 +18,10 @@ bool GameManager::CheckForCollision(MapManager::Direction direction)
 {
 	switch (direction)
 	{
-	case MapManager::Direction::WEST:
+	case MapManager::Direction::LEFT:
 	{
-		if (MapManager::GetInstance()->GetRoomMap()[Player::GetInstance()->getCurrentLocationGridID()].GetHasWestWall() == true ||
-			MapManager::GetInstance()->GetRoomMap()[Player::GetInstance()->getCurrentLocationGridID()].GetHasWestDoor() == true)
+		if (MapManager::GetInstance()->GetRoomMap()[Player::GetInstance()->getCurrentLocationGridID()].GetHasLeftWall() == true ||
+			MapManager::GetInstance()->GetRoomMap()[Player::GetInstance()->getCurrentLocationGridID()].GetHasLeftDoor() == true)
 		{
 			return true;
 		}
@@ -30,10 +30,10 @@ bool GameManager::CheckForCollision(MapManager::Direction direction)
 			return false;
 		}
 	}
-	case MapManager::Direction::NORTH:
+	case MapManager::Direction::FORWARD:
 	{
-		if (MapManager::GetInstance()->GetRoomMap()[Player::GetInstance()->getCurrentLocationGridID()].GetHasNorthWall() == true ||
-			MapManager::GetInstance()->GetRoomMap()[Player::GetInstance()->getCurrentLocationGridID()].GetHasNorthDoor() == true)
+		if (MapManager::GetInstance()->GetRoomMap()[Player::GetInstance()->getCurrentLocationGridID()].GetHasForwardWall() == true ||
+			MapManager::GetInstance()->GetRoomMap()[Player::GetInstance()->getCurrentLocationGridID()].GetHasForwardDoor() == true)
 		{
 			return true;
 		}
@@ -42,10 +42,10 @@ bool GameManager::CheckForCollision(MapManager::Direction direction)
 			return false;
 		}
 	}
-	case MapManager::Direction::EAST:
+	case MapManager::Direction::RIGHT:
 	{
-		if (MapManager::GetInstance()->GetRoomMap()[Player::GetInstance()->getCurrentLocationGridID()].GetHasEastWall() == true ||
-			MapManager::GetInstance()->GetRoomMap()[Player::GetInstance()->getCurrentLocationGridID()].GetHasEastDoor() == true)
+		if (MapManager::GetInstance()->GetRoomMap()[Player::GetInstance()->getCurrentLocationGridID()].GetHasRightWall() == true ||
+			MapManager::GetInstance()->GetRoomMap()[Player::GetInstance()->getCurrentLocationGridID()].GetHasRightDoor() == true)
 		{
 			return true;
 		}
@@ -54,10 +54,10 @@ bool GameManager::CheckForCollision(MapManager::Direction direction)
 			return false;
 		}
 	}
-	case MapManager::Direction::SOUTH:
+	case MapManager::Direction::BACKWARD:
 	{
-		if (MapManager::GetInstance()->GetRoomMap()[Player::GetInstance()->getCurrentLocationGridID()].GetHasSouthWall() == true ||
-			MapManager::GetInstance()->GetRoomMap()[Player::GetInstance()->getCurrentLocationGridID()].GetHasSouthDoor() == true)
+		if (MapManager::GetInstance()->GetRoomMap()[Player::GetInstance()->getCurrentLocationGridID()].GetHasBackwardWall() == true ||
+			MapManager::GetInstance()->GetRoomMap()[Player::GetInstance()->getCurrentLocationGridID()].GetHasBackwardDoor() == true)
 		{
 			return true;
 		}
@@ -83,11 +83,9 @@ int GameManager::CreatePlayer()
 	while (!confirmed)
 	{
 		system("cls");
-		cout << "==========================================\n";
-		cout << "==           EVAN'S ADVENTURE           ==\n";
-		cout << "==========================================\n";
-		cout << "               [ New Game ]             \n\n";
-		cout << "Enter character name or type 'esc' to cancel:\n\n";
+		cout << "NEW GAME\n";
+		cout << "--------\n\n";
+		cout << "Enter character name or type '/q' to cancel:\n\n";
 
 		string input;
 		char choice;
@@ -95,7 +93,7 @@ int GameManager::CreatePlayer()
 		{
 			getline(cin, name);
 
-			if (name == "esc")
+			if (name == "/q" || name == "/Q")
 			{
 				confirmed = true;
 				return 1;
@@ -137,14 +135,15 @@ int GameManager::CreatePlayer()
 void GameManager::DisplayCollectItemScreen()
 {
 	bool confirmed = false;
+	bool isSelectable = false;
 
 	while (!confirmed)
 	{
 		system("cls");
-		cout << "         COLLECT ITEM        \n";
-		cout << "=============================\n\n";
-		cout << "Items nearby:\n\n";
-		ListRoomItems();
+		cout << "COLLECT ITEM\n";
+		cout << "------------\n\n";
+		cout << "Items:\n\n";
+		ListRoomItems(isSelectable);
 		cout << "(C) Collect\n";
 		cout << "(Q) Return\n\n";
 		cout << "Enter choice: ";
@@ -158,14 +157,15 @@ void GameManager::DisplayCollectItemScreen()
 		if (input.length() == 1 && (choice == 'c' || choice == 'C'))
 		{
 			bool collectConfirmed = false;
+			isSelectable = true;
 
 			while (!collectConfirmed)
 			{
 				system("cls");
-				cout << "         COLLECT ITEM        \n";
-				cout << "=============================\n\n";
+				cout << "COLLECT ITEM\n";
+				cout << "------------\n\n";
 				cout << "Collect which item?\n\n";
-				ListRoomItems();
+				ListRoomItems(isSelectable);
 				cout << "(Q) Return\n\n";
 				cout << "Enter choice: ";
 
@@ -183,6 +183,7 @@ void GameManager::DisplayCollectItemScreen()
 					if (choice == 'q' || choice == 'Q')
 					{
 						collectConfirmed = true;
+						isSelectable = false;
 					}
 					else if (iChoice > 0 && iChoice <= roomItemsCount)
 					{
@@ -274,8 +275,8 @@ void GameManager::DisplayChestScreen(Chest* chest)
 	while (!confirmed)
 	{
 		system("cls");
-		cout << "            CHEST            \n";
-		cout << "=============================\n\n";
+		cout << "CHEST\n";
+		cout << "-----\n\n";
 		cout << Player::GetInstance()->getPlayerName() << " unlocked the chest and found:\n\n";
 		ListChestItems(chest);
 		if (chest->getItemCount() == 0)
@@ -373,25 +374,26 @@ void GameManager::DisplayChestScreen(Chest* chest)
 void GameManager::DisplayUseItemScreen(Key* key)
 {
 	bool confirmed = false;
+	bool isSelectable = true;
 
 	while (!confirmed)
 	{
 		system("cls");
-		cout << "           USE ITEM          \n";
-		cout << "=============================\n\n";
+		cout << "USE ITEM\n";
+		cout << "--------\n\n";
 		cout << "Use " << key->getName() << " on what? \n\n";
-		cout << "Items nearby:\n\n";
-		ListRoomItems();
+		cout << "Items:\n\n";
+		ListRoomItems(isSelectable);
 		bool hasDoor = false;
 		unordered_map<std::string, Room> roomMap = MapManager::GetInstance()->GetRoomMap();
 		Room* currentRoom = &roomMap[Player::GetInstance()->getCurrentLocationGridID()];
-		if (currentRoom->GetHasNorthDoor() ||
-			currentRoom->GetHasSouthDoor() ||
-			currentRoom->GetHasEastDoor() ||
-			currentRoom->GetHasWestDoor())
+		if (currentRoom->GetHasForwardDoor() ||
+			currentRoom->GetHasBackwardDoor() ||
+			currentRoom->GetHasRightDoor() ||
+			currentRoom->GetHasLeftDoor())
 		{
 			hasDoor = true;
-			cout << "(D) Locked door\n";
+			cout << "(D) Door (locked)\n";
 		}
 
 		cout << "(P) Player\n";
@@ -497,47 +499,47 @@ void GameManager::DisplayUseItemScreen(Key* key)
 					number = 12;
 				}
 
-				if (currentRoom->GetHasNorthDoor())
+				if (currentRoom->GetHasForwardDoor())
 				{
-					currentRoom->SetHasNorthDoor(false);
+					currentRoom->SetHasForwardDoor(false);
 					letter++;
 					newGridID = char(letter);
 					newGridID.append(to_string(number));
 					nextRoom = &roomMapPtr->at(newGridID);
-					nextRoom->SetHasSouthDoor(false);
+					nextRoom->SetHasBackwardDoor(false);
 				}
-				else if (currentRoom->GetHasSouthDoor())
+				else if (currentRoom->GetHasBackwardDoor())
 				{
-					currentRoom->SetHasSouthDoor(false);
+					currentRoom->SetHasBackwardDoor(false);
 					letter--;
 					newGridID = char(letter);
 					newGridID.append(to_string(number));
 					nextRoom = &roomMapPtr->at(newGridID);
-					nextRoom->SetHasNorthDoor(false);
+					nextRoom->SetHasForwardDoor(false);
 				}
-				else if (currentRoom->GetHasEastDoor())
+				else if (currentRoom->GetHasRightDoor())
 				{
-					currentRoom->SetHasEastDoor(false);
+					currentRoom->SetHasRightDoor(false);
 					number++;
 					newGridID = char(letter);
 					newGridID.append(to_string(number));
 					nextRoom = &roomMapPtr->at(newGridID);
-					nextRoom->SetHasWestDoor(false);
+					nextRoom->SetHasLeftDoor(false);
 				}
-				else if (currentRoom->GetHasWestDoor())
+				else if (currentRoom->GetHasLeftDoor())
 				{
-					currentRoom->SetHasWestDoor(false);
+					currentRoom->SetHasLeftDoor(false);
 					number--;
 					newGridID = char(letter);
 					newGridID.append(to_string(number));
 					nextRoom = &roomMapPtr->at(newGridID);
-					nextRoom->SetHasEastDoor(false);
+					nextRoom->SetHasRightDoor(false);
 				}
 				nextRoom = nullptr;
 				delete(nextRoom);
 
 				system("cls");
-				cout << Player::GetInstance()->getPlayerName() << " unlocked the North door using the " << key->getName() << ".\n\n";
+				cout << Player::GetInstance()->getPlayerName() << " unlocked the door using the " << key->getName() << ".\n\n";
 				system("pause");
 			}
 
@@ -635,8 +637,8 @@ void GameManager::DisplayUseItemScreen(Key* key)
 void GameManager::DisplayMapScreen()
 {
 	system("cls");
-	cout << "    EVAN'S ADVENTURE: MAP    \n";
-	cout << "=============================\n";
+	cout << "MAP\n";
+	cout << "---\n";
 	cout << "     _       _ _             \n";
 	cout << "[H] | |  _ _|   |    _   _   \n";
 	cout << "|   | | |  _  | |_ _| |_| |_ \n";
@@ -648,8 +650,7 @@ void GameManager::DisplayMapScreen()
 	cout << "[A]   |_ _  |_ _ _|_ _ _ _ _|\n";
 	cout << "         START               \n";
 	cout << "    [1]------------------[12]\n";
-	cout << "							  \n";
-	cout << "=============================\n\n";
+	cout << "							  \n\n";
 	system("pause");
 }
 
@@ -660,11 +661,9 @@ void GameManager::DisplayEndGameScreen()
 	while (!confirmed)
 	{
 		system("cls");
-		cout << "==========================================\n";
-		cout << "==           EVAN'S ADVENTURE           ==\n";
-		cout << "==========================================\n";
-		cout << "               [ End Game ]\n\n";
-		cout << "All progress will be lost.\n\nAre you sure, " << Player::GetInstance()->getPlayerName() << "? (Y/N): ";
+		cout << "QUIT GAME\n";
+		cout << "---------\n\n";
+		cout << "All progress for " << Player::GetInstance()->getPlayerName() << " will be lost.\n\nAre you sure? (Y/N): ";
 
 		string input;
 		char choice;
@@ -699,13 +698,14 @@ void GameManager::DisplayEndGameScreen()
 void GameManager::DisplayInventoryScreen()
 {
 	bool confirmed = false;
+	bool isSelectable = false;
 
 	while (!confirmed)
 	{
 		system("cls");
-		cout << "       PLAYER INVENTORY      \n";
-		cout << "=============================\n\n";
-		ListPlayerItems();
+		cout << "INVENTORY\n";
+		cout << "---------\n\n";
+		ListPlayerItems(isSelectable);
 		cout << "(U) Use\n";
 		cout << "(D) Drop\n";
 		cout << "(Q) Return\n\n";
@@ -720,14 +720,15 @@ void GameManager::DisplayInventoryScreen()
 		if (input.length() == 1 && (choice == 'u' || choice == 'U'))
 		{
 			bool useConfirmed = false;
+			isSelectable = true;
 
 			while (!useConfirmed)
 			{
 				system("cls");
-				cout << "       PLAYER INVENTORY      \n";
-				cout << "=============================\n\n";
+				cout << "PLAYER INVENTORY\n";
+				cout << "----------------\n\n";
 				cout << "Use which item?\n\n";
-				ListPlayerItems();
+				ListPlayerItems(isSelectable);
 				cout << "(Q) Return\n\n";
 				cout << "Enter choice: ";
 
@@ -743,6 +744,7 @@ void GameManager::DisplayInventoryScreen()
 					if (choice == 'q' || choice == 'Q')
 					{
 						useConfirmed = true;
+						isSelectable = false;
 					}
 					else if (iChoice > 0 && iChoice <= playerItemsCount)
 					{
@@ -806,14 +808,15 @@ void GameManager::DisplayInventoryScreen()
 		else if (input.length() == 1 && (choice == 'd' || choice == 'D'))
 		{
 			bool dropConfirmed = false;
+			isSelectable = true;
 
 			while (!dropConfirmed)
 			{
 				system("cls");
-				cout << "       PLAYER INVENTORY      \n";
-				cout << "=============================\n\n";
+				cout << "PLAYER INVENTORY\n";
+				cout << "----------------\n\n";
 				cout << "Drop which item?\n\n";
-				ListPlayerItems();
+				ListPlayerItems(isSelectable);
 				cout << "(Q) Return\n\n";
 				cout << "Enter choice: ";
 
@@ -829,6 +832,7 @@ void GameManager::DisplayInventoryScreen()
 					if (choice == 'q' || choice == 'Q')
 					{
 						dropConfirmed = true;
+						isSelectable = false;
 					}
 					else if (iChoice > 0 && iChoice <= playerItemsCount)
 					{
@@ -1003,7 +1007,7 @@ void GameManager::Init()
 	gameIsInitializing = false;
 }
 
-void GameManager::ListRoomItems()
+void GameManager::ListRoomItems(bool isSelectable)
 {
 	unordered_map<string, Room> roomMap = MapManager::GetInstance()->GetRoomMap();
 	Room* currentRoom = &roomMap[Player::GetInstance()->getCurrentLocationGridID()];
@@ -1019,14 +1023,22 @@ void GameManager::ListRoomItems()
 		std::vector<std::string> v1 = currentRoom->GetRoomItemNames();
 		for (it = v1.begin(); it < v1.end(); it++)
 		{
-			cout << counter << ") " << it->c_str() << "\n";
+			if (isSelectable)
+			{
+				cout << "(" << counter << ") ";
+			}
+			else
+			{
+				cout << "-> ";
+			}
+			cout << it->c_str() << "\n";
 			counter++;
 		}
 	}
 	cout << endl;
 }
 
-void GameManager::ListPlayerItems()
+void GameManager::ListPlayerItems(bool isSelectable)
 {
 	if (Player::GetInstance()->getInventoryCount() == 0)
 	{
@@ -1039,7 +1051,15 @@ void GameManager::ListPlayerItems()
 		std::vector<std::string> v1 = Player::GetInstance()->getPlayerItemNames();
 		for (it = v1.begin(); it < v1.end(); it++)
 		{
-			cout << counter << ") " << it->c_str() << "\n";
+			if (isSelectable)
+			{
+				cout << "(" << counter << ") ";
+			}
+			else
+			{
+				cout << "-> ";
+			}
+			cout << it->c_str() << "\n";
 			counter++;
 		}
 	}
@@ -1067,13 +1087,13 @@ void GameManager::ListChestItems(Chest* chest)
 char GameManager::PromptForTurnAction()
 {
 	system("cls");
-	cout << "Player health: " << Player::GetInstance()->getPlayerEnergy() << "\n";
-	cout << "Turns completed: " << Player::GetInstance()->getTurnsCompleted() << "\n";
-	cout << "\n==============================\n\n";
+	cout << "Energy: " << Player::GetInstance()->getPlayerEnergy() << "\n";
+	cout << "Turns: " << Player::GetInstance()->getTurnsCompleted() << "\n\n";
+	cout << Player::GetInstance()->getPlayerName() << " looks around the room and sees:\n\n";
 	MapManager::GetInstance()->DescribeRoom(Player::GetInstance()->getCurrentLocationGridID());
-	cout << "\n==============================\n\n";
+	cout << "\n";
 	cout << "What should " << Player::GetInstance()->getPlayerName() << " do?\n\n";
-	cout << "(1) Move\n(2) Collect Item\n(3) View Inventory\n(4) View Map\n\n(Q) End Game\n\nEnter Choice: ";
+	cout << "(M) Move\n(C) Collect Item\n(I) View Inventory\n(X) View Map\n\n(Q) Quit Game\n\nEnter Choice: ";
 
 	string input;
 	char choice;
@@ -1081,10 +1101,14 @@ char GameManager::PromptForTurnAction()
 	stringstream stream(input);
 	stream >> choice;
 
-	if (choice == '1' ||
-		choice == '2' ||
-		choice == '3' ||
-		choice == '4' ||
+	if (choice == 'm' ||
+		choice == 'M' ||
+		choice == 'c' ||
+		choice == 'C' ||
+		choice == 'i' ||
+		choice == 'I' ||
+		choice == 'x' ||
+		choice == 'X' ||
 		choice == 'q' ||
 		choice == 'Q')
 	{
@@ -1103,10 +1127,10 @@ void GameManager::PromptForDirection()
 	while (!confirmed)
 	{
 		system("cls");
-		cout << "            MOVE             \n";
-		cout << "=============================\n\n";
+		cout << "MOVE\n";
+		cout << "----\n\n";
 		cout << "Move in which direction?\n\n";
-		cout << "(W) North\n(S) South\n(D) East\n(A) West\n\n(Q) Cancel\n\n";
+		cout << "(W) Forward\n(S) Backward\n(D) Right\n(A) Left\n\n(Q) Cancel\n\n";
 		cout << "Enter choice: ";
 
 		char choice;
@@ -1125,42 +1149,42 @@ void GameManager::PromptForDirection()
 			{
 			case 'W':
 				system("cls");
-				Player::GetInstance()->MoveNorth();
+				Player::GetInstance()->MoveForward();
 				confirmed = true;
 				break;
 			case 'w':
 				system("cls");
-				Player::GetInstance()->MoveNorth();
+				Player::GetInstance()->MoveForward();
 				confirmed = true;
 				break;
 			case 'S':
 				system("cls");
-				Player::GetInstance()->MoveSouth();
+				Player::GetInstance()->MoveBackward();
 				confirmed = true;
 				break;
 			case 's':
 				system("cls");
-				Player::GetInstance()->MoveSouth();
+				Player::GetInstance()->MoveBackward();
 				confirmed = true;
 				break;
 			case 'D':
 				system("cls");
-				Player::GetInstance()->MoveEast();
+				Player::GetInstance()->MoveRight();
 				confirmed = true;
 				break;
 			case 'd':
 				system("cls");
-				Player::GetInstance()->MoveEast();
+				Player::GetInstance()->MoveRight();
 				confirmed = true;
 				break;
 			case 'A':
 				system("cls");
-				Player::GetInstance()->MoveWest();
+				Player::GetInstance()->MoveLeft();
 				confirmed = true;
 				break;
 			case 'a':
 				system("cls");
-				Player::GetInstance()->MoveWest();
+				Player::GetInstance()->MoveLeft();
 				confirmed = true;
 				break;
 			case 'q':
@@ -1204,16 +1228,28 @@ void GameManager::StartPlayerTurn()
 	char choice = PromptForTurnAction();
 	switch (choice)
 	{
-	case '1':
+	case 'm':
 		PromptForDirection();
 		break;
-	case '2':
+	case 'M':
+		PromptForDirection();
+		break;
+	case 'c':
 		DisplayCollectItemScreen();
 		break;
-	case '3':
+	case 'C':
+		DisplayCollectItemScreen();
+		break;
+	case 'i':
 		DisplayInventoryScreen();
 		break;
-	case '4':
+	case 'I':
+		DisplayInventoryScreen();
+		break;
+	case 'x':
+		DisplayMapScreen();
+		break;
+	case 'X':
 		DisplayMapScreen();
 		break;
 	case 'q':

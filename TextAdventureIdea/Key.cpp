@@ -17,7 +17,7 @@ int Key::CombineWithItem(Chest* chest)
 	if (!match)
 	{
 		system("cls");
-		std::cout << Player::GetInstance()->getPlayerName() << " attempted to use the " << getName() << " on the " << chest->getName() << ", but it didn't fit.\n\n";
+		std::cout << Player::GetInstance()->getPlayerName() << " tried to use the " << getName() << " on the " << chest->getName() << ", but it didn't fit.\n\n";
 		system("pause");
 		return FAILED;
 	}
@@ -27,7 +27,7 @@ int Key::CombineWithItem(Chest* chest)
 int Key::CombineWithItem(Food* food)
 {
 	system("cls");
-	std::cout << Player::GetInstance()->getPlayerName() << " attempted to use the " << getName() << " on the " << food->getName() << ", but nothing happened.\n\n";
+	std::cout << Player::GetInstance()->getPlayerName() << " tried to use the " << getName() << " on the " << food->getName() << ", but nothing happened.\n\n";
 	system("pause");
 	return FAILED;
 }
@@ -35,7 +35,7 @@ int Key::CombineWithItem(Food* food)
 int Key::CombineWithItem(Potion* potion)
 {
 	system("cls");
-	std::cout << Player::GetInstance()->getPlayerName() << " attempted to use the " << getName() << " on the " << potion->getName() << ", but nothing happened.\n\n";
+	std::cout << Player::GetInstance()->getPlayerName() << " tried to use the " << getName() << " on the " << potion->getName() << ", but nothing happened.\n\n";
 	system("pause");
 	return FAILED;
 }
@@ -43,7 +43,7 @@ int Key::CombineWithItem(Potion* potion)
 int Key::CombineWithItem(Key* key)
 {
 	system("cls");
-	std::cout << Player::GetInstance()->getPlayerName() << " attempted to use the " << getName() << " on the " << key->getName() << ", but nothing happened.\n\n";
+	std::cout << Player::GetInstance()->getPlayerName() << " tried to use the " << getName() << " on the " << key->getName() << ", but nothing happened.\n\n";
 	system("pause");
 	return FAILED;
 }
@@ -51,10 +51,10 @@ int Key::CombineWithItem(Key* key)
 int Key::CombineWithItem(Room* room)
 {
 	bool match = false;
-	if (isBrass && room->GetHasNorthDoor() ||
-		isBrass && room->GetHasSouthDoor() ||
-		isBrass && room->GetHasEastDoor() ||
-		isBrass && room->GetHasWestDoor())
+	if (isBrass && room->GetHasForwardDoor() ||
+		isBrass && room->GetHasBackwardDoor() ||
+		isBrass && room->GetHasRightDoor() ||
+		isBrass && room->GetHasLeftDoor())
 	{
 		match = true;
 	}
@@ -62,7 +62,7 @@ int Key::CombineWithItem(Room* room)
 	if (!match)
 	{
 		system("cls");
-		std::cout << Player::GetInstance()->getPlayerName() << " attempted to use the " << getName() << " on the locked door, but it didn't fit.\n\n";
+		std::cout << Player::GetInstance()->getPlayerName() << " tried to use the " << getName() << " on the locked door, but it didn't fit.\n\n";
 		system("pause");
 		return FAILED;
 	}

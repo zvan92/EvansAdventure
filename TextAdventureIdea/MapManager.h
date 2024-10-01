@@ -27,10 +27,10 @@ public:
 
 	enum class Direction
 	{
-		NORTH	= 0,
-		SOUTH	= 1,
-		EAST	= 2,
-		WEST	= 3
+		FORWARD	= 0,
+		BACKWARD= 1,
+		RIGHT	= 2,
+		LEFT	= 3
 	};
 
 	unordered_map<string, Room> GetRoomMap() { return roomMap; }

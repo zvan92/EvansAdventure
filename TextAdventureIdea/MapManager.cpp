@@ -104,52 +104,52 @@ void MapManager::CreateRooms()
 
 void MapManager::DescribeRoom(string gridID)
 {
-	cout << "Obstacles nearby:\n\n";
-	if (roomMap[gridID].GetHasNorthWall() == true)
+	cout << "[OBSTACLES]\n";
+	if (roomMap[gridID].GetHasForwardWall() == true)
 	{
-		cout << "-> North - Wall\n";
+		cout << "-> Wall, ahead\n";
 	}
-	if (roomMap[gridID].GetHasNorthDoor() == true)
+	if (roomMap[gridID].GetHasForwardDoor() == true)
 	{
-		cout << "-> North - Locked door\n";
+		cout << "-> Door (locked), ahead\n";
 	}
-	if (roomMap[gridID].GetHasSouthWall() == true)
+	if (roomMap[gridID].GetHasBackwardWall() == true)
 	{
-		cout << "-> South - Wall\n";
+		cout << "-> Wall, behind\n";
 	}
-	if (roomMap[gridID].GetHasSouthDoor() == true)
+	if (roomMap[gridID].GetHasBackwardDoor() == true)
 	{
-		cout << "-> South - Locked door\n";
+		cout << "-> Door (locked), behind\n";
 	}
-	if (roomMap[gridID].GetHasEastWall() == true)
+	if (roomMap[gridID].GetHasRightWall() == true)
 	{
-		cout << "-> East - Wall\n";
+		cout << "-> Wall, right\n";
 	}
-	if (roomMap[gridID].GetHasEastDoor() == true)
+	if (roomMap[gridID].GetHasRightDoor() == true)
 	{
-		cout << "-> East - Locked door\n";
+		cout << "-> Door (locked), right\n";
 	}
-	if (roomMap[gridID].GetHasWestWall() == true)
+	if (roomMap[gridID].GetHasLeftWall() == true)
 	{
-		cout << "-> West - Wall\n";
+		cout << "-> Wall, left\n";
 	}
-	if (roomMap[gridID].GetHasWestDoor() == true)
+	if (roomMap[gridID].GetHasLeftDoor() == true)
 	{
-		cout << "-> West - Locked door\n";
+		cout << "-> Door (locked), left\n";
 	}
-	if (roomMap[gridID].GetHasNorthWall() == false &&
-		roomMap[gridID].GetHasNorthDoor() == false &&
-		roomMap[gridID].GetHasSouthWall() == false &&
-		roomMap[gridID].GetHasSouthDoor() == false &&
-		roomMap[gridID].GetHasEastWall() == false &&
-		roomMap[gridID].GetHasEastDoor() == false &&
-		roomMap[gridID].GetHasWestWall() == false &&
-		roomMap[gridID].GetHasWestDoor() == false)
+	if (roomMap[gridID].GetHasForwardWall() == false &&
+		roomMap[gridID].GetHasForwardDoor() == false &&
+		roomMap[gridID].GetHasBackwardWall() == false &&
+		roomMap[gridID].GetHasBackwardDoor() == false &&
+		roomMap[gridID].GetHasRightWall() == false &&
+		roomMap[gridID].GetHasRightDoor() == false &&
+		roomMap[gridID].GetHasLeftWall() == false &&
+		roomMap[gridID].GetHasLeftDoor() == false)
 	{
 		cout << "-> None\n";
 	}
 
-	cout << "\nItems nearby:\n";
+	cout << "\n[ITEMS]";
 	
 	// ---- KEY IDENTIFY
 	std::vector<Key>::iterator it1;

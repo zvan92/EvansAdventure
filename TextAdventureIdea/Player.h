@@ -55,10 +55,10 @@ public:
 	void DropItem(Food* food);
 	void DropItem(Potion* potion);
 
-	void MoveNorth();
-	void MoveSouth();
-	void MoveEast();
-	void MoveWest();
+	void MoveForward();
+	void MoveBackward();
+	void MoveRight();
+	void MoveLeft();
 
 private:
 	static Player *instance;
